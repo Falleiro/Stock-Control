@@ -22,7 +22,7 @@ class Tela extends StatelessWidget {
           ),
           Center(
             child: Container(
-              color: Colors.blue,
+              color: Colors.red,
               child: Text(
                 'Campeão',
                 textDirection: TextDirection.ltr,
