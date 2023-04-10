@@ -90,12 +90,12 @@ BEGIN
         BLOCK "040904e4"
         BEGIN
             VALUE "CompanyName", "com.example" "\0"
-            VALUE "FileDescription", "project" "\0"
+            VALUE "FileDescription", "insta_clone" "\0"
             VALUE "FileVersion", VERSION_AS_STRING "\0"
-            VALUE "InternalName", "project" "\0"
+            VALUE "InternalName", "insta_clone" "\0"
             VALUE "LegalCopyright", "Copyright (C) 2023 com.example. All rights reserved." "\0"
-            VALUE "OriginalFilename", "project.exe" "\0"
-            VALUE "ProductName", "project" "\0"
+            VALUE "OriginalFilename", "insta_clone.exe" "\0"
+            VALUE "ProductName", "insta_clone" "\0"
             VALUE "ProductVersion", VERSION_AS_STRING "\0"
         END
     END

@@ -1,4 +1,4 @@
-# project
+# insta_clone
 
 A new Flutter project.
 
