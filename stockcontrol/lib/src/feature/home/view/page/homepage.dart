@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../widget/home.dart';
 import '../widget/config.dart';
 import '../../../../component/Minha_app_bar.dart';
 
@@ -23,11 +22,14 @@ class _HomePageState extends State<HomePage> {
 PreferredSizeWidget _minhabarra(String texto, context) {
   return MinhaAppBar(
     title:
-        Text(texto, style: const TextStyle(color: Colors.black, fontSize: 36)),
+        Text(texto, style: const TextStyle(color: Colors.white, fontSize: 36)),
     elevation: 10,
     actions: <Widget>[
       IconButton(
-        icon: Icon(Icons.settings),
+        icon: Icon(
+          Icons.account_circle,
+          size: 40,
+        ),
         onPressed: () {
           Navigator.push(
               context, MaterialPageRoute(builder: (context) => UserConfig()));
