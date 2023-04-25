@@ -15,47 +15,8 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: _minhabarra('Stock Control', context),
-      body: ListView(
-        children: const [
-          Linha(),
-          Linha(),
-          Linha(),
-          Linha(),
-          Linha(),
-          Linha(),
-          Linha(),
-          Linha(),
-          Linha(),
-          Linha(),
-          Linha(),
-          Linha(),
-          Linha(),
-          Linha(),
-          Linha(),
-          Linha(),
-          Linha(),
-          Linha(),
-          Linha(),
-        ],
-      ),
-      floatingActionButton: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Container(
-            padding: EdgeInsets.only(left: 24),
-            child: FloatingActionButton(
-              onPressed: () => setState(() {}),
-              tooltip: 'Vai para a tela "Cria Estabelecimento" ',
-              child: const Icon(Icons.map),
-            ),
-          ),
-          FloatingActionButton(
-            onPressed: () => setState(() {}),
-            tooltip: 'Vai para a tela "Cria Estabelecimento" ',
-            child: const Icon(Icons.add),
-          ),
-        ],
-      ),
+      body: const ListViewBuilder(),
+      floatingActionButton: MeuFloatingActionButton(),
     );
   }
 }
@@ -78,4 +39,46 @@ PreferredSizeWidget _minhabarra(String texto, context) {
       )
     ],
   );
+}
+
+class ListViewBuilder extends StatelessWidget {
+  const ListViewBuilder({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return ListView.builder(
+        padding: const EdgeInsets.all(8),
+        itemCount: 6,
+        itemBuilder: (BuildContext, int index) {
+          return Linha();
+        });
+  }
+}
+
+class MeuFloatingActionButton extends StatelessWidget {
+  const MeuFloatingActionButton({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Container(
+          padding: EdgeInsets.only(left: 24),
+          child: FloatingActionButton(
+            heroTag: null,
+            onPressed: () {},
+            tooltip: 'Vai para a tela de localização',
+            child: const Icon(Icons.map),
+          ),
+        ),
+        FloatingActionButton(
+          heroTag: null,
+          onPressed: () {},
+          tooltip: 'Vai para a tela "Cria Estabelecimento" ',
+          child: const Icon(Icons.add),
+        ),
+      ],
+    );
+  }
 }
