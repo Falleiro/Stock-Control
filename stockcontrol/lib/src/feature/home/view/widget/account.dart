@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
-import '../../../../component/Minha_app_bar.dart';
+import '../../../../component/Personalizados.dart';
 
-class UserConfig extends StatelessWidget {
-  const UserConfig({super.key});
+class UserAccount extends StatelessWidget {
+  const UserAccount({super.key});
 
   @override
   Widget build(BuildContext context) {
