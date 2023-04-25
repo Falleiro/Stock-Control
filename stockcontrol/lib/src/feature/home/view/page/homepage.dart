@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../widget/config.dart';
-import '../../../../component/Minha_app_bar.dart';
+import '../widget/account.dart';
+import '../../../../component/Personalizados.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -15,6 +15,47 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: _minhabarra('Stock Control', context),
+      body: ListView(
+        children: const [
+          Linha(),
+          Linha(),
+          Linha(),
+          Linha(),
+          Linha(),
+          Linha(),
+          Linha(),
+          Linha(),
+          Linha(),
+          Linha(),
+          Linha(),
+          Linha(),
+          Linha(),
+          Linha(),
+          Linha(),
+          Linha(),
+          Linha(),
+          Linha(),
+          Linha(),
+        ],
+      ),
+      floatingActionButton: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Container(
+            padding: EdgeInsets.only(left: 24),
+            child: FloatingActionButton(
+              onPressed: () => setState(() {}),
+              tooltip: 'Vai para a tela "Cria Estabelecimento" ',
+              child: const Icon(Icons.map),
+            ),
+          ),
+          FloatingActionButton(
+            onPressed: () => setState(() {}),
+            tooltip: 'Vai para a tela "Cria Estabelecimento" ',
+            child: const Icon(Icons.add),
+          ),
+        ],
+      ),
     );
   }
 }
@@ -26,13 +67,13 @@ PreferredSizeWidget _minhabarra(String texto, context) {
     elevation: 10,
     actions: <Widget>[
       IconButton(
-        icon: Icon(
+        icon: const Icon(
           Icons.account_circle,
           size: 40,
         ),
         onPressed: () {
           Navigator.push(
-              context, MaterialPageRoute(builder: (context) => UserConfig()));
+              context, MaterialPageRoute(builder: (context) => UserAccount()));
         },
       )
     ],
