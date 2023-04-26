@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 
 import '../../../../component/Personalizados.dart';
 
-class UserEstabelecimento extends StatelessWidget {
-  const UserEstabelecimento({super.key});
+class UserStockEdit extends StatelessWidget {
+  const UserStockEdit({super.key});
 
   @override
   Widget build(BuildContext context) {
