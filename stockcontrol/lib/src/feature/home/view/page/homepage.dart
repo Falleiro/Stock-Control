@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:stock_control/src/feature/home/view/widget/localization.dart';
+import 'package:stockcontrol/src/feature/home/view/widget/localization.dart';
 
 import '../widget/account.dart';
 import '../../../../component/Personalizados.dart';
