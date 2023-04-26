@@ -18,7 +18,6 @@ class _HomePageState extends State<HomePage> {
     setState(() {
       _qtd++;
     });
-    String text = '$_text$_qtd';
   }
 
   @override
@@ -30,7 +29,7 @@ class _HomePageState extends State<HomePage> {
         itemCount: _qtd,
         itemBuilder: (BuildContext, int index) {
           String text = '$_text${index + 1}';
-          return Linha(text: text);
+          return Linha(text: text, origem: 'estabelecimento');
         },
       ),
       floatingActionButton: MeuFloatingActionButton(
