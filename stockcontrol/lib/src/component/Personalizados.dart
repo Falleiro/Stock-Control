@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:stock_control/src/feature/home/view/widget/stock.dart';
+import '../feature/home/view/widget/stockedit.dart';
 
 class MinhaAppBar extends AppBar {
   MinhaAppBar({
@@ -11,7 +13,8 @@ class MinhaAppBar extends AppBar {
 }
 
 class Linha extends StatefulWidget {
-  const Linha({super.key});
+  final String text;
+  const Linha({super.key, required this.text});
 
   @override
   State<Linha> createState() => _LinhaState();
@@ -30,14 +33,33 @@ class _LinhaState extends State<Linha> {
         child: (Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
-            Container(
-              padding: const EdgeInsets.only(left: 70),
-              child: const Text('Estabelecimento 1',
-                  style: TextStyle(color: Colors.white, fontSize: 26)),
+            Expanded(
+              child: TextButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => UserStock(),
+                    ),
+                  );
+                },
+                child: Text(
+                  widget.text,
+                  textAlign: TextAlign.right,
+                  style: TextStyle(color: Colors.white, fontSize: 26),
+                ),
+              ),
             ),
             IconButton(
               icon: const Icon(Icons.edit),
-              onPressed: () {},
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => UserStockEdit(),
+                  ),
+                );
+              },
             )
           ],
         )),
