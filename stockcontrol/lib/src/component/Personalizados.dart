@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:stock_control/src/feature/home/view/widget/stock.dart';
+import '../feature/home/view/widget/item_edit.dart';
 import '../feature/home/view/widget/stockedit.dart';
 
 class MinhaAppBar extends AppBar {
@@ -13,8 +14,9 @@ class MinhaAppBar extends AppBar {
 }
 
 class Linha extends StatefulWidget {
+  final String origem;
   final String text;
-  const Linha({super.key, required this.text});
+  const Linha({super.key, required this.text, required this.origem});
 
   @override
   State<Linha> createState() => _LinhaState();
@@ -36,12 +38,15 @@ class _LinhaState extends State<Linha> {
             Expanded(
               child: TextButton(
                 onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => UserStock(),
-                    ),
-                  );
+                  if (widget.origem == 'estabelecimento') {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) =>
+                            UserStock(estabelecimento: widget.text),
+                      ),
+                    );
+                  } else {}
                 },
                 child: Text(
                   widget.text,
@@ -53,12 +58,23 @@ class _LinhaState extends State<Linha> {
             IconButton(
               icon: const Icon(Icons.edit),
               onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => UserStockEdit(),
-                  ),
-                );
+                if (widget.origem == 'estabelecimento') {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) =>
+                          UserStockEdit(estabelecimento: widget.text),
+                    ),
+                  );
+                } else {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) =>
+                          UserItemEdit(text: 'arrumar isso dps'),
+                    ),
+                  );
+                }
               },
             )
           ],

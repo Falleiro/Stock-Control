@@ -2,14 +2,19 @@ import 'package:flutter/material.dart';
 
 import '../../../../component/Personalizados.dart';
 
-class UserStockEdit extends StatelessWidget {
-  final String estabelecimento;
-  const UserStockEdit({super.key, required this.estabelecimento});
+class UserItemEdit extends StatefulWidget {
+  final String text;
+  const UserItemEdit({super.key, required this.text});
 
+  @override
+  State<UserItemEdit> createState() => _UserItemEditState();
+}
+
+class _UserItemEditState extends State<UserItemEdit> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: _minhabarra('$estabelecimento', context),
+      appBar: _minhabarra('${widget.text}', context),
     );
   }
 }
