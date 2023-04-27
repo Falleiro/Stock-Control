@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:stock_control/src/feature/home/view/widget/stockcreate.dart';
-
 import '../widget/account.dart';
 import '../../../../component/Personalizados.dart';
 import '../widget/localization.dart';
