@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:stockcontrol/src/feature/home/view/widget/localization.dart';
-
+import 'package:stock_control/src/feature/home/view/widget/stockcreate.dart';
 import '../widget/account.dart';
 import '../../../../component/Personalizados.dart';
+import '../widget/localization.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -13,6 +13,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   int _qtd = 1;
+  String _text = 'Estabelecimento ';
   void _incrementaEstabelecimento() {
     setState(() {
       _qtd++;
@@ -27,7 +28,8 @@ class _HomePageState extends State<HomePage> {
         padding: const EdgeInsets.all(8),
         itemCount: _qtd,
         itemBuilder: (BuildContext, int index) {
-          return Linha();
+          String text = '$_text${index + 1}';
+          return Linha(text: text, origem: 'estabelecimento');
         },
       ),
       floatingActionButton: MeuFloatingActionButton(
@@ -91,7 +93,14 @@ class _MeuFloatingActionButtonState extends State<MeuFloatingActionButton> {
         ),
         FloatingActionButton(
           heroTag: null,
-          onPressed: widget.incrementaEstabelecimento,
+          onPressed: () {
+            // Navigator.push(
+            //     context,
+            //     MaterialPageRoute(
+            //       builder: (context) => UserStockCreate(),
+            //     ));
+            widget.incrementaEstabelecimento();
+          },
           tooltip: 'Vai para a tela "Cria Estabelecimento" ',
           child: const Icon(Icons.add),
         ),
