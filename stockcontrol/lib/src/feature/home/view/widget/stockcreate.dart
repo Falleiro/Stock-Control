@@ -1,8 +1,4 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
-import 'package:stock_control/src/feature/home/view/widget/home.dart';
-import 'package:stock_control/src/feature/home/view/widget/stock.dart';
 
 import '../../../../component/Personalizados.dart';
 
