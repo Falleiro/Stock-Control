@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-
+import 'package:stock_control/src/feature/home/view/widget/stockcreate.dart';
 import '../widget/account.dart';
 import '../../../../component/Personalizados.dart';
 import '../widget/localization.dart';
@@ -94,7 +94,14 @@ class _MeuFloatingActionButtonState extends State<MeuFloatingActionButton> {
         FloatingActionButton(
           heroTag: null,
           onPressed: () {
-            widget.incrementaEstabelecimento();
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => UserStockCreate(
+                    incrementaEstabelecimento: widget.incrementaEstabelecimento,
+                  ),
+                ));
+            // widget.incrementaEstabelecimento();
           },
           tooltip: 'Vai para a tela "Cria Estabelecimento" ',
           child: const Icon(Icons.add),

@@ -1,4 +1,19 @@
 {
-    "app_name": "Instagram",
-    "minha_conta": "Minha conta"
+    "senha": "Password",
+    "email": "E-mail",
+    "entrar": "Login",
+    "criar_nova_conta": "Create a new acount",
+    "acessar": "Sing in",
+    "esqueci_a_senha": "I forgot the password",
+    "nao_tem_conta_cadastre": "Don't have an account? Register",
+    "nome": "Name",
+    "idioma": "Language",
+    "data_nascimento": "date of birth",
+    "repita_senha": "Repeat Password",
+    "cadastrar": "Register",
+    "ja_tem_conta_acesse_aqui": "Already have an account? Login",
+    "nome_app": "Stock control",
+    "add_estabelecimento": "Adiconar estabelecimento",
+    "en": "EN",
+    "pt": "PT"
 }

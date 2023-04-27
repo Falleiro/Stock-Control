@@ -1,5 +1,5 @@
 import 'package:flutter_modular/flutter_modular.dart';
-import '../home/view/page/homepage.dart';
+import 'package:stock_control/src/feature/home/view/page/loginpage.dart';
 import '../home/viewmodel/home_viewmodel.dart';
 
 class HomeModule extends Module {
@@ -10,6 +10,6 @@ class HomeModule extends Module {
 
   @override
   List<ModularRoute> get routes => [
-        ChildRoute('/', child: (_, __) => const HomePage()),
+        ChildRoute('/', child: (_, __) => LoginPage()),
       ];
 }
