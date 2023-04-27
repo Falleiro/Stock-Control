@@ -1,0 +1,17 @@
+{
+    "senha": "Senha",
+    "email": "Email",
+    "entrar": "Entrar",
+    "criar_nova_conta": "Criar uma nova conta",
+    "acessar": "Acessar",
+    "esqueci_a_senha": "Esqueci a senha",
+    "nao_tem_conta_cadastre": "Não tem conta? Cadastre-se",
+    "nome": "Nome",
+    "idioma": "Idioma",
+    "data_nascimento": "Data nascimento",
+    "repita_senha": "Repita a senha",
+    "cadastrar": "Cadastrar",
+    "ja_tem_conta_acesse_aqui": "Já tem uma conta? Acesse aqui",
+    "nome_app": "Controle de estoque",
+    "add_estabelecimento": "Adiconar estabelecimento"
+}
