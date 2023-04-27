@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 import '../../../../component/Personalizados.dart';
 
 class UserStockCreate extends StatefulWidget {
-  const UserStockCreate({super.key});
+  final VoidCallback incrementaEstabelecimento;
+  const UserStockCreate({super.key, required this.incrementaEstabelecimento});
 
   @override
   State<UserStockCreate> createState() => _UserStockCreateState();
@@ -14,8 +15,12 @@ class _UserStockCreateState extends State<UserStockCreate> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: _minhabarra('Adicionar estabelecimento', context),
-      body: const Column(
-        children: [MyForm()],
+      body: Column(
+        children: [
+          MyForm(
+            incrementaEstabelecimento: widget.incrementaEstabelecimento,
+          )
+        ],
       ),
     );
   }
@@ -32,7 +37,8 @@ PreferredSizeWidget _minhabarra(String texto, context) {
 }
 
 class MyForm extends StatefulWidget {
-  const MyForm({super.key});
+  final VoidCallback incrementaEstabelecimento;
+  const MyForm({super.key, required this.incrementaEstabelecimento});
 
   @override
   State<MyForm> createState() => _MyFormState();
@@ -48,15 +54,19 @@ class _MyFormState extends State<MyForm> {
   final _rua = TextEditingController();
   final _numero = TextEditingController();
   final _complemento = TextEditingController();
-
+// ARRUMAR O PROBLEMA DE OVERFLOW QUE TEM AQUI!!!!!!!!!!!!!!!!!!!!!!!!!
+// ARRUMAR O PROBLEMA DE OVERFLOW QUE TEM AQUI!!!!!!!!!!!!!!!!!!!!!!!!!
+// ARRUMAR O PROBLEMA DE OVERFLOW QUE TEM AQUI!!!!!!!!!!!!!!!!!!!!!!!!!
+// ARRUMAR O PROBLEMA DE OVERFLOW QUE TEM AQUI!!!!!!!!!!!!!!!!!!!!!!!!!
   @override
   Widget build(BuildContext context) {
     return Form(
       key: _formKey,
-      child: Column(
-        children: [
+      child: SizedBox(
+        height: 600,
+        child: Column(children: [
           SizedBox(
-            height: 600,
+            height: 400,
             child: ListView(
               shrinkWrap: true,
               children: [
@@ -117,8 +127,6 @@ class _MyFormState extends State<MyForm> {
               onPressed: () {
                 // Validate returns true if the form is valid, or false otherwise.
                 if (_formKey.currentState!.validate()) {
-                  // If the form is valid, display a snackbar. In the real world,
-                  // you'd often call a server or save the information in a database.
                   ScaffoldMessenger.of(context).showSnackBar(
                     const SnackBar(content: Text('Processing Data')),
                   );
@@ -127,7 +135,7 @@ class _MyFormState extends State<MyForm> {
               child: const Text('Submit'),
             ),
           ),
-        ],
+        ]),
       ),
     );
   }

@@ -97,7 +97,9 @@ class _MeuFloatingActionButtonState extends State<MeuFloatingActionButton> {
             Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => UserStockCreate(),
+                  builder: (context) => UserStockCreate(
+                    incrementaEstabelecimento: widget.incrementaEstabelecimento,
+                  ),
                 ));
             // widget.incrementaEstabelecimento();
           },
