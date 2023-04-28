@@ -1,10 +1,9 @@
 import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:localization/localization.dart';
-import 'package:stockcontrol/src/feature/home/view/page/loginpage.dart';
-
+import 'package:stock_control/src/feature/home/view/page/loginpage.dart';
 import 'homepage.dart';
+import 'loginpage.dart';
 
 class SignupPage extends StatefulWidget {
   @override
@@ -12,6 +11,7 @@ class SignupPage extends StatefulWidget {
 }
 
 class _SignupPageState extends State<SignupPage> {
+  late String _name;
   late String _email;
   late String _password;
   late String _confirmPassword;
@@ -22,29 +22,55 @@ class _SignupPageState extends State<SignupPage> {
     const Locale pt = Locale('pt', 'BR');
     const Locale en = Locale('en', 'US');
     return Scaffold(
-      appBar: AppBar(
-        title: Text("criar_nova_conta".i18n()),
-      ),
+      backgroundColor: Color.fromARGB(248, 168, 170, 172),
       body: Center(
         child: Padding(
             padding: const EdgeInsets.all(16.0),
             child: ListView(
               children: [
+                Text(
+                  "criar_nova_conta".i18n(),
+                  style: const TextStyle(
+                      fontSize: 30, color: Color.fromARGB(255, 16, 52, 153)),
+                ),
+                SizedBox(height: 30),
+                Row(
+                  children: [
+                    Text("${"idioma".i18n()}:"),
+                    SizedBox(
+                        width: 70,
+                        height: 35,
+                        child: IconButton(
+                          padding: const EdgeInsets.symmetric(vertical: 10.0),
+                          onPressed: () {
+                            Locale(pt as String);
+                          },
+                          icon: Text("pt".i18n()),
+                        )),
+                    SizedBox(
+                        width: 70,
+                        height: 35,
+                        child: IconButton(
+                          onPressed: () {
+                            Locale(en as String);
+                          },
+                          icon: Text("en".i18n()),
+                        )),
+                  ],
+                ),
                 Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    IconButton(
-                      onPressed: () {
-                        Locale(pt as String);
+                    SizedBox(height: 30),
+                    TextFormField(
+                      decoration: InputDecoration(labelText: "nome".i18n()),
+                      onChanged: (value) {
+                        setState(() {
+                          _name = value;
+                        });
                       },
-                      icon: const Text("pt"),
                     ),
-                    IconButton(
-                      onPressed: () {
-                        Locale(pt as String);
-                      },
-                      icon: const Text("en"),
-                    ),
+                    SizedBox(height: 30),
                     TextFormField(
                       decoration: InputDecoration(labelText: "email".i18n()),
                       onChanged: (value) {
@@ -53,6 +79,17 @@ class _SignupPageState extends State<SignupPage> {
                         });
                       },
                     ),
+                    SizedBox(height: 30),
+                    TextFormField(
+                      decoration:
+                          InputDecoration(labelText: "data_nascimento".i18n()),
+                      onChanged: (value) {
+                        setState(() {
+                          _birthdate = value;
+                        });
+                      },
+                    ),
+                    SizedBox(height: 30),
                     TextFormField(
                       decoration: InputDecoration(labelText: "senha".i18n()),
                       obscureText: true,
@@ -62,6 +99,7 @@ class _SignupPageState extends State<SignupPage> {
                         });
                       },
                     ),
+                    SizedBox(height: 30),
                     TextFormField(
                       decoration:
                           InputDecoration(labelText: "repita_senha".i18n()),
@@ -72,16 +110,7 @@ class _SignupPageState extends State<SignupPage> {
                         });
                       },
                     ),
-                    TextFormField(
-                      decoration:
-                          InputDecoration(labelText: "data_nascimento".i18n()),
-                      onChanged: (value) {
-                        setState(() {
-                          _birthdate = value;
-                        });
-                      },
-                    ),
-                    const SizedBox(height: 16.0),
+                    const SizedBox(height: 60.0),
                     ElevatedButton(
                       onPressed: () {
                         Navigator.push(
@@ -91,20 +120,18 @@ class _SignupPageState extends State<SignupPage> {
                       },
                       child: Text("cadastrar".i18n()),
                     ),
-                    IconButton(
-                      onPressed: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => LoginPage()));
-                      },
-                      icon: Text(
-                        "ja_tem_conta_acesse_aqui".i18n(),
-                        // style: TextStyle(height: 500),
-                      ),
-                    )
                   ],
                 ),
+                IconButton(
+                  onPressed: () {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => LoginPage()));
+                  },
+                  iconSize: 50,
+                  icon: Text(
+                    "ja_tem_conta_acesse_aqui".i18n(),
+                  ),
+                )
               ],
             )),
       ),

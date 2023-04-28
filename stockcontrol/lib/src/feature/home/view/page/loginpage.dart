@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:localization/localization.dart';
-import 'package:stockcontrol/src/feature/home/view/page/homepage.dart';
-import 'package:stockcontrol/src/feature/home/view/page/singuppage.dart';
+import 'package:stock_control/src/feature/home/view/page/homepage.dart';
+import 'package:stock_control/src/feature/home/view/page/singuppage.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -17,12 +17,18 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Color.fromARGB(248, 168, 170, 172),
       body: Center(
         child: Padding(
           padding: EdgeInsets.all(16.0),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
+          child: ListView(
             children: [
+              Text(
+                "acessar".i18n(),
+                style: const TextStyle(
+                    fontSize: 40, color: Color.fromARGB(255, 16, 52, 153)),
+              ),
+              SizedBox(height: 90),
               TextFormField(
                 decoration: InputDecoration(labelText: "email".i18n()),
                 onChanged: (value) {
@@ -31,6 +37,7 @@ class _LoginPageState extends State<LoginPage> {
                   });
                 },
               ),
+              SizedBox(height: 30),
               TextFormField(
                 decoration: InputDecoration(labelText: "senha".i18n()),
                 obscureText: true,
@@ -40,7 +47,16 @@ class _LoginPageState extends State<LoginPage> {
                   });
                 },
               ),
-              SizedBox(height: 16.0),
+              IconButton(
+                onPressed: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => SignupPage()));
+                },
+                icon: Text(
+                  "esqueci_a_senha".i18n(),
+                ),
+              ),
+              SizedBox(height: 150),
               ElevatedButton(
                 onPressed: () {
                   Navigator.push(
@@ -57,7 +73,6 @@ class _LoginPageState extends State<LoginPage> {
                 },
                 icon: Text(
                   "nao_tem_conta_cadastre".i18n(),
-                  // style: TextStyle(height: 500),
                 ),
               )
             ],

@@ -94,12 +94,14 @@ class _MeuFloatingActionButtonState extends State<MeuFloatingActionButton> {
         FloatingActionButton(
           heroTag: null,
           onPressed: () {
-            // Navigator.push(
-            //     context,
-            //     MaterialPageRoute(
-            //       builder: (context) => UserStockCreate(),
-            //     ));
-            widget.incrementaEstabelecimento();
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => UserStockCreate(
+                    incrementaEstabelecimento: widget.incrementaEstabelecimento,
+                  ),
+                ));
+            // widget.incrementaEstabelecimento();
           },
           tooltip: 'Vai para a tela "Cria Estabelecimento" ',
           child: const Icon(Icons.add),
