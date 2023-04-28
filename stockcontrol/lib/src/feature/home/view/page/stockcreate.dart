@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:stock_control/src/feature/home/viewmodel/stockcreate_viewmodel.dart';
 
 import '../../../../component/Personalizados.dart';
 import '../widget/stockcreate.dart';
 
 class UserStockCreate extends StatefulWidget {
-  final VoidCallback incrementaEstabelecimento;
-  const UserStockCreate({super.key, required this.incrementaEstabelecimento});
+  const UserStockCreate({super.key});
 
   @override
   State<UserStockCreate> createState() => _UserStockCreateState();
@@ -16,13 +16,9 @@ class _UserStockCreateState extends State<UserStockCreate> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: _minhabarra('Adicionar estabelecimento', context),
-      body: SingleChildScrollView(
+      body: const SingleChildScrollView(
         child: Column(
-          children: [
-            MyForm(
-              incrementaEstabelecimento: widget.incrementaEstabelecimento,
-            )
-          ],
+          children: [MyForm()],
         ),
       ),
     );
@@ -40,8 +36,7 @@ PreferredSizeWidget _minhabarra(String texto, context) {
 }
 
 class MyForm extends StatefulWidget {
-  final VoidCallback incrementaEstabelecimento;
-  const MyForm({super.key, required this.incrementaEstabelecimento});
+  const MyForm({super.key});
 
   @override
   State<MyForm> createState() => _MyFormState();
@@ -113,16 +108,22 @@ class _MyFormState extends State<MyForm> {
         ),
         Padding(
           padding: const EdgeInsets.symmetric(vertical: 16.0),
-          child: ElevatedButton(
-            onPressed: () {
-              // Validate returns true if the form is valid, or false otherwise.
-              if (_formKey.currentState!.validate()) {
-                ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(content: Text('Processing Data')),
-                );
-              }
-            },
-            child: const Text('Submit'),
+          child: Container(
+            width: double.maxFinite,
+            child: ElevatedButton(
+              onPressed: () {
+                final String name = _nome.text;
+                if (_formKey.currentState!.validate()) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(content: Text('Processing Data')),
+                  );
+                }
+                final Estabelecimento newEstabelecimento =
+                    Estabelecimento(name, 0);
+                Navigator.pop(context, newEstabelecimento);
+              },
+              child: const Text('Submit'),
+            ),
           ),
         ),
       ]),

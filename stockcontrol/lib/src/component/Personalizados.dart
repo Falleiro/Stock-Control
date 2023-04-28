@@ -88,10 +88,7 @@ class _LinhaState extends State<Linha> {
 }
 
 class MeuFloatingActionButton extends StatefulWidget {
-  final VoidCallback incrementaEstabelecimento;
-
-  MeuFloatingActionButton({Key? key, required this.incrementaEstabelecimento})
-      : super(key: key);
+  MeuFloatingActionButton({Key? key}) : super(key: key);
   @override
   State<MeuFloatingActionButton> createState() =>
       _MeuFloatingActionButtonState();
@@ -121,13 +118,13 @@ class _MeuFloatingActionButtonState extends State<MeuFloatingActionButton> {
           heroTag: null,
           onPressed: () {
             Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => UserStockCreate(
-                    incrementaEstabelecimento: widget.incrementaEstabelecimento,
-                  ),
-                ));
-            // widget.incrementaEstabelecimento();
+              context,
+              MaterialPageRoute(
+                builder: (context) => UserStockCreate(),
+              ),
+            ).then(
+              (newEstabelecimento) => debugPrint(newEstabelecimento.toString()),
+            );
           },
           tooltip: 'Vai para a tela "Cria Estabelecimento" ',
           child: const Icon(Icons.add),

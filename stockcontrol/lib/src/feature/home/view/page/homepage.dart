@@ -30,9 +30,7 @@ class _HomePageState extends State<HomePage> {
           return Linha(text: text, origem: 'estabelecimento');
         },
       ),
-      floatingActionButton: MeuFloatingActionButton(
-        incrementaEstabelecimento: _incrementaEstabelecimento,
-      ),
+      floatingActionButton: MeuFloatingActionButton(),
     );
   }
 }
