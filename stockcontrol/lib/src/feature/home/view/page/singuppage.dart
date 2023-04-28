@@ -124,8 +124,10 @@ class _SignupPageState extends State<SignupPage> {
                 ),
                 IconButton(
                   onPressed: () {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => LoginPage()));
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => LoginPage()),
+                    );
                   },
                   iconSize: 50,
                   icon: Text(
