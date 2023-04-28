@@ -15,12 +15,14 @@ class _UserStockCreateState extends State<UserStockCreate> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: _minhabarra('Adicionar estabelecimento', context),
-      body: Column(
-        children: [
-          MyForm(
-            incrementaEstabelecimento: widget.incrementaEstabelecimento,
-          )
-        ],
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            MyForm(
+              incrementaEstabelecimento: widget.incrementaEstabelecimento,
+            )
+          ],
+        ),
       ),
     );
   }
@@ -54,89 +56,75 @@ class _MyFormState extends State<MyForm> {
   final _rua = TextEditingController();
   final _numero = TextEditingController();
   final _complemento = TextEditingController();
-// ARRUMAR O PROBLEMA DE OVERFLOW QUE TEM AQUI!!!!!!!!!!!!!!!!!!!!!!!!!
-// ARRUMAR O PROBLEMA DE OVERFLOW QUE TEM AQUI!!!!!!!!!!!!!!!!!!!!!!!!!
-// ARRUMAR O PROBLEMA DE OVERFLOW QUE TEM AQUI!!!!!!!!!!!!!!!!!!!!!!!!!
-// ARRUMAR O PROBLEMA DE OVERFLOW QUE TEM AQUI!!!!!!!!!!!!!!!!!!!!!!!!!
+
   @override
   Widget build(BuildContext context) {
     return Form(
       key: _formKey,
-      child: SizedBox(
-        height: 600,
-        child: Column(children: [
-          SizedBox(
-            height: 400,
-            child: ListView(
-              shrinkWrap: true,
-              children: [
-                MyTextField(
-                  myController: _nome,
-                  fieldName: 'Nome do Estabelecimento',
-                  myIcon: Icons.edit,
-                  prefixIconColor: Colors.blue,
-                ),
-                MyTextField(
-                  myController: _cep,
-                  fieldName: 'CEP',
-                  myIcon: Icons.home,
-                  prefixIconColor: Colors.blue,
-                ),
-                MyTextField(
-                  myController: _uf,
-                  fieldName: 'UF',
-                  myIcon: Icons.home,
-                  prefixIconColor: Colors.blue,
-                ),
-                MyTextField(
-                  myController: _bairro,
-                  fieldName: 'Bairro',
-                  myIcon: Icons.home,
-                  prefixIconColor: Colors.blue,
-                ),
-                MyTextField(
-                  myController: _cidade,
-                  fieldName: 'Cidade',
-                  myIcon: Icons.home,
-                  prefixIconColor: Colors.blue,
-                ),
-                MyTextField(
-                  myController: _rua,
-                  fieldName: 'Rua',
-                  myIcon: Icons.home,
-                  prefixIconColor: Colors.blue,
-                ),
-                MyTextField(
-                  myController: _numero,
-                  fieldName: 'Número',
-                  myIcon: Icons.home,
-                  prefixIconColor: Colors.blue,
-                ),
-                MyTextField(
-                  myController: _complemento,
-                  fieldName: 'Complemento',
-                  myIcon: Icons.home,
-                  prefixIconColor: Colors.blue,
-                ),
-              ],
-            ),
+      child: Column(children: [
+        MyTextField(
+          myController: _nome,
+          fieldName: 'Nome do Estabelecimento',
+          myIcon: Icons.edit,
+          prefixIconColor: Colors.blue,
+        ),
+        MyTextField(
+          myController: _cep,
+          fieldName: 'CEP',
+          myIcon: Icons.home,
+          prefixIconColor: Colors.blue,
+        ),
+        MyTextField(
+          myController: _uf,
+          fieldName: 'UF',
+          myIcon: Icons.home,
+          prefixIconColor: Colors.blue,
+        ),
+        MyTextField(
+          myController: _bairro,
+          fieldName: 'Bairro',
+          myIcon: Icons.home,
+          prefixIconColor: Colors.blue,
+        ),
+        MyTextField(
+          myController: _cidade,
+          fieldName: 'Cidade',
+          myIcon: Icons.home,
+          prefixIconColor: Colors.blue,
+        ),
+        MyTextField(
+          myController: _rua,
+          fieldName: 'Rua',
+          myIcon: Icons.home,
+          prefixIconColor: Colors.blue,
+        ),
+        MyTextField(
+          myController: _numero,
+          fieldName: 'Número',
+          myIcon: Icons.home,
+          prefixIconColor: Colors.blue,
+        ),
+        MyTextField(
+          myController: _complemento,
+          fieldName: 'Complemento',
+          myIcon: Icons.home,
+          prefixIconColor: Colors.blue,
+        ),
+        Padding(
+          padding: const EdgeInsets.symmetric(vertical: 16.0),
+          child: ElevatedButton(
+            onPressed: () {
+              // Validate returns true if the form is valid, or false otherwise.
+              if (_formKey.currentState!.validate()) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(content: Text('Processing Data')),
+                );
+              }
+            },
+            child: const Text('Submit'),
           ),
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: 16.0),
-            child: ElevatedButton(
-              onPressed: () {
-                // Validate returns true if the form is valid, or false otherwise.
-                if (_formKey.currentState!.validate()) {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(content: Text('Processing Data')),
-                  );
-                }
-              },
-              child: const Text('Submit'),
-            ),
-          ),
-        ]),
-      ),
+        ),
+      ]),
     );
   }
 }
@@ -164,7 +152,8 @@ class _MyTextFieldState extends State<MyTextField> {
       padding: const EdgeInsets.symmetric(vertical: 4),
       child: TextFormField(
         validator: (value) {
-          if (value == null || value.isEmpty) {
+          if ((value == null || value.isEmpty) &&
+              widget.fieldName != "Complemento") {
             return 'Esse espaço precisa ser preenchido';
           } else {
             null;
