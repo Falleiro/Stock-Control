@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:stock_control/src/feature/home/repository/app_repository.dart';
+import 'package:stock_control/src/feature/home/viewmodel/stockcreate_viewmodel.dart';
 import 'account.dart';
 import '../../../../component/Personalizados.dart';
 
@@ -10,24 +12,61 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  int _qtd = 1;
-  String _text = 'Estabelecimento ';
-  void _incrementaEstabelecimento() {
-    setState(() {
-      _qtd++;
-    });
-  }
+  // String _text = 'Estabelecimento ';
+  // void _incrementaEstabelecimento() {
+  //   setState(() {
+  //     estabelecimentos.add('');
+  //   });
+  // }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: _minhabarra('Stock Control', context),
-      body: ListView.builder(
-        padding: const EdgeInsets.all(8),
-        itemCount: _qtd,
-        itemBuilder: (BuildContext, int index) {
-          String text = '$_text${index + 1}';
-          return Linha(text: text, origem: 'estabelecimento');
+      body: FutureBuilder<List<Estabelecimento>>(
+        initialData: [],
+        future: findAll(),
+        builder: (context, snapshot) {
+          switch (snapshot.connectionState) {
+            case ConnectionState.none:
+              return const Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: [
+                    Text(
+                        'Clique no botão de adicionar estabelecimento para começar')
+                  ],
+                ),
+              );
+            case ConnectionState.waiting:
+              return const Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: [
+                    CircularProgressIndicator(),
+                    Text('Loading'),
+                  ],
+                ),
+              );
+            case ConnectionState.done:
+              final List<Estabelecimento> estabelecimentos =
+                  snapshot.data ?? [];
+              return ListView.builder(
+                padding: const EdgeInsets.all(8),
+                itemCount: estabelecimentos.length,
+                itemBuilder: (context, int index) {
+                  final estabelecimento = estabelecimentos[index];
+                  // String text = '$_text${index + 1}';
+                  return Linha(
+                      text: estabelecimento.name, origem: 'estabelecimento');
+                },
+              );
+            case ConnectionState.active:
+              break;
+          }
+          return const Text('Unknown error');
         },
       ),
       floatingActionButton: MeuFloatingActionButton(),
@@ -49,8 +88,8 @@ PreferredSizeWidget _minhabarra(String texto, context) {
           size: 40,
         ),
         onPressed: () {
-          Navigator.push(
-              context, MaterialPageRoute(builder: (context) => UserAccount()));
+          Navigator.push(context,
+              MaterialPageRoute(builder: (context) => const UserAccount()));
         },
       )
     ],
