@@ -29,6 +29,13 @@
             {
               "client_id": "598026633058-4sjuvtmb7kpmabs3sb2lo6hab73691ei.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "598026633058-qdik77cmjc0o3hglnkubqtsh9eqdjvog.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.stockcontrol.RunnerTests"
+              }
             }
           ]
         }
