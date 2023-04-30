@@ -122,8 +122,6 @@ class _MeuFloatingActionButtonState extends State<MeuFloatingActionButton> {
               MaterialPageRoute(
                 builder: (context) => UserStockCreate(),
               ),
-            ).then(
-              (newEstabelecimento) => debugPrint(newEstabelecimento.toString()),
             );
           },
           tooltip: 'Vai para a tela "Cria Estabelecimento" ',

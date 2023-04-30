@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:stock_control/src/feature/home/repository/app_repository.dart';
 import 'package:stock_control/src/feature/home/viewmodel/stockcreate_viewmodel.dart';
 
 import '../../../../component/Personalizados.dart';
@@ -108,19 +109,16 @@ class _MyFormState extends State<MyForm> {
         ),
         Padding(
           padding: const EdgeInsets.symmetric(vertical: 16.0),
-          child: Container(
+          child: SizedBox(
             width: double.maxFinite,
             child: ElevatedButton(
               onPressed: () {
-                final String name = _nome.text;
                 if (_formKey.currentState!.validate()) {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(content: Text('Processing Data')),
-                  );
+                  final Estabelecimento newEstabelecimento =
+                      Estabelecimento(_nome.text);
+                  save(newEstabelecimento)
+                      .then((value) => Navigator.pop(context));
                 }
-                final Estabelecimento newEstabelecimento =
-                    Estabelecimento(name, 0);
-                Navigator.pop(context, newEstabelecimento);
               },
               child: const Text('Submit'),
             ),
