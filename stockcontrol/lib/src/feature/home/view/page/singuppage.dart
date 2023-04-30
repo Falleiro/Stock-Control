@@ -22,7 +22,7 @@ class _SignupPageState extends State<SignupPage> {
     const Locale pt = Locale('pt', 'BR');
     const Locale en = Locale('en', 'US');
     return Scaffold(
-      backgroundColor: Color.fromARGB(248, 168, 170, 172),
+      backgroundColor: Color.fromARGB(248, 231, 231, 231),
       body: Center(
         child: Padding(
             padding: const EdgeInsets.all(16.0),
