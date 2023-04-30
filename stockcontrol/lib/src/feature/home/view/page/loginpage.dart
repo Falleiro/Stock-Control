@@ -17,10 +17,10 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color.fromARGB(248, 168, 170, 172),
+      backgroundColor: Color.fromARGB(248, 231, 231, 231),
       body: Center(
         child: Padding(
-          padding: EdgeInsets.all(16.0),
+          padding: const EdgeInsets.all(16.0),
           child: ListView(
             children: [
               Text(
@@ -28,7 +28,7 @@ class _LoginPageState extends State<LoginPage> {
                 style: const TextStyle(
                     fontSize: 40, color: Color.fromARGB(255, 16, 52, 153)),
               ),
-              SizedBox(height: 90),
+              const SizedBox(height: 90),
               TextFormField(
                 decoration: InputDecoration(labelText: "email".i18n()),
                 onChanged: (value) {
@@ -37,7 +37,7 @@ class _LoginPageState extends State<LoginPage> {
                   });
                 },
               ),
-              SizedBox(height: 30),
+              const SizedBox(height: 30),
               TextFormField(
                 decoration: InputDecoration(labelText: "senha".i18n()),
                 obscureText: true,
@@ -56,7 +56,7 @@ class _LoginPageState extends State<LoginPage> {
                   "esqueci_a_senha".i18n(),
                 ),
               ),
-              SizedBox(height: 150),
+              const SizedBox(height: 150),
               ElevatedButton(
                 onPressed: () {
                   Navigator.push(
