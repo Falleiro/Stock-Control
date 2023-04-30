@@ -19,4 +19,28 @@ class AuthService extends ChangeNotifier {
       notifyListeners();
     });
   }
+
+  Future<UserCredential> signIn(String email, String password) async {
+    try {
+      UserCredential userCredential = await _auth.signInWithEmailAndPassword(
+          email: email, password: password);
+      usuario = userCredential.user;
+      notifyListeners();
+      return userCredential;
+    } catch (e) {
+      print(e);
+      rethrow;
+    }
+  }
+
+  Future<void> signOut() async {
+    try {
+      await _auth.signOut();
+      usuario = null;
+      notifyListeners();
+    } catch (e) {
+      print(e);
+      rethrow;
+    }
+  }
 }

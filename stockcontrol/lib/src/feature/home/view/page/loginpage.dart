@@ -1,7 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_triple/flutter_triple.dart';
 import 'package:localization/localization.dart';
 import 'package:stock_control/src/feature/home/view/page/homepage.dart';
 import 'package:stock_control/src/feature/home/view/page/singuppage.dart';
+import 'package:stock_control/src/feature/home/viewmodel/login_viewmodel.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+//import 'package:provider/provider.dart';
+
+//import 'package:flutter/material.dart';
+//import 'package:stock_control/viewmodels/login_viewmodel.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -11,98 +18,76 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  // ignore: unused_field
-  late String _email;
-  // ignore: unused_field
-  late String _password;
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  final LoginViewModel _loginViewModel = LoginViewModel();
 
-  final _emailController = TextEditingController();
-  final _senhaController = TextEditingController();
-  final _formKey = GlobalKey<FormState>();
+  @override
+  void dispose() {
+    _emailController.dispose();
+    _passwordController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color.fromARGB(248, 168, 170, 172),
+      appBar: AppBar(
+        title: const Text('Login'),
+      ),
       body: Center(
-        child: Padding(
-          padding: EdgeInsets.all(16.0),
-          child: Form(
-            key: _formKey,
-            child: ListView(
-              children: [
-                Text(
-                  "acessar".i18n(),
-                  style: const TextStyle(
-                      fontSize: 40, color: Color.fromARGB(255, 16, 52, 153)),
+        child: Form(
+          key: _formKey,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              TextFormField(
+                controller: _emailController,
+                keyboardType: TextInputType.emailAddress,
+                decoration: const InputDecoration(
+                  labelText: 'Email',
                 ),
-                SizedBox(height: 90),
-                TextFormField(
-                    controller: _emailController,
-                    decoration: InputDecoration(labelText: "email".i18n()),
-                    validator: (_email) {
-                      if (_email == null || _email.isEmpty) {
-                        return 'Digite seu e-mail';
-                      } else
-                        onChanged:
-                        (value) {
-                          setState(
-                            () {
-                              _email = value;
-                            },
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Email é obrigatório';
+                  }
+                  return null;
+                },
+              ),
+              TextFormField(
+                controller: _passwordController,
+                obscureText: true,
+                decoration: const InputDecoration(
+                  labelText: 'Senha',
+                ),
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Senha é obrigatória';
+                  }
+                  return null;
+                },
+              ),
+              const SizedBox(height: 16),
+              ElevatedButton(
+                onPressed: _loginViewModel.isLoading
+                    ? null
+                    : () async {
+                        if (_formKey.currentState!.validate()) {
+                          await _loginViewModel.login(
+                            _emailController.text.trim(),
+                            _passwordController.text.trim(),
                           );
-                        };
-                    }),
-                SizedBox(height: 30),
-                TextFormField(
-                    controller: _senhaController,
-                    decoration: InputDecoration(labelText: "senha".i18n()),
-                    obscureText: true,
-                    validator: (_password) {
-                      if (_password == null || _password.isEmpty) {
-                        return 'Digite sua senha';
-                      } else
-                        onChanged:
-                        (value) {
-                          setState(
-                            () {
-                              _password = value;
-                            },
-                          );
-                        };
-                    }),
-                IconButton(
-                  onPressed: () {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => SignupPage()));
-                  },
-                  icon: Text(
-                    "esqueci_a_senha".i18n(),
-                  ),
-                ),
-                SizedBox(height: 150),
-                ElevatedButton(
-                  onPressed: () {
-                    if (_formKey.currentState!.validate()) {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const HomePage()));
-                    }
-                  },
-                  child: Text("entrar".i18n()),
-                ),
-                IconButton(
-                  onPressed: () {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => SignupPage()));
-                  },
-                  icon: Text(
-                    "nao_tem_conta_cadastre".i18n(),
-                  ),
-                )
-              ],
-            ),
+                          if (_loginViewModel.user != null) {
+                            Navigator.pushReplacementNamed(context, '/home');
+                          }
+                        }
+                      },
+                child: _loginViewModel.isLoading
+                    ? const CircularProgressIndicator()
+                    : const Text('Entrar'),
+              ),
+            ],
           ),
         ),
       ),
