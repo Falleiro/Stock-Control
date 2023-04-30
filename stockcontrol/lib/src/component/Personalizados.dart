@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:stockcontrol/src/feature/home/view/widget/stock.dart';
+import '../feature/home/view/widget/stock.dart';
 import '../feature/home/view/widget/item_edit.dart';
 import '../feature/home/view/widget/stockedit.dart';
 
