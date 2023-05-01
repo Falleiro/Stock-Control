@@ -33,6 +33,7 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+<<<<<<< HEAD
       appBar: AppBar(
         title: const Text('Login'),
       ),
@@ -42,6 +43,20 @@ class _LoginPageState extends State<LoginPage> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
+=======
+      backgroundColor: Color.fromARGB(248, 231, 231, 231),
+      body: Center(
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: ListView(
+            children: [
+              Text(
+                "acessar".i18n(),
+                style: const TextStyle(
+                    fontSize: 40, color: Color.fromARGB(255, 16, 52, 153)),
+              ),
+              const SizedBox(height: 90),
+>>>>>>> 5037c3a0f141bbc4dc6b6fe1c0a4b363caf2b035
               TextFormField(
                 controller: _emailController,
                 keyboardType: TextInputType.emailAddress,
@@ -55,6 +70,10 @@ class _LoginPageState extends State<LoginPage> {
                   return null;
                 },
               ),
+<<<<<<< HEAD
+=======
+              const SizedBox(height: 30),
+>>>>>>> 5037c3a0f141bbc4dc6b6fe1c0a4b363caf2b035
               TextFormField(
                 controller: _passwordController,
                 obscureText: true,
@@ -68,7 +87,11 @@ class _LoginPageState extends State<LoginPage> {
                   return null;
                 },
               ),
+<<<<<<< HEAD
               const SizedBox(height: 16),
+=======
+              const SizedBox(height: 150),
+>>>>>>> 5037c3a0f141bbc4dc6b6fe1c0a4b363caf2b035
               ElevatedButton(
                 onPressed: _loginViewModel.isLoading
                     ? null

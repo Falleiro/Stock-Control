@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:stock_control/src/feature/home/view/widget/stockcreate.dart';
-import '../widget/account.dart';
+import 'package:stock_control/src/feature/home/repository/app_repository.dart';
+import 'package:stock_control/src/feature/home/viewmodel/stockcreate_viewmodel.dart';
+import 'account.dart';
 import '../../../../component/Personalizados.dart';
-import '../widget/localization.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -12,29 +12,64 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  int _qtd = 1;
-  String _text = 'Estabelecimento ';
-  void _incrementaEstabelecimento() {
-    setState(() {
-      _qtd++;
-    });
-  }
+  // String _text = 'Estabelecimento ';
+  // void _incrementaEstabelecimento() {
+  //   setState(() {
+  //     estabelecimentos.add('');
+  //   });
+  // }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: _minhabarra('Stock Control', context),
-      body: ListView.builder(
-        padding: const EdgeInsets.all(8),
-        itemCount: _qtd,
-        itemBuilder: (BuildContext, int index) {
-          String text = '$_text${index + 1}';
-          return Linha(text: text, origem: 'estabelecimento');
+      body: FutureBuilder<List<Estabelecimento>>(
+        initialData: [],
+        future: findAll(),
+        builder: (context, snapshot) {
+          switch (snapshot.connectionState) {
+            case ConnectionState.none:
+              return const Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: [
+                    Text(
+                        'Clique no botão de adicionar estabelecimento para começar')
+                  ],
+                ),
+              );
+            case ConnectionState.waiting:
+              return const Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: [
+                    CircularProgressIndicator(),
+                    Text('Loading'),
+                  ],
+                ),
+              );
+            case ConnectionState.done:
+              final List<Estabelecimento> estabelecimentos =
+                  snapshot.data ?? [];
+              return ListView.builder(
+                padding: const EdgeInsets.all(8),
+                itemCount: estabelecimentos.length,
+                itemBuilder: (context, int index) {
+                  final estabelecimento = estabelecimentos[index];
+                  // String text = '$_text${index + 1}';
+                  return Linha(
+                      text: estabelecimento.name, origem: 'estabelecimento');
+                },
+              );
+            case ConnectionState.active:
+              break;
+          }
+          return const Text('Unknown error');
         },
       ),
-      floatingActionButton: MeuFloatingActionButton(
-        incrementaEstabelecimento: _incrementaEstabelecimento,
-      ),
+      floatingActionButton: MeuFloatingActionButton(),
     );
   }
 }
@@ -42,6 +77,7 @@ class _HomePageState extends State<HomePage> {
 //APP BAR
 PreferredSizeWidget _minhabarra(String texto, context) {
   return MinhaAppBar(
+    automaticallyImplyLeading: false,
     title:
         Text(texto, style: const TextStyle(color: Colors.white, fontSize: 36)),
     elevation: 10,
@@ -52,61 +88,10 @@ PreferredSizeWidget _minhabarra(String texto, context) {
           size: 40,
         ),
         onPressed: () {
-          Navigator.push(
-              context, MaterialPageRoute(builder: (context) => UserAccount()));
+          Navigator.push(context,
+              MaterialPageRoute(builder: (context) => const UserAccount()));
         },
       )
     ],
   );
-}
-
-//BOTOES DE MAPA E ADICIONAR
-class MeuFloatingActionButton extends StatefulWidget {
-  final VoidCallback incrementaEstabelecimento;
-
-  MeuFloatingActionButton({Key? key, required this.incrementaEstabelecimento})
-      : super(key: key);
-  @override
-  State<MeuFloatingActionButton> createState() =>
-      _MeuFloatingActionButtonState();
-}
-
-class _MeuFloatingActionButtonState extends State<MeuFloatingActionButton> {
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Container(
-          padding: EdgeInsets.only(left: 24),
-          child: FloatingActionButton(
-            heroTag: null,
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => UserLocalization()),
-              );
-            },
-            tooltip: 'Vai para a tela de localização',
-            child: const Icon(Icons.map),
-          ),
-        ),
-        FloatingActionButton(
-          heroTag: null,
-          onPressed: () {
-            Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => UserStockCreate(
-                    incrementaEstabelecimento: widget.incrementaEstabelecimento,
-                  ),
-                ));
-            // widget.incrementaEstabelecimento();
-          },
-          tooltip: 'Vai para a tela "Cria Estabelecimento" ',
-          child: const Icon(Icons.add),
-        ),
-      ],
-    );
-  }
 }

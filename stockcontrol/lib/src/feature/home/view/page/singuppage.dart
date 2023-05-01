@@ -1,9 +1,9 @@
-import 'dart:math';
+// ignore_for_file: unused_field
+
 import 'package:flutter/material.dart';
 import 'package:localization/localization.dart';
 import 'package:stock_control/src/feature/home/view/page/loginpage.dart';
 import 'homepage.dart';
-import 'loginpage.dart';
 
 class SignupPage extends StatefulWidget {
   @override
@@ -22,7 +22,7 @@ class _SignupPageState extends State<SignupPage> {
     const Locale pt = Locale('pt', 'BR');
     const Locale en = Locale('en', 'US');
     return Scaffold(
-      backgroundColor: Color.fromARGB(248, 168, 170, 172),
+      backgroundColor: Color.fromARGB(248, 231, 231, 231),
       body: Center(
         child: Padding(
             padding: const EdgeInsets.all(16.0),
@@ -124,8 +124,10 @@ class _SignupPageState extends State<SignupPage> {
                 ),
                 IconButton(
                   onPressed: () {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => LoginPage()));
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => LoginPage()),
+                    );
                   },
                   iconSize: 50,
                   icon: Text(
