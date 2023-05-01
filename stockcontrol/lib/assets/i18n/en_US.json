@@ -13,8 +13,12 @@
     "cadastrar": "Register",
     "ja_tem_conta_acesse_aqui": "Already have an account? Login",
     "nome_app": "Stock control",
-    "add_estabelecimento": "Adiconar estabelecimento",
+    "add_estabelecimento": "Add establishment",
     "en": "EN",
     "pt": "PT",
-    "item_sugerido": "Suggested items"
+    "item_sugerido": "Suggested items",
+    "texto_apresentação": "Welcome! This application helps you manage your company's inventory, making it easier to decide when to add or remove a product, saving time.",
+    "app_apresentação": "stock management app",
+    "proximo": "Next",
+    "finalizar": "End"
 }

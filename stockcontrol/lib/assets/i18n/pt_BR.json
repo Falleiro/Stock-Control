@@ -16,5 +16,9 @@
     "add_estabelecimento": "Adiconar estabelecimento",
     "en": "EN",
     "pt": "PT",
-    "item_sugerido": "Itens sugeridos"
+    "item_sugerido": "Itens sugeridos",
+    "texto_apresentação": "Bem-vindo! Este aplicativo ajuda a gerenciar o estoque da sua empresa, facilitando a decisão ao adicionar ou remover um produto economizando tempo.",
+    "app_apresentação": "App de Gerenciamento de Estoque",
+    "proximo": "Próximo",
+    "finalizar": "Finalizar"
 }
