@@ -24,8 +24,14 @@ dependencies:
   flutter_triple: ^1.2.7+4
   flutter_modular: ^5.0.3
   dio: ^5.1.0
+<<<<<<< HEAD
   firebase_core: ^1.24.0
   firebase_auth: ^3.11.2
+=======
+  firebase_core: ^2.10.0
+  firebase_auth: ^4.4.2
+  cloud_firestore: ^4.5.3
+>>>>>>> 0f9cdfe2373b0fb4401d0066cddfc5c9ccd1211a
 
 dev_dependencies:
   flutter_test:

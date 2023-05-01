@@ -3,12 +3,12 @@ import 'package:flutter_triple/flutter_triple.dart';
 import 'package:localization/localization.dart';
 import 'package:stock_control/src/feature/home/view/page/homepage.dart';
 import 'package:stock_control/src/feature/home/view/page/singuppage.dart';
-import 'package:stock_control/src/feature/home/viewmodel/login_viewmodel.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-//import 'package:provider/provider.dart';
 
-//import 'package:flutter/material.dart';
-//import 'package:stock_control/viewmodels/login_viewmodel.dart';
+class LoginPage extends StatefulWidget {
+  @override
+  _LoginPageState createState() => _LoginPageState();
+}
+
 class _LoginPageState extends State<LoginPage> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
@@ -25,42 +25,46 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const AppBar(
-        title: Text('Login'.i18n),
-      ),
+      backgroundColor: Color.fromARGB(248, 231, 231, 231),
       body: Center(
-        child: Form(
-          key: _formKey,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: ListView(
+            children: [
+              Text(
+                "acessar".i18n(),
+                style: const TextStyle(
+                    fontSize: 40, color: Color.fromARGB(255, 16, 52, 153)),
+              ),
+              const SizedBox(height: 90),
               TextFormField(
-                controller: _emailController,
-                keyboardType: TextInputType.emailAddress,
-                decoration: InputDecoration(
-                  labelText: 'Email'.i18n,
-                ),
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Email é obrigatório'.i18n;
-                  }
-                  return null;
+                decoration: InputDecoration(labelText: "email".i18n()),
+                onChanged: (value) {
+                  setState(() {
+                    _email = value;
+                  });
                 },
               ),
+              const SizedBox(height: 30),
               TextFormField(
                 controller: _passwordController,
                 obscureText: true,
-                decoration: InputDecoration(
-                  labelText: 'Senha'.i18n,
-                ),
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Senha é obrigatória'.i18n;
-                  }
-                  return null;
+                onChanged: (value) {
+                  setState(() {
+                    _password = value;
+                  });
                 },
               ),
-              const SizedBox(height: 16),
+              IconButton(
+                onPressed: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => SignupPage()));
+                },
+                icon: Text(
+                  "esqueci_a_senha".i18n(),
+                ),
+              ),
+              const SizedBox(height: 150),
               ElevatedButton(
                 onPressed: _loginViewModel.isLoading
                     ? null
