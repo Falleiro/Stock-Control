@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:sqflite/sqflite.dart';
 
 import '../../viewmodel/stockcreate_viewmodel.dart';
@@ -5,9 +7,11 @@ import '../app_repository.dart';
 
 class EstabelecimentoDao {
   static const String tableSql = 'CREATE TABLE $_tableName('
+      // '$_id INTEGER PRIMARY KEY,'
       '$_name TEXT) ';
 
   static const String _tableName = 'estabelecimentos';
+  // static const String _id = 'id';
   static const String _name = 'name';
 
   Future<int> save(Estabelecimento estabelecimento) async {

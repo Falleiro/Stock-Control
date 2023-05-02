@@ -3,7 +3,7 @@ import 'package:stock_control/src/feature/home/repository/dao/estabelecimento_da
 import 'package:stock_control/src/feature/home/viewmodel/stockcreate_viewmodel.dart';
 
 import '../../../../component/Personalizados.dart';
-import '../widget/stockcreate.dart';
+import '../../../../component/my_text_field.dart';
 
 class UserStockCreate extends StatefulWidget {
   const UserStockCreate({super.key});
@@ -19,7 +19,7 @@ class _UserStockCreateState extends State<UserStockCreate> {
       appBar: _minhabarra('Adicionar estabelecimento', context),
       body: const SingleChildScrollView(
         child: Column(
-          children: [MyForm()],
+          children: [MyStockForm()],
         ),
       ),
     );
@@ -36,23 +36,32 @@ PreferredSizeWidget _minhabarra(String texto, context) {
   );
 }
 
-class MyForm extends StatefulWidget {
-  const MyForm({super.key});
+class MyStockForm extends StatefulWidget {
+  const MyStockForm({super.key});
 
   @override
-  State<MyForm> createState() => _MyFormState();
+  State<MyStockForm> createState() => _MyStockFormState();
 }
 
-class _MyFormState extends State<MyForm> {
+class _MyStockFormState extends State<MyStockForm> {
   final EstabelecimentoDao _dao = EstabelecimentoDao();
+
   final _formKey = GlobalKey<FormState>();
+
   final _nome = TextEditingController();
+
   final _cep = TextEditingController();
+
   final _uf = TextEditingController();
+
   final _bairro = TextEditingController();
+
   final _cidade = TextEditingController();
+
   final _rua = TextEditingController();
+
   final _numero = TextEditingController();
+
   final _complemento = TextEditingController();
 
   @override
@@ -115,11 +124,12 @@ class _MyFormState extends State<MyForm> {
             child: ElevatedButton(
               onPressed: () {
                 if (_formKey.currentState!.validate()) {
+                  final String name = _nome.text;
                   final Estabelecimento newEstabelecimento =
-                      Estabelecimento(_nome.text);
+                      Estabelecimento(name);
                   _dao
                       .save(newEstabelecimento)
-                      .then((value) => Navigator.pop(context));
+                      .then((id) => Navigator.pop(context));
                 }
               },
               child: const Text('Submit'),
