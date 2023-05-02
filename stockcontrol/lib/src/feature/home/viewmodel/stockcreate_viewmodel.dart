@@ -1,7 +1,9 @@
 class Estabelecimento {
   final String name;
 
-  Estabelecimento(this.name);
+  Estabelecimento(
+    this.name,
+  );
 
   @override
   String toString() {

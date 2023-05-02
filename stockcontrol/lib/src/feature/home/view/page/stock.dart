@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:localization/localization.dart';
+import 'package:stock_control/src/feature/home/view/page/item_create.dart';
 import '../../../../component/Personalizados.dart';
 
 class UserStock extends StatefulWidget {
@@ -30,6 +31,14 @@ class _UserStockState extends State<UserStock> {
           String text = '$_text${index + 1}';
           return Linha(text: text, origem: 'item');
         },
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.push(context,
+              MaterialPageRoute(builder: (context) => UserItemCreate()));
+        },
+        tooltip: 'Vai para a tela "Cria item"',
+        child: const Icon(Icons.add),
       ),
     );
   }
