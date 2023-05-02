@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:localization/localization.dart';
-import 'package:stock_control/src/feature/home/view/page/presentation/functionalitypage.dart';
+import 'functionalitypage.dart';
+import 'presentationpage.dart';
 
-class ObjectivesScreen extends StatelessWidget {
-  const ObjectivesScreen({super.key});
+class ObjectivesPage extends StatelessWidget {
+  const ObjectivesPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -14,46 +15,74 @@ class ObjectivesScreen extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const Text(
-              'Objetivos do Aplicativo',
+            SizedBox(height: 40.0),
+            Text(
+              "objetivos".i18n(),
               style: TextStyle(
-                  fontSize: 40, color: Color.fromARGB(255, 16, 52, 153)),
+                  fontSize: 36, color: Color.fromARGB(255, 16, 52, 153)),
             ),
-            SizedBox(height: 16.0),
-            const Text(
-              'O objetivo principal deste aplicativo é ajudar a gerenciar o estoque da sua empresa, proporcionando maior controle e facilidade no processo de tomada de decisão. Além disso, o aplicativo também pode:',
-              style: TextStyle(fontSize: 16.0),
+            SizedBox(height: 30.0),
+            Text(
+              "texto_objetivo".i18n(),
+              style: TextStyle(fontSize: 20.0),
               textAlign: TextAlign.center,
             ),
-            SizedBox(height: 16.0),
+            SizedBox(height: 30.0),
             Expanded(
               child: ListView(
-                children: const [
+                children: [
                   ListTile(
                     leading: Icon(Icons.timelapse),
-                    title: Text('Economizar tempo na gestão de estoque'),
+                    title: Text("economizar_tempo".i18n()),
                   ),
                   ListTile(
                     leading: Icon(Icons.monetization_on),
-                    title: Text('Reduzir custos com desperdício de produtos'),
+                    title: Text("reduzir_custos".i18n()),
                   ),
                   ListTile(
                     leading: Icon(Icons.check_circle),
-                    title:
-                        Text('Melhorar a eficiência na reposição de produtos'),
+                    title: Text("melhorar_eficiencia".i18n()),
                   ),
                 ],
               ),
             ),
-            const SizedBox(height: 32.0),
-            ElevatedButton(
-              onPressed: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => const FuncionalidadesScreen()));
-              },
-              child: Text("proximo".i18n()),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 16.0, left: 16.0),
+                  child: Align(
+                    alignment: Alignment.bottomLeft,
+                    child: ElevatedButton(
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                    const PresentationPage()));
+                      },
+                      child: Text("voltar".i18n()),
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 16.0, right: 16.0),
+                  child: Align(
+                    alignment: Alignment.bottomRight,
+                    child: ElevatedButton(
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const FuncionalidadesScreen(),
+                          ),
+                        );
+                      },
+                      child: Text("proximo".i18n()),
+                    ),
+                  ),
+                ),
+              ],
             ),
           ],
         ),

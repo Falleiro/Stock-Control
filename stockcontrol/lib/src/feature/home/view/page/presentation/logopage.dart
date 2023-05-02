@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:localization/localization.dart';
-import 'package:stock_control/src/feature/home/view/page/presentation/presentationpage.dart';
+import 'presentationpage.dart';
 
 class LogoPage extends StatefulWidget {
   @override
@@ -16,7 +16,7 @@ class _LogoPageState extends State<LogoPage> {
     Timer(const Duration(seconds: 1, milliseconds: 500), () {
       Navigator.push(
         context,
-        MaterialPageRoute(builder: (context) => const presentationpage()),
+        MaterialPageRoute(builder: (context) => const PresentationPage()),
       );
     });
   }
