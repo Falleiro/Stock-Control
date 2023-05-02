@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:localization/localization.dart';
-import 'package:stock_control/src/feature/home/view/page/objectivepage.dart';
+
+import 'objectivepage.dart';
 
 // ignore: camel_case_types
 class presentationpage extends StatefulWidget {

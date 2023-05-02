@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:localization/localization.dart';
-import 'package:stock_control/src/feature/home/view/page/presentationpage.dart';
+import 'package:stock_control/src/feature/home/view/page/presentation/presentationpage.dart';
 
 class LogoPage extends StatefulWidget {
   @override

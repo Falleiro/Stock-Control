@@ -2,8 +2,9 @@
 
 import 'package:flutter/material.dart';
 import 'package:localization/localization.dart';
-import 'package:stock_control/src/feature/home/view/page/loginpage.dart';
-import 'homepage.dart';
+
+import '../homepage.dart';
+import 'loginpage.dart';
 
 class SignupPage extends StatefulWidget {
   @override
