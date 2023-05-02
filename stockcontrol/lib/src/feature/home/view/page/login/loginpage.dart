@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:localization/localization.dart';
 import 'package:stock_control/src/feature/home/view/page/homepage.dart';
 import 'package:stock_control/src/feature/home/view/page/login/singuppage.dart';
+import 'package:stock_control/src/common/auth_service.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -13,6 +14,23 @@ class _LoginPageState extends State<LoginPage> {
   late String _email;
   // ignore: unused_field
   late String _password;
+  final AuthService _authService = AuthService();
+
+  bool _validateInputs() {
+    // Verifica se o email e a senha são válidos
+    if (_email == null || _email.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text("Por favor, digite um email válido.")),
+      );
+      return false;
+    } else if (_password == null || _password.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text("Por favor, digite uma senha válida.")),
+      );
+      return false;
+    }
+    return true;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -48,7 +66,7 @@ class _LoginPageState extends State<LoginPage> {
                 },
               ),
               IconButton(
-                onPressed: () {
+                onPressed: () async {
                   Navigator.push(context,
                       MaterialPageRoute(builder: (context) => SignupPage()));
                 },
@@ -59,10 +77,13 @@ class _LoginPageState extends State<LoginPage> {
               const SizedBox(height: 150),
               ElevatedButton(
                 onPressed: () {
-                  Navigator.push(
+                  if (_validateInputs()) {
+                    // Navega para a página inicial se as informações de login são válidas
+                    Navigator.push(
                       context,
-                      MaterialPageRoute(
-                          builder: (context) => const HomePage()));
+                      MaterialPageRoute(builder: (context) => const HomePage()),
+                    );
+                  }
                 },
                 child: Text("entrar".i18n()),
               ),
