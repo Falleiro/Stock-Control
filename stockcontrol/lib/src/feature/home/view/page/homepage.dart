@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:stock_control/src/feature/home/repository/app_repository.dart';
+import 'package:stock_control/src/feature/home/repository/dao/estabelecimento_dao.dart';
 import 'package:stock_control/src/feature/home/viewmodel/stockcreate_viewmodel.dart';
 import 'account.dart';
 import '../../../../component/Personalizados.dart';
@@ -12,20 +12,14 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  // String _text = 'Estabelecimento ';
-  // void _incrementaEstabelecimento() {
-  //   setState(() {
-  //     estabelecimentos.add('');
-  //   });
-  // }
-
+  final EstabelecimentoDao _dao = EstabelecimentoDao();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: _minhabarra('Stock Control', context),
       body: FutureBuilder<List<Estabelecimento>>(
         initialData: [],
-        future: findAll(),
+        future: _dao.findAll(),
         builder: (context, snapshot) {
           switch (snapshot.connectionState) {
             case ConnectionState.none:
@@ -58,7 +52,6 @@ class _HomePageState extends State<HomePage> {
                 itemCount: estabelecimentos.length,
                 itemBuilder: (context, int index) {
                   final estabelecimento = estabelecimentos[index];
-                  // String text = '$_text${index + 1}';
                   return Linha(
                       text: estabelecimento.name, origem: 'estabelecimento');
                 },
