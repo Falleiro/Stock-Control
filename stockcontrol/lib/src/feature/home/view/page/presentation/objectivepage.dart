@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:localization/localization.dart';
-import 'package:stock_control/src/feature/home/view/page/functionalitypage.dart';
+import 'package:stock_control/src/feature/home/view/page/presentation/functionalitypage.dart';
 
 class ObjectivesScreen extends StatelessWidget {
   const ObjectivesScreen({super.key});

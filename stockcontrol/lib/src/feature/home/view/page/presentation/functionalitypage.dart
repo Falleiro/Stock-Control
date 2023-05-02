@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:localization/localization.dart';
-import 'package:stock_control/src/feature/home/view/page/loginpage.dart';
+
+import '../login/loginpage.dart';
 
 class FuncionalidadesScreen extends StatelessWidget {
   const FuncionalidadesScreen({super.key});

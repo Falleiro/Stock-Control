@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:localization/localization.dart';
 import 'package:stock_control/src/feature/home/view/page/homepage.dart';
-import 'package:stock_control/src/feature/home/view/page/singuppage.dart';
+import 'package:stock_control/src/feature/home/view/page/login/singuppage.dart';
 
 class LoginPage extends StatefulWidget {
   @override

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:stock_control/src/feature/home/repository/app_repository.dart';
+import 'package:stock_control/src/feature/home/repository/dao/estabelecimento_dao.dart';
 import 'package:stock_control/src/feature/home/viewmodel/stockcreate_viewmodel.dart';
 
 import '../../../../component/Personalizados.dart';
@@ -44,6 +44,7 @@ class MyForm extends StatefulWidget {
 }
 
 class _MyFormState extends State<MyForm> {
+  final EstabelecimentoDao _dao = EstabelecimentoDao();
   final _formKey = GlobalKey<FormState>();
   final _nome = TextEditingController();
   final _cep = TextEditingController();
@@ -116,7 +117,8 @@ class _MyFormState extends State<MyForm> {
                 if (_formKey.currentState!.validate()) {
                   final Estabelecimento newEstabelecimento =
                       Estabelecimento(_nome.text);
-                  save(newEstabelecimento)
+                  _dao
+                      .save(newEstabelecimento)
                       .then((value) => Navigator.pop(context));
                 }
               },
