@@ -36,5 +36,11 @@
     "gestao_estabelecimento": "Gestão de estabelecimentos",
     "gestao_texto": "Gerencie suas lojas de diferentes localidades com o estoque de cada uma.",
     "sugestao_produto": "Sugestões de produtos",
-    "texto_sugestao": "Obtenha sugestões de quais produtos adicionar em cada estabelecimento, em relação a suas vendas."
+    "texto_sugestao": "Obtenha sugestões de quais produtos adicionar em cada estabelecimento, em relação a suas vendas.",
+    "redefinir_senha": "Redefinição da senha",
+    "digite_email": "Digite seu E-mail cadastrado para receber uma nova senha",
+    "enviar_senha": "Enviar senha de recuperação",
+    "texto_email_enviado": "Sua nova senha foi enviada para o e-mail",
+    "nova_senha_enviada": "Nova senha enviada",
+    "ok": "Ok"
 }
