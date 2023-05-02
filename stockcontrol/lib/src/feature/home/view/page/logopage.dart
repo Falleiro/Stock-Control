@@ -16,7 +16,7 @@ class _LogoPageState extends State<LogoPage> {
     Timer(const Duration(seconds: 1, milliseconds: 500), () {
       Navigator.push(
         context,
-        MaterialPageRoute(builder: (context) => const PresentationPage()),
+        MaterialPageRoute(builder: (context) => const presentationpage()),
       );
     });
   }
