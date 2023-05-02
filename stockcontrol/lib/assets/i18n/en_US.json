@@ -36,5 +36,11 @@
     "gestao_estabelecimento": "Establishment management",
     "gestao_texto": "Manage your stores in different locations with each location's stock.",
     "sugestao_produto": "Product suggestions",
-    "texto_sugestao": "Get suggestions on which products to add in each establishment, in relation to your sales."
+    "texto_sugestao": "Get suggestions on which products to add in each establishment, in relation to your sales.",
+    "redefinir_senha": "Password reset",
+    "digite_email": "Enter your registered email to receive a new password",
+    "enviar_senha": "Send recovery password",
+    "texto_email_enviado": "Your new password has been sent to the email address:",
+    "nova_senha_enviada": "New password sent",
+    "ok": "Ok"
 }
