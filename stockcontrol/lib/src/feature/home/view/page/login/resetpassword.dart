@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:localization/localization.dart';
+import 'package:mailer/mailer.dart';
+import 'package:mailer/smtp_server.dart';
+import 'package:mailer/smtp_server/gmail.dart';
 
 class PasswordResetScreen extends StatefulWidget {
   const PasswordResetScreen({super.key});
@@ -50,30 +53,30 @@ class _PasswordResetScreenState extends State<PasswordResetScreen> {
     );
   }
 
-  void _sendNewPassword(BuildContext context, String email) {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: Text("nova_senha_enviada".i18n()),
-          content: Column(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text("texto_email_enviado".i18n()),
-              Text(email),
-            ],
-          ),
-          actions: [
-            TextButton(
-              onPressed: () {
-                Navigator.pop(context);
-              },
-              child: Text("ok".i18n()),
-            ),
-          ],
-        );
-      },
-    );
+  void _sendNewPassword(BuildContext context, String email) async {
+    final smtpServer = gmail("stockcontrol38@gmail.com", "#Stockcontrol");
+
+    final message = Message()
+      ..from = const Address("stockcontrol38@gmail.com")
+      ..recipients.add(email)
+      ..subject = "Nova senha"
+      ..text = "Aqui aparecerá a sua senha";
+
+    try {
+      await send(message, smtpServer);
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('E-mail enviado com sucesso!'),
+          duration: const Duration(seconds: 2),
+        ),
+      );
+    } on MailerException catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Erro ao enviar e-mail: $e'),
+          duration: const Duration(seconds: 2),
+        ),
+      );
+    }
   }
 }
