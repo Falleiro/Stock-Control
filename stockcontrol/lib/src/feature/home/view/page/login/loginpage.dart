@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:localization/localization.dart';
 import 'package:stock_control/src/feature/home/view/page/homepage.dart';
+import 'package:stock_control/src/feature/home/view/page/login/resetpassword.dart';
 import 'package:stock_control/src/feature/home/view/page/login/singuppage.dart';
 
 class LoginPage extends StatefulWidget {
@@ -49,8 +50,10 @@ class _LoginPageState extends State<LoginPage> {
               ),
               IconButton(
                 onPressed: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => SignupPage()));
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => PasswordResetScreen()));
                 },
                 icon: Text(
                   "esqueci_a_senha".i18n(),

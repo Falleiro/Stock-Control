@@ -63,5 +63,11 @@
     "validade": "Validade",
     "lote": "Lote",
     "add-item": "Quantidade que deseja adicionar",
-    "validacao-texto": "Esse espaço precisa ser preenchido"
+    "validacao-texto": "Esse espaço precisa ser preenchido",
+    "redefinir_senha": "Redefinição da senha",
+    "digite_email": "Digite seu E-mail cadastrado para receber uma nova senha",
+    "enviar_senha": "Enviar senha de recuperação",
+    "texto_email_enviado": "Sua nova senha foi enviada para o e-mail",
+    "nova_senha_enviada": "Nova senha enviada",
+    "ok": "Ok"
 }

@@ -63,5 +63,11 @@
     "validade": "Validity",
     "lote": "Batch",
     "add-item": "Quantity you want to add",
-    "validacao-texto": "This space needs to be filled"
+    "validacao-texto": "This space needs to be filled",
+    "redefinir_senha": "Password reset",
+    "digite_email": "Enter your registered email to receive a new password",
+    "enviar_senha": "Send recovery password",
+    "texto_email_enviado": "Your new password has been sent to the email address:",
+    "nova_senha_enviada": "New password sent",
+    "ok": "Ok"
 }
