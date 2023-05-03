@@ -23,7 +23,8 @@ class _UserStockState extends State<UserStock> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: _minhabarra('Itens - ${widget.estabelecimento}', context),
+      appBar:
+          _minhabarra('appbar-item'.i18n() + widget.estabelecimento, context),
       body: ListView.builder(
         padding: const EdgeInsets.all(8),
         itemCount: _qtd,
@@ -37,7 +38,7 @@ class _UserStockState extends State<UserStock> {
           Navigator.push(context,
               MaterialPageRoute(builder: (context) => UserItemCreate()));
         },
-        tooltip: 'Vai para a tela "Cria item"',
+        tooltip: 'tooltip-item'.i18n(),
         child: const Icon(Icons.add),
       ),
     );

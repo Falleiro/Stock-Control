@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:localization/localization.dart';
 import 'package:stock_control/src/feature/home/repository/dao/estabelecimento_dao.dart';
 import 'package:stock_control/src/feature/home/viewmodel/stockcreate_viewmodel.dart';
 import 'account.dart';
@@ -16,31 +17,28 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: _minhabarra('Stock Control', context),
+      appBar: _minhabarra('appbar-homepage'.i18n(), context),
       body: FutureBuilder<List<Estabelecimento>>(
-        initialData: [],
+        initialData: const [],
         future: _dao.findAll(),
         builder: (context, snapshot) {
           switch (snapshot.connectionState) {
             case ConnectionState.none:
-              return const Center(
+              return Center(
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.end,
-                  children: [
-                    Text(
-                        'Clique no botão de adicionar estabelecimento para começar')
-                  ],
+                  children: [Text('clique-no-botao-para-comecar'.i18n())],
                 ),
               );
             case ConnectionState.waiting:
-              return const Center(
+              return Center(
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
-                    CircularProgressIndicator(),
-                    Text('Loading'),
+                    const CircularProgressIndicator(),
+                    Text('carregando'.i18n()),
                   ],
                 ),
               );
@@ -59,7 +57,7 @@ class _HomePageState extends State<HomePage> {
             case ConnectionState.active:
               break;
           }
-          return const Text('Unknown error');
+          return Text('unknown-error'.i18n());
         },
       ),
       floatingActionButton: MeuFloatingActionButton(),

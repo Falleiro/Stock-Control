@@ -1,6 +1,7 @@
 // ignore_for_file: body_might_complete_normally_nullable
 
 import 'package:flutter/material.dart';
+import 'package:localization/localization.dart';
 
 class MyTextField extends StatefulWidget {
   final TextEditingController myController;
@@ -28,7 +29,7 @@ class _MyTextFieldState extends State<MyTextField> {
           if ((value == null || value.isEmpty) &&
               widget.fieldName != "Complemento" &&
               widget.fieldName != 'Quantidade que deseja adicionar') {
-            return 'Esse espaço precisa ser preenchido';
+            return 'validacao-texto'.i18n();
           } else {
             null;
           }

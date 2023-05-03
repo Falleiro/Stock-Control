@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:localization/localization.dart';
 
 import '../../../../component/Personalizados.dart';
 import '../../../../component/my_text_field.dart';
@@ -9,7 +10,7 @@ class UserItemCreate extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: _minhabarra('Criar Item', context),
+      appBar: _minhabarra('appbar-cria-item'.i18n(), context),
       body: const SingleChildScrollView(
         child: Column(
           children: [MyItemForm()],
@@ -51,25 +52,25 @@ class _MyItemFormState extends State<MyItemForm> {
       child: Column(children: [
         MyTextField(
           myController: _nome,
-          fieldName: 'Nome do Item',
+          fieldName: 'nome-item'.i18n(),
           myIcon: Icons.edit,
           prefixIconColor: Colors.blue,
         ),
         MyTextField(
           myController: _lote,
-          fieldName: 'Lote',
+          fieldName: 'lote'.i18n(),
           myIcon: Icons.edit,
           prefixIconColor: Colors.blue,
         ),
         MyTextField(
           myController: _validade,
-          fieldName: 'Validade',
+          fieldName: 'validade'.i18n(),
           myIcon: Icons.edit,
           prefixIconColor: Colors.blue,
         ),
         MyTextField(
           myController: _adicioanar,
-          fieldName: 'Quantidade que deseja adicionar',
+          fieldName: 'add-item'.i18n(),
           myIcon: Icons.edit,
           prefixIconColor: Colors.blue,
         ),
@@ -81,7 +82,7 @@ class _MyItemFormState extends State<MyItemForm> {
               onPressed: () {
                 if (_formKey.currentState!.validate()) {}
               },
-              child: const Text('Submit'),
+              child: Text('submit'.i18n()),
             ),
           ),
         ),
