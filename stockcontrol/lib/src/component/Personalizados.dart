@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:localization/localization.dart';
 import '../feature/home/view/page/localization.dart';
 import '../feature/home/view/page/stock.dart';
 import '../feature/home/view/page/item_edit.dart';
@@ -110,7 +111,7 @@ class _MeuFloatingActionButtonState extends State<MeuFloatingActionButton> {
                 MaterialPageRoute(builder: (context) => UserLocalization()),
               );
             },
-            tooltip: 'Vai para a tela de localização',
+            tooltip: 'tooltip-localization'.i18n(),
             child: const Icon(Icons.map),
           ),
         ),
@@ -124,7 +125,7 @@ class _MeuFloatingActionButtonState extends State<MeuFloatingActionButton> {
               ),
             );
           },
-          tooltip: 'Vai para a tela "Cria Estabelecimento" ',
+          tooltip: 'tooltip-estabelecimento'.i18n(),
           child: const Icon(Icons.add),
         ),
       ],

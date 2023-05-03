@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:localization/localization.dart';
 
 import '../../../../component/Personalizados.dart';
 
@@ -8,7 +9,7 @@ class UserAccount extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: _minhabarra('Minha conta', context),
+      appBar: _minhabarra('appbar-account'.i18n(), context),
     );
   }
 }

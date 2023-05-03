@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:localization/localization.dart';
 
 import '../../../../component/Personalizados.dart';
 
@@ -8,7 +9,7 @@ class UserLocalization extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: _minhabarra('Localizações', context),
+      appBar: _minhabarra('appbar-localization'.i18n(), context),
     );
   }
 }

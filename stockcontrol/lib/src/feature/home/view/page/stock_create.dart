@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:localization/localization.dart';
 import 'package:stock_control/src/feature/home/repository/dao/estabelecimento_dao.dart';
 import 'package:stock_control/src/feature/home/viewmodel/stockcreate_viewmodel.dart';
 
@@ -16,7 +17,7 @@ class _UserStockCreateState extends State<UserStockCreate> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: _minhabarra('Adicionar estabelecimento', context),
+      appBar: _minhabarra('appbar-add-estabelecimento'.i18n(), context),
       body: const SingleChildScrollView(
         child: Column(
           children: [MyStockForm()],
@@ -71,49 +72,49 @@ class _MyStockFormState extends State<MyStockForm> {
       child: Column(children: [
         MyTextField(
           myController: _nome,
-          fieldName: 'Nome do Estabelecimento',
+          fieldName: 'nome-estabelecimento'.i18n(),
           myIcon: Icons.edit,
           prefixIconColor: Colors.blue,
         ),
         MyTextField(
           myController: _cep,
-          fieldName: 'CEP',
+          fieldName: 'cep'.i18n(),
           myIcon: Icons.home,
           prefixIconColor: Colors.blue,
         ),
         MyTextField(
           myController: _uf,
-          fieldName: 'UF',
+          fieldName: 'uf'.i18n(),
           myIcon: Icons.home,
           prefixIconColor: Colors.blue,
         ),
         MyTextField(
           myController: _bairro,
-          fieldName: 'Bairro',
+          fieldName: 'bairro'.i18n(),
           myIcon: Icons.home,
           prefixIconColor: Colors.blue,
         ),
         MyTextField(
           myController: _cidade,
-          fieldName: 'Cidade',
+          fieldName: 'cidade'.i18n(),
           myIcon: Icons.home,
           prefixIconColor: Colors.blue,
         ),
         MyTextField(
           myController: _rua,
-          fieldName: 'Rua',
+          fieldName: 'rua'.i18n(),
           myIcon: Icons.home,
           prefixIconColor: Colors.blue,
         ),
         MyTextField(
           myController: _numero,
-          fieldName: 'Número',
+          fieldName: 'numero'.i18n(),
           myIcon: Icons.home,
           prefixIconColor: Colors.blue,
         ),
         MyTextField(
           myController: _complemento,
-          fieldName: 'Complemento',
+          fieldName: 'complemento'.i18n(),
           myIcon: Icons.home,
           prefixIconColor: Colors.blue,
         ),
@@ -132,7 +133,7 @@ class _MyStockFormState extends State<MyStockForm> {
                       .then((id) => Navigator.pop(context));
                 }
               },
-              child: const Text('Submit'),
+              child: Text('submit'.i18n()),
             ),
           ),
         ),
