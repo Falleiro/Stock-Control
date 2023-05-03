@@ -42,6 +42,7 @@
     "tooltip-item": "Vai para a tela 'Cria item'",
     "tooltip-stock": "Vai para a tela 'Cria estabelecimento'",
     "tooltip-localization": "Vai para a tela 'Localization'",
+    "tooltip-estabelecimento": "Vai para a tela 'Estabelecimento'",
     "nome-estabelecimento": "Nome do Estoque",
     "cep": "CEP",
     "uf": "UF",
@@ -69,5 +70,8 @@
     "enviar_senha": "Enviar senha de recuperação",
     "texto_email_enviado": "Sua nova senha foi enviada para o e-mail",
     "nova_senha_enviada": "Nova senha enviada",
-    "ok": "Ok"
+    "ok": "Ok",
+    "nova_senha": "Nova senha",
+    "aparecera_senha": "Aqui aparecerá a sua senha",
+    "email_enviado": "E-mail enviado com sucesso!"
 }

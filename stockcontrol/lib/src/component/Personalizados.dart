@@ -125,7 +125,7 @@ class _MeuFloatingActionButtonState extends State<MeuFloatingActionButton> {
               ),
             );
           },
-          tooltip: 'tooltip-estabelecimento'.i18n(),
+          tooltip: "tooltip-estabelecimento".i18n(),
           child: const Icon(Icons.add),
         ),
       ],
