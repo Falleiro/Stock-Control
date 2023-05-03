@@ -11,7 +11,7 @@ class UserItemCreate extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: _minhabarra('appbar-cria-item'.i18n(), context),
-      body: const SingleChildScrollView(
+      body:  SingleChildScrollView(
         child: Column(
           children: [MyItemForm()],
         ),
