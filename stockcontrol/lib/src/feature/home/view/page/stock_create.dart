@@ -18,7 +18,7 @@ class _UserStockCreateState extends State<UserStockCreate> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: _minhabarra('appbar-add-estabelecimento'.i18n(), context),
-      body: const SingleChildScrollView(
+      body: SingleChildScrollView(
         child: Column(
           children: [MyStockForm()],
         ),
