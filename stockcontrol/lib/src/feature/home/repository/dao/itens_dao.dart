@@ -8,6 +8,7 @@ class ItemDao {
   static const String tableSql = 'CREATE TABLE $_tableName('
       '$_id INTEGER PRIMARY KEY AUTOINCREMENT,'
       '$_name TEXT, '
+      '$_qtd INTEGER, '
       '$_idEstabelecimento INTEGER,'
       'FOREIGN KEY ($_idEstabelecimento) REFERENCES estabelecimentos(id))';
 
@@ -15,6 +16,7 @@ class ItemDao {
   static const String _id = 'id_item';
   static const String _name = 'name';
   static const String _idEstabelecimento = 'estabelecimento_id';
+  static const String _qtd = 'qtd';
 
   Future<int> save(Item item) async {
     final Database db = await getDataBase();
@@ -26,6 +28,7 @@ class ItemDao {
     final Map<String, dynamic> itemMap = {};
     itemMap[_name] = item.name;
     itemMap[_idEstabelecimento] = item.idEstabelecimento;
+    itemMap[_qtd] = item.qtd;
     return itemMap;
   }
 
@@ -52,6 +55,7 @@ class ItemDao {
         row[_name],
         row[_idEstabelecimento],
         row[_id],
+        row[_qtd],
       );
       items.add(item);
     }

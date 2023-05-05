@@ -57,7 +57,7 @@ class _MyItemFormState extends State<MyItemForm> {
   final _nome = TextEditingController();
   final _validade = TextEditingController();
   final _lote = TextEditingController();
-  final _adicioanar = TextEditingController();
+  final _adicionar = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -82,11 +82,32 @@ class _MyItemFormState extends State<MyItemForm> {
           myIcon: Icons.edit,
           prefixIconColor: Colors.blue,
         ),
-        MyTextField(
-          myController: _adicioanar,
-          fieldName: 'add-item'.i18n(),
-          myIcon: Icons.edit,
-          prefixIconColor: Colors.blue,
+        //fazendo o textform especial para o adicionar item
+        Padding(
+          padding: const EdgeInsets.symmetric(vertical: 4),
+          child: TextFormField(
+            controller: _adicionar,
+            decoration: InputDecoration(
+              labelText: 'add-item'.i18n(),
+              prefixIcon: const Icon(
+                Icons.edit,
+                color: Colors.blue,
+              ),
+              border: const OutlineInputBorder(),
+              focusedBorder: const OutlineInputBorder(
+                borderSide: BorderSide(color: Colors.blue),
+              ),
+              labelStyle: const TextStyle(color: Colors.black),
+            ),
+            validator: (value) {
+              if (value == null || value.isEmpty) {
+                return 'Esse campo precisa ser preenchido';
+              } else if (int.tryParse(value) == null) {
+                return 'Informe um NÚMERO';
+              }
+              return null;
+            },
+          ),
         ),
         Padding(
           padding: const EdgeInsets.symmetric(vertical: 16.0),
@@ -98,9 +119,10 @@ class _MyItemFormState extends State<MyItemForm> {
                   final String name = _nome.text;
                   const int id = 0;
                   final int idEstabelecimento = widget.idEstabelecimento;
+                  final int qtd = int.parse(_adicionar.text);
                   debugPrint(
-                      'Esta sendo criado um item com o Id do estabelecimento: $idEstabelecimento');
-                  final Item newItem = Item(name, idEstabelecimento, id);
+                      'Esta sendo criado um item com o Id do estabelecimento: $idEstabelecimento e foi atribuído o valor de: $qtd');
+                  final Item newItem = Item(name, idEstabelecimento, id, qtd);
                   _itemDao.save(newItem).then((id) => Navigator.pop(context));
                 }
               },

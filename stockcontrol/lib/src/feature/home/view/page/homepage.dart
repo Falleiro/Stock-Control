@@ -15,12 +15,92 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  final EstabelecimentoDao _dao = EstabelecimentoDao();
   @override
   Widget build(BuildContext context) {
+    _dao.findAll();
     return Scaffold(
-        appBar: _minhabarra('appbar-homepage'.i18n(), context),
-        body: const MeuBody(),
-        floatingActionButton: const MeuFoatingActionButton());
+      appBar: _minhabarra('appbar-homepage'.i18n(), context),
+      body: FutureBuilder<List<Estabelecimento>>(
+        initialData: const [],
+        future: _dao.findAll(),
+        builder: (context, snapshot) {
+          switch (snapshot.connectionState) {
+            case ConnectionState.none:
+              return Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [Text('clique-no-botao-para-comecar'.i18n())],
+                ),
+              );
+            case ConnectionState.waiting:
+              return Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: [
+                    const CircularProgressIndicator(),
+                    Text('carregando'.i18n()),
+                  ],
+                ),
+              );
+            case ConnectionState.done:
+              final List<Estabelecimento> estabelecimentos =
+                  snapshot.data ?? [];
+              return ListView.builder(
+                padding: const EdgeInsets.all(8),
+                itemCount: estabelecimentos.length,
+                itemBuilder: (context, int index) {
+                  final estabelecimento = estabelecimentos[index];
+                  return Linha(
+                    text: estabelecimento.name,
+                    origem: 'estabelecimento',
+                    id: estabelecimento.id,
+                  );
+                },
+              );
+            case ConnectionState.active:
+              break;
+          }
+          return Text('unknown-error'.i18n());
+        },
+      ),
+      floatingActionButton: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Container(
+            padding: const EdgeInsets.only(left: 24),
+            child: FloatingActionButton(
+              heroTag: null,
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const UserLocalization()),
+                );
+              },
+              tooltip: 'tooltip-localization'.i18n(),
+              child: const Icon(Icons.map),
+            ),
+          ),
+          FloatingActionButton(
+            heroTag: null,
+            onPressed: () async {
+              await Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const UserStockCreate(),
+                ),
+              );
+              setState(() {});
+            },
+            tooltip: 'tooltip-estabelecimento'.i18n(),
+            child: const Icon(Icons.add),
+          ),
+        ],
+      ),
+    );
   }
 }
 
@@ -44,110 +124,4 @@ PreferredSizeWidget _minhabarra(String texto, context) {
       )
     ],
   );
-}
-
-class MeuBody extends StatefulWidget {
-  const MeuBody({super.key});
-
-  @override
-  State<MeuBody> createState() => _MeuBodyState();
-}
-
-class _MeuBodyState extends State<MeuBody> {
-  final EstabelecimentoDao _dao = EstabelecimentoDao();
-  @override
-  Widget build(BuildContext context) {
-    _dao.findAll();
-    return FutureBuilder<List<Estabelecimento>>(
-      initialData: const [],
-      future: _dao.findAll(),
-      builder: (context, snapshot) {
-        switch (snapshot.connectionState) {
-          case ConnectionState.none:
-            return Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [Text('clique-no-botao-para-comecar'.i18n())],
-              ),
-            );
-          case ConnectionState.waiting:
-            return Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.end,
-                children: [
-                  const CircularProgressIndicator(),
-                  Text('carregando'.i18n()),
-                ],
-              ),
-            );
-          case ConnectionState.done:
-            final List<Estabelecimento> estabelecimentos = snapshot.data ?? [];
-            return ListView.builder(
-              padding: const EdgeInsets.all(8),
-              itemCount: estabelecimentos.length,
-              itemBuilder: (context, int index) {
-                final estabelecimento = estabelecimentos[index];
-                return Linha(
-                  text: estabelecimento.name,
-                  origem: 'estabelecimento',
-                  id: estabelecimento.id,
-                );
-              },
-            );
-          case ConnectionState.active:
-            break;
-        }
-        return Text('unknown-error'.i18n());
-      },
-    );
-  }
-}
-
-class MeuFoatingActionButton extends StatefulWidget {
-  const MeuFoatingActionButton({super.key});
-
-  @override
-  State<MeuFoatingActionButton> createState() => _MeuFoatingActionButtonState();
-}
-
-class _MeuFoatingActionButtonState extends State<MeuFoatingActionButton> {
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Container(
-          padding: const EdgeInsets.only(left: 24),
-          child: FloatingActionButton(
-            heroTag: null,
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) => const UserLocalization()),
-              );
-            },
-            tooltip: 'tooltip-localization'.i18n(),
-            child: const Icon(Icons.map),
-          ),
-        ),
-        FloatingActionButton(
-          heroTag: null,
-          onPressed: () async {
-            await Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => const UserStockCreate(),
-              ),
-            );
-            setState(() {});
-          },
-          tooltip: 'tooltip-estabelecimento'.i18n(),
-          child: const Icon(Icons.add),
-        ),
-      ],
-    );
-  }
 }
