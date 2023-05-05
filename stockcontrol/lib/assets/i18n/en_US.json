@@ -42,6 +42,7 @@
     "tooltip-item": "Go to 'Add item'",
     "tooltip-stock": "Go to 'Add estabelecimento'",
     "tooltip-localization": "Go to 'Localization'",
+    "tooltip-estabelecimento": "Go to 'Establishment'",
     "nome-estabelecimento": "Stock Name",
     "cep": "CEP",
     "uf": "UF",

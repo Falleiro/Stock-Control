@@ -35,30 +35,6 @@ class _SignupPageState extends State<SignupPage> {
                       fontSize: 30, color: Color.fromARGB(255, 16, 52, 153)),
                 ),
                 SizedBox(height: 30),
-                Row(
-                  children: [
-                    Text("${"idioma".i18n()}:"),
-                    SizedBox(
-                        width: 70,
-                        height: 35,
-                        child: IconButton(
-                          padding: const EdgeInsets.symmetric(vertical: 10.0),
-                          onPressed: () {
-                            Locale(pt as String);
-                          },
-                          icon: Text("pt".i18n()),
-                        )),
-                    SizedBox(
-                        width: 70,
-                        height: 35,
-                        child: IconButton(
-                          onPressed: () {
-                            Locale(en as String);
-                          },
-                          icon: Text("en".i18n()),
-                        )),
-                  ],
-                ),
                 Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
