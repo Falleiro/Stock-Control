@@ -13,7 +13,5 @@ void main() {
   _estabelecimentoDao
       .findAll()
       .then((estabelecimentos) => debugPrint(estabelecimentos.toString()));
-  _itemDao
-      .findAll()
-      .then((estabelecimentos) => debugPrint(estabelecimentos.toString()));
+  _itemDao.findAll().then((itens) => debugPrint(itens.toString()));
 }

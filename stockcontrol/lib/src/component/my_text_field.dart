@@ -27,11 +27,10 @@ class _MyTextFieldState extends State<MyTextField> {
       child: TextFormField(
         validator: (value) {
           if ((value == null || value.isEmpty) &&
-              widget.fieldName != "Complemento" &&
-              widget.fieldName != 'Quantidade que deseja adicionar') {
+              widget.fieldName != "Complemento") {
             return 'validacao-texto'.i18n();
           } else {
-            null;
+            return null;
           }
         },
         controller: widget.myController,

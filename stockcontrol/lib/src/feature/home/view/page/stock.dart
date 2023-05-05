@@ -4,6 +4,7 @@ import 'package:stock_control/src/feature/home/repository/dao/itens_dao.dart';
 import 'package:stock_control/src/feature/home/view/page/item_create.dart';
 import '../../../../component/personalizados.dart';
 import '../../viewmodel/itens_viewmodel.dart';
+import 'item_edit.dart';
 
 class UserStock extends StatefulWidget {
   final String estabelecimento;
@@ -56,10 +57,10 @@ class _UserStockState extends State<UserStock> {
                 itemCount: itens.length,
                 itemBuilder: (context, int index) {
                   final item = itens[index];
-                  return Linha(
-                    text: item.name,
-                    origem: 'item',
+                  return LinhaItem(
                     id: item.id,
+                    name: item.name,
+                    qtd: item.qtd,
                   );
                 },
               );
@@ -84,6 +85,68 @@ class _UserStockState extends State<UserStock> {
         },
         tooltip: 'tooltip-item'.i18n(),
         child: const Icon(Icons.add),
+      ),
+    );
+  }
+}
+
+class LinhaItem extends StatefulWidget {
+  final int id;
+  final String name;
+  final int qtd;
+  const LinhaItem(
+      {super.key, required this.id, required this.name, required this.qtd});
+
+  @override
+  State<LinhaItem> createState() => _LinhaItemState();
+}
+
+class _LinhaItemState extends State<LinhaItem> {
+  @override
+  Widget build(BuildContext context) {
+    final String name = widget.name;
+    final int qtd = widget.qtd;
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Container(
+        decoration: BoxDecoration(
+            color: Colors.grey, borderRadius: BorderRadius.circular(10)),
+        height: 50,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: <Widget>[
+            Expanded(
+              child: TextButton(
+                child: Text(
+                  name,
+                  textAlign: TextAlign.right,
+                  style: const TextStyle(color: Colors.white, fontSize: 26),
+                ),
+                onPressed: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => UserItemEdit(text: name)));
+                },
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8),
+              child: Container(
+                width: 70,
+                decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(10)),
+                child: Text(
+                  overflow: TextOverflow.ellipsis,
+                  textAlign: TextAlign.center,
+                  '$qtd',
+                  style: TextStyle(fontSize: 26),
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

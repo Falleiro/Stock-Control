@@ -19,7 +19,6 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     _dao.findAll();
-
     return Scaffold(
       appBar: _minhabarra('appbar-homepage'.i18n(), context),
       body: FutureBuilder<List<Estabelecimento>>(

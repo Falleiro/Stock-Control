@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:localization/localization.dart';
-import '../feature/home/view/page/localization.dart';
 import '../feature/home/view/page/stock.dart';
 import '../feature/home/view/page/item_edit.dart';
-import '../feature/home/view/page/stock_create.dart';
 import '../feature/home/view/page/stockedit.dart';
 
 class MinhaAppBar extends AppBar {
@@ -88,52 +85,6 @@ class _LinhaState extends State<Linha> {
           ],
         )),
       ),
-    );
-  }
-}
-
-class MeuFloatingActionButton extends StatefulWidget {
-  const MeuFloatingActionButton({Key? key}) : super(key: key);
-  @override
-  State<MeuFloatingActionButton> createState() =>
-      _MeuFloatingActionButtonState();
-}
-
-class _MeuFloatingActionButtonState extends State<MeuFloatingActionButton> {
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Container(
-          padding: const EdgeInsets.only(left: 24),
-          child: FloatingActionButton(
-            heroTag: null,
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) => const UserLocalization()),
-              );
-            },
-            tooltip: 'tooltip-localization'.i18n(),
-            child: const Icon(Icons.map),
-          ),
-        ),
-        FloatingActionButton(
-          heroTag: null,
-          onPressed: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => const UserStockCreate(),
-              ),
-            );
-          },
-          tooltip: "tooltip-estabelecimento".i18n(),
-          child: const Icon(Icons.add),
-        ),
-      ],
     );
   }
 }
