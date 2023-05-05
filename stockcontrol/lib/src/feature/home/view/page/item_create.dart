@@ -3,7 +3,6 @@ import 'package:localization/localization.dart';
 
 import '../../../../component/personalizados.dart';
 import '../../../../component/my_text_field.dart';
-import '../../repository/dao/estabelecimento_dao.dart';
 import '../../repository/dao/itens_dao.dart';
 import '../../viewmodel/itens_viewmodel.dart';
 
