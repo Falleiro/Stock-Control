@@ -1,7 +1,7 @@
-// ignore_for_file: unused_field
-
 import 'package:flutter/material.dart';
 import 'package:localization/localization.dart';
+import 'package:stock_control/src/feature/services/creatorvalid.dart';
+//import '../../../../../../../../stock_API/validation/services/validade.js'
 
 import '../homepage.dart';
 import 'loginpage.dart';
@@ -90,10 +90,8 @@ class _SignupPageState extends State<SignupPage> {
                     const SizedBox(height: 60.0),
                     ElevatedButton(
                       onPressed: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => const HomePage()));
+                        return validatePasswordAndEmail(
+                            context, _email, _password, _confirmPassword);
                       },
                       child: Text("cadastrar".i18n()),
                     ),
