@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../../component/Personalizados.dart';
+import '../../../../component/personalizados.dart';
 
 class UserStockEdit extends StatelessWidget {
   final String estabelecimento;
