@@ -39,7 +39,7 @@ class _MyTextFieldState extends State<MyTextField> {
           labelText: widget.fieldName,
           prefixIcon: Icon(widget.myIcon, color: widget.prefixIconColor),
           border: const OutlineInputBorder(),
-          focusedBorder: OutlineInputBorder(
+          focusedBorder: const OutlineInputBorder(
             borderSide: BorderSide(color: Colors.blue),
           ),
           labelStyle: const TextStyle(color: Colors.black),

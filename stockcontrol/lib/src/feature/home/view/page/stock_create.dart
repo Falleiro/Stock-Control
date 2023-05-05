@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:localization/localization.dart';
 import 'package:stock_control/src/feature/home/repository/dao/estabelecimento_dao.dart';
-import 'package:stock_control/src/feature/home/viewmodel/stockcreate_viewmodel.dart';
+import 'package:stock_control/src/feature/home/viewmodel/estabelecimento_viewmodel.dart';
 
-import '../../../../component/Personalizados.dart';
+import '../../../../component/personalizados.dart';
 import '../../../../component/my_text_field.dart';
 
 class UserStockCreate extends StatefulWidget {
@@ -18,7 +18,11 @@ class _UserStockCreateState extends State<UserStockCreate> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: _minhabarra('appbar-add-estabelecimento'.i18n(), context),
+<<<<<<< HEAD
       body:  SingleChildScrollView(
+=======
+      body: SingleChildScrollView(
+>>>>>>> 19589b4a17f0d2685c8506eefb3a86b095dfe7c4
         child: Column(
           children: [MyStockForm()],
         ),
@@ -126,8 +130,9 @@ class _MyStockFormState extends State<MyStockForm> {
               onPressed: () {
                 if (_formKey.currentState!.validate()) {
                   final String name = _nome.text;
+                  const int id = 0;
                   final Estabelecimento newEstabelecimento =
-                      Estabelecimento(name);
+                      Estabelecimento(name, id);
                   _dao
                       .save(newEstabelecimento)
                       .then((id) => Navigator.pop(context));

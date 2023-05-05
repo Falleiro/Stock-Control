@@ -1,19 +1,36 @@
 import 'package:flutter/material.dart';
 import 'package:localization/localization.dart';
 
-import '../../../../component/Personalizados.dart';
+import '../../../../component/personalizados.dart';
 import '../../../../component/my_text_field.dart';
+import '../../repository/dao/estabelecimento_dao.dart';
+import '../../repository/dao/itens_dao.dart';
+import '../../viewmodel/itens_viewmodel.dart';
 
-class UserItemCreate extends StatelessWidget {
-  const UserItemCreate({super.key});
+class UserItemCreate extends StatefulWidget {
+  final int idEstabelecimento;
+  const UserItemCreate({super.key, required this.idEstabelecimento});
 
+  @override
+  State<UserItemCreate> createState() => _UserItemCreateState();
+}
+
+class _UserItemCreateState extends State<UserItemCreate> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: _minhabarra('appbar-cria-item'.i18n(), context),
+<<<<<<< HEAD
       body:  SingleChildScrollView(
+=======
+      body: SingleChildScrollView(
+>>>>>>> 19589b4a17f0d2685c8506eefb3a86b095dfe7c4
         child: Column(
-          children: [MyItemForm()],
+          children: [
+            MyItemForm(
+              idEstabelecimento: widget.idEstabelecimento,
+            )
+          ],
         ),
       ),
     );
@@ -31,13 +48,15 @@ PreferredSizeWidget _minhabarra(String texto, context) {
 }
 
 class MyItemForm extends StatefulWidget {
-  const MyItemForm({super.key});
+  final int idEstabelecimento;
+  const MyItemForm({super.key, required this.idEstabelecimento});
 
   @override
   State<MyItemForm> createState() => _MyItemFormState();
 }
 
 class _MyItemFormState extends State<MyItemForm> {
+  final ItemDao _itemDao = ItemDao();
   final _formKey = GlobalKey<FormState>();
 
   final _nome = TextEditingController();
@@ -80,7 +99,15 @@ class _MyItemFormState extends State<MyItemForm> {
             width: double.maxFinite,
             child: ElevatedButton(
               onPressed: () {
-                if (_formKey.currentState!.validate()) {}
+                if (_formKey.currentState!.validate()) {
+                  final String name = _nome.text;
+                  const int id = 0;
+                  final int idEstabelecimento = widget.idEstabelecimento;
+                  debugPrint(
+                      'Esta sendo criado um item com o Id do estabelecimento: $idEstabelecimento');
+                  final Item newItem = Item(name, idEstabelecimento, id);
+                  _itemDao.save(newItem).then((id) => Navigator.pop(context));
+                }
               },
               child: Text('submit'.i18n()),
             ),
