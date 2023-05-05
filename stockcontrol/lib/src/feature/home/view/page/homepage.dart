@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:localization/localization.dart';
 import 'package:stock_control/src/feature/home/repository/dao/estabelecimento_dao.dart';
-import 'package:stock_control/src/feature/home/viewmodel/stockcreate_viewmodel.dart';
+import 'package:stock_control/src/feature/home/view/page/stock_create.dart';
+import 'package:stock_control/src/feature/home/viewmodel/estabelecimento_viewmodel.dart';
 import 'account.dart';
-import '../../../../component/Personalizados.dart';
+import '../../../../component/personalizados.dart';
+import 'localization.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -16,6 +18,8 @@ class _HomePageState extends State<HomePage> {
   final EstabelecimentoDao _dao = EstabelecimentoDao();
   @override
   Widget build(BuildContext context) {
+    _dao.findAll();
+
     return Scaffold(
       appBar: _minhabarra('appbar-homepage'.i18n(), context),
       body: FutureBuilder<List<Estabelecimento>>(
@@ -27,7 +31,7 @@ class _HomePageState extends State<HomePage> {
               return Center(
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.end,
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: [Text('clique-no-botao-para-comecar'.i18n())],
                 ),
               );
@@ -51,7 +55,10 @@ class _HomePageState extends State<HomePage> {
                 itemBuilder: (context, int index) {
                   final estabelecimento = estabelecimentos[index];
                   return Linha(
-                      text: estabelecimento.name, origem: 'estabelecimento');
+                    text: estabelecimento.name,
+                    origem: 'estabelecimento',
+                    id: estabelecimento.id,
+                  );
                 },
               );
             case ConnectionState.active:
@@ -60,7 +67,40 @@ class _HomePageState extends State<HomePage> {
           return Text('unknown-error'.i18n());
         },
       ),
-      floatingActionButton: MeuFloatingActionButton(),
+      floatingActionButton: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Container(
+            padding: const EdgeInsets.only(left: 24),
+            child: FloatingActionButton(
+              heroTag: null,
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const UserLocalization()),
+                );
+              },
+              tooltip: 'tooltip-localization'.i18n(),
+              child: const Icon(Icons.map),
+            ),
+          ),
+          FloatingActionButton(
+            heroTag: null,
+            onPressed: () async {
+              await Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const UserStockCreate(),
+                ),
+              );
+              setState(() {});
+            },
+            tooltip: 'tooltip-estabelecimento'.i18n(),
+            child: const Icon(Icons.add),
+          ),
+        ],
+      ),
     );
   }
 }
