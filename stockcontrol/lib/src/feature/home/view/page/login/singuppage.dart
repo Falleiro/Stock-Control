@@ -1,11 +1,6 @@
-// ignore_for_file: unused_field
-
 import 'package:flutter/material.dart';
 import 'package:localization/localization.dart';
-//import 'package:firebase_auth/firebase_auth.dart';
-//import 'package:stock_control/src/services/firebase_auth_service.dart';
 
-import '../../../../../services/firebase_auth_service.dart';
 import '../homepage.dart';
 import 'loginpage.dart';
 
@@ -21,12 +16,12 @@ class _SignupPageState extends State<SignupPage> {
   late String _confirmPassword;
   late String _birthdate;
 
-  final _auth = FirebaseAuthService(); // instância do FirebaseAuthService
+  bool checkPasswordsMatch(String password, String confirmPassword) {
+    return password == confirmPassword;
+  }
 
   @override
   Widget build(BuildContext context) {
-    const Locale pt = Locale('pt', 'BR');
-    const Locale en = Locale('en', 'US');
     return Scaffold(
       backgroundColor: Color.fromARGB(248, 231, 231, 231),
       body: Center(
@@ -94,19 +89,29 @@ class _SignupPageState extends State<SignupPage> {
                     ),
                     const SizedBox(height: 60.0),
                     ElevatedButton(
-                      onPressed: () async {
-                        try {
-                          final newUser =
-                              await _auth.createUserWithEmailAndPassword(
-                                  email: _email, password: _password);
-                          if (newUser != null) {
+                      onPressed: () {
+                        if (checkPasswordsMatch(_password, _confirmPassword)) {
+                          //mandar _email e _password para a API
+                          if (/*se o retorno da API for certo, faça isso*/ _email !=
+                              '0') {
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
                                     builder: (context) => const HomePage()));
                           }
-                        } catch (e) {
-                          print(e);
+                        } else {
+                          showDialog(
+                              context: context,
+                              builder: (context) => AlertDialog(
+                                    title: Text("erro".i18n()),
+                                    content: Text("senha_diferente".i18n()),
+                                    actions: [
+                                      TextButton(
+                                        onPressed: () => Navigator.pop(context),
+                                        child: Text("ok".i18n()),
+                                      ),
+                                    ],
+                                  ));
                         }
                       },
                       child: Text("cadastrar".i18n()),
