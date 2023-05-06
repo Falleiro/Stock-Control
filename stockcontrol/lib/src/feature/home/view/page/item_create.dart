@@ -20,11 +20,7 @@ class _UserItemCreateState extends State<UserItemCreate> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: _minhabarra('appbar-cria-item'.i18n(), context),
-<<<<<<< HEAD
-      body:  SingleChildScrollView(
-=======
       body: SingleChildScrollView(
->>>>>>> 19589b4a17f0d2685c8506eefb3a86b095dfe7c4
         child: Column(
           children: [
             MyItemForm(
