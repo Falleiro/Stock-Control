@@ -49,4 +49,24 @@ class FirebaseAuthService {
       throw Exception('Ocorreu um erro ao criar a conta: $e');
     }
   }
+
+  Future<UserCredential> signInWithEmailAndPassword(
+      {required String email, required String password}) async {
+    try {
+      final userCredential = await _firebaseAuth.signInWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
+      return userCredential;
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'user-not-found') {
+        throw Exception('Usuário não encontrado.');
+      } else if (e.code == 'wrong-password') {
+        throw Exception('Senha incorreta.');
+      }
+      throw Exception('Ocorreu um erro ao fazer login: ${e.message}');
+    } catch (e) {
+      throw Exception('Ocorreu um erro ao fazer login: $e');
+    }
+  }
 }
