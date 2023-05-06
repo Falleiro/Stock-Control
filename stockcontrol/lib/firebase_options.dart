@@ -67,7 +67,8 @@ class DefaultFirebaseOptions {
     messagingSenderId: '598026633058',
     projectId: 'stock-control-pdm',
     storageBucket: 'stock-control-pdm.appspot.com',
-    iosClientId: '598026633058-vahauug4mk44pahb8e2888mrqd0h5p6l.apps.googleusercontent.com',
+    iosClientId:
+        '598026633058-vahauug4mk44pahb8e2888mrqd0h5p6l.apps.googleusercontent.com',
     iosBundleId: 'com.example.stockcontrol',
   );
 
@@ -77,7 +78,8 @@ class DefaultFirebaseOptions {
     messagingSenderId: '598026633058',
     projectId: 'stock-control-pdm',
     storageBucket: 'stock-control-pdm.appspot.com',
-    iosClientId: '598026633058-qdik77cmjc0o3hglnkubqtsh9eqdjvog.apps.googleusercontent.com',
+    iosClientId:
+        '598026633058-qdik77cmjc0o3hglnkubqtsh9eqdjvog.apps.googleusercontent.com',
     iosBundleId: 'com.example.stockcontrol.RunnerTests',
   );
 }
