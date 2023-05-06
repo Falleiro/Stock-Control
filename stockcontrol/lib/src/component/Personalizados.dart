@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:localization/localization.dart';
-import '../feature/home/view/page/localization.dart';
 import '../feature/home/view/page/stock.dart';
 import '../feature/home/view/page/item_edit.dart';
-import '../feature/home/view/page/stock_create.dart';
 import '../feature/home/view/page/stockedit.dart';
 
 class MinhaAppBar extends AppBar {
@@ -20,7 +17,10 @@ class MinhaAppBar extends AppBar {
 class Linha extends StatefulWidget {
   final String origem;
   final String text;
-  const Linha({super.key, required this.text, required this.origem});
+  //esse id pode ser tanto do estabelecimento quanto do item, depende do que é a linha
+  final int id;
+  const Linha(
+      {super.key, required this.text, required this.origem, required this.id});
 
   @override
   State<Linha> createState() => _LinhaState();
@@ -46,8 +46,9 @@ class _LinhaState extends State<Linha> {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) =>
-                            UserStock(estabelecimento: widget.text),
+                        builder: (context) => UserStock(
+                            estabelecimento: widget.text,
+                            idEstabelecimento: widget.id),
                       ),
                     );
                   } else {}
@@ -55,7 +56,7 @@ class _LinhaState extends State<Linha> {
                 child: Text(
                   widget.text,
                   textAlign: TextAlign.right,
-                  style: TextStyle(color: Colors.white, fontSize: 26),
+                  style: const TextStyle(color: Colors.white, fontSize: 26),
                 ),
               ),
             ),
@@ -75,7 +76,7 @@ class _LinhaState extends State<Linha> {
                     context,
                     MaterialPageRoute(
                       builder: (context) =>
-                          UserItemEdit(text: 'arrumar isso dps'),
+                          const UserItemEdit(text: 'arrumar isso dps'),
                     ),
                   );
                 }
@@ -84,51 +85,6 @@ class _LinhaState extends State<Linha> {
           ],
         )),
       ),
-    );
-  }
-}
-
-class MeuFloatingActionButton extends StatefulWidget {
-  MeuFloatingActionButton({Key? key}) : super(key: key);
-  @override
-  State<MeuFloatingActionButton> createState() =>
-      _MeuFloatingActionButtonState();
-}
-
-class _MeuFloatingActionButtonState extends State<MeuFloatingActionButton> {
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Container(
-          padding: EdgeInsets.only(left: 24),
-          child: FloatingActionButton(
-            heroTag: null,
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => UserLocalization()),
-              );
-            },
-            tooltip: 'tooltip-localization'.i18n(),
-            child: const Icon(Icons.map),
-          ),
-        ),
-        FloatingActionButton(
-          heroTag: null,
-          onPressed: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => UserStockCreate(),
-              ),
-            );
-          },
-          tooltip: "tooltip-estabelecimento".i18n(),
-          child: const Icon(Icons.add),
-        ),
-      ],
     );
   }
 }

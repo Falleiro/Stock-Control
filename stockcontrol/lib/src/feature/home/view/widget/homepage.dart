@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../../../component/Personalizados.dart';
+import '../../../../component/personalizados.dart';
 
 class UserHome extends StatelessWidget {
   const UserHome({super.key});

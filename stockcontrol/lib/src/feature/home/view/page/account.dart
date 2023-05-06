@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:localization/localization.dart';
 
-import '../../../../component/Personalizados.dart';
+import '../../../../component/personalizados.dart';
 
 class UserAccount extends StatelessWidget {
   const UserAccount({super.key});
