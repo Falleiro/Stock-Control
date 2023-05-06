@@ -70,5 +70,7 @@
     "enviar_senha": "Send recovery password",
     "texto_email_enviado": "Your new password has been sent to the email address:",
     "nova_senha_enviada": "New password sent",
-    "ok": "Ok"
+    "ok": "Ok",
+    "senha_diferente": "This password is diferent. Please, try again",
+    "erro": "Error"
 }

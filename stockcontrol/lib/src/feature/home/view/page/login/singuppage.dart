@@ -1,5 +1,3 @@
-// ignore_for_file: unused_field, unused_local_variable
-
 import 'package:flutter/material.dart';
 import 'package:localization/localization.dart';
 
@@ -18,10 +16,12 @@ class _SignupPageState extends State<SignupPage> {
   late String _confirmPassword;
   late String _birthdate;
 
+  bool checkPasswordsMatch(String password, String confirmPassword) {
+    return password == confirmPassword;
+  }
+
   @override
   Widget build(BuildContext context) {
-    const Locale pt = Locale('pt', 'BR');
-    const Locale en = Locale('en', 'US');
     return Scaffold(
       backgroundColor: Color.fromARGB(248, 231, 231, 231),
       body: Center(
@@ -90,10 +90,29 @@ class _SignupPageState extends State<SignupPage> {
                     const SizedBox(height: 60.0),
                     ElevatedButton(
                       onPressed: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => const HomePage()));
+                        if (checkPasswordsMatch(_password, _confirmPassword)) {
+                          //mandar _email e _password para a API
+                          if (/*se o retorno da API for certo, faça isso*/ _email !=
+                              '0') {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => const HomePage()));
+                          }
+                        } else {
+                          showDialog(
+                              context: context,
+                              builder: (context) => AlertDialog(
+                                    title: Text("erro".i18n()),
+                                    content: Text("senha_diferente".i18n()),
+                                    actions: [
+                                      TextButton(
+                                        onPressed: () => Navigator.pop(context),
+                                        child: Text("ok".i18n()),
+                                      ),
+                                    ],
+                                  ));
+                        }
                       },
                       child: Text("cadastrar".i18n()),
                     ),
