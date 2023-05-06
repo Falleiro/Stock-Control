@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:localization/localization.dart';
-
 import '../homepage.dart';
 import 'loginpage.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:stock_control/src/services/firebase_auth_service.dart';
 import 'package:stock_control/firebase_options.dart';
 
@@ -20,6 +20,22 @@ class _SignupPageState extends State<SignupPage> {
 
   bool checkPasswordsMatch(String password, String confirmPassword) {
     return password == confirmPassword;
+  }
+
+  // ignore: non_constant_identifier_names
+  creatuser(String emailrec, String passwordrec) async {
+    try {
+      final userCredential =
+          await FirebaseAuthService().createUserWithEmailAndPassword(
+        email: emailrec,
+        password: passwordrec,
+      );
+      debugPrint('Usuário criado com sucesso: ${userCredential.user!.email}');
+      Navigator.push(
+          context, MaterialPageRoute(builder: (context) => const HomePage()));
+    } catch (e) {
+      debugPrint('Erro ao criar usuário: $e');
+    }
   }
 
   @override
@@ -93,18 +109,7 @@ class _SignupPageState extends State<SignupPage> {
                     ElevatedButton(
                       onPressed: () {
                         if (checkPasswordsMatch(_password, _confirmPassword)) {
-                          // try{
-                          FirebaseAuthService().createUserWithEmailAndPassword(
-                              email: _email, password: _password);
-                          // }
-                          //mandar _email e _password para a API
-                          if (/*se o retorno da API for certo, faça isso*/ _email !=
-                              '0') {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => const HomePage()));
-                          }
+                          creatuser(_email, _password);
                         } else {
                           showDialog(
                               context: context,
