@@ -1,11 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:localization/localization.dart';
+import 'package:stock_control/src/feature/home/repository/dao/itens_dao.dart';
 
 import '../../../../component/personalizados.dart';
 
 class UserItemEdit extends StatefulWidget {
   final String text;
-  const UserItemEdit({super.key, required this.text});
+  final int idEstabelecimento;
+  final int idItem;
+  final int qtdItem;
+  final void Function(int) atualizaQtd;
+  const UserItemEdit({
+    super.key,
+    required this.text,
+    required this.idEstabelecimento,
+    required this.idItem,
+    required this.qtdItem,
+    required this.atualizaQtd,
+  });
 
   @override
   State<UserItemEdit> createState() => _UserItemEditState();
@@ -16,15 +28,18 @@ class _UserItemEditState extends State<UserItemEdit> {
   final _removeFormKey = GlobalKey<FormState>();
   final _add = TextEditingController();
   final _remove = TextEditingController();
+  final ItemDao _dao = ItemDao();
 
   @override
   Widget build(BuildContext context) {
+    _dao.findAllByEstabelecimento(widget.idEstabelecimento);
     return Scaffold(
-      appBar: _minhabarra('${widget.text}', context),
+      appBar: _minhabarra(widget.text, context),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(8),
         child: Column(
           children: [
+            //FORM PARA O ADD
             Padding(
               padding: const EdgeInsets.all(8),
               child: Row(
@@ -50,7 +65,14 @@ class _UserItemEditState extends State<UserItemEdit> {
                       child: ElevatedButton(
                         onPressed: () {
                           if (_addFormKey.currentState!.validate()) {
-                            Navigator.pop(context);
+                            widget.atualizaQtd(
+                                widget.qtdItem + int.parse(_add.text));
+                            _dao
+                                .updateQuantity(
+                                  widget.idItem,
+                                  (widget.qtdItem + int.parse(_add.text)),
+                                )
+                                .then((id) => Navigator.pop(context));
                           }
                         },
                         child: Text('submit'.i18n()),
@@ -60,6 +82,7 @@ class _UserItemEditState extends State<UserItemEdit> {
                 ],
               ),
             ),
+            //FORM PARA O REMOVE
             Padding(
               padding: const EdgeInsets.all(8),
               child: Row(
@@ -72,7 +95,7 @@ class _UserItemEditState extends State<UserItemEdit> {
                         children: [
                           MyTextForm(
                             myController: _remove,
-                            fieldName: 'Quantidade de item que deseja remover',
+                            fieldName: 'remove-item'.i18n(),
                           ),
                         ],
                       ),
@@ -85,7 +108,12 @@ class _UserItemEditState extends State<UserItemEdit> {
                       child: ElevatedButton(
                         onPressed: () {
                           if (_removeFormKey.currentState!.validate()) {
-                            Navigator.pop(context);
+                            widget.atualizaQtd(
+                                widget.qtdItem - int.parse(_remove.text));
+                            _dao
+                                .updateQuantity(widget.idItem,
+                                    (widget.qtdItem - int.parse(_remove.text)))
+                                .then((id) => Navigator.pop(context));
                           }
                         },
                         child: Text('submit'.i18n()),
