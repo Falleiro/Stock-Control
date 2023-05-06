@@ -15,20 +15,6 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-
-  // Testando a conexão com o Firebase
-  // OBS: empresaa.stockcontro já está cadastrado, para cadastrar mude e-mail
-  /* try {
-    final userCredential =
-        await FirebaseAuthService().createUserWithEmailAndPassword(
-      email: 'empresaTeste.stockcontro@gmail.com',
-      password: 'control@123',
-    );
-    debugPrint('Usuário criado com sucesso: ${userCredential.user!.email}');
-  } catch (e) {
-    debugPrint('Erro ao criar usuário: $e');
-  }*/
-
   final EstabelecimentoDao _estabelecimentoDao = EstabelecimentoDao();
   final ItemDao _itemDao = ItemDao();
   runApp(ModularApp(module: AppModule(), child: const AppWidget()));
