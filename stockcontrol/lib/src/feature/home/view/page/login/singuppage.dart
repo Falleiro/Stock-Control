@@ -3,6 +3,8 @@ import 'package:localization/localization.dart';
 
 import '../homepage.dart';
 import 'loginpage.dart';
+import 'package:stock_control/src/services/firebase_auth_service.dart';
+import 'package:stock_control/firebase_options.dart';
 
 class SignupPage extends StatefulWidget {
   @override
@@ -91,6 +93,10 @@ class _SignupPageState extends State<SignupPage> {
                     ElevatedButton(
                       onPressed: () {
                         if (checkPasswordsMatch(_password, _confirmPassword)) {
+                          // try{
+                          FirebaseAuthService().createUserWithEmailAndPassword(
+                              email: _email, password: _password);
+                          // }
                           //mandar _email e _password para a API
                           if (/*se o retorno da API for certo, faça isso*/ _email !=
                               '0') {

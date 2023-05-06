@@ -18,16 +18,16 @@ void main() async {
 
   // Testando a conexão com o Firebase
   // OBS: empresaa.stockcontro já está cadastrado, para cadastrar mude e-mail
-  /*try {
+  /* try {
     final userCredential =
         await FirebaseAuthService().createUserWithEmailAndPassword(
-      email: 'empresaa.stockcontro@gmail.com',
+      email: 'empresaTeste.stockcontro@gmail.com',
       password: 'control@123',
     );
     debugPrint('Usuário criado com sucesso: ${userCredential.user!.email}');
   } catch (e) {
     debugPrint('Erro ao criar usuário: $e');
-  }  */
+  }*/
 
   final EstabelecimentoDao _estabelecimentoDao = EstabelecimentoDao();
   final ItemDao _itemDao = ItemDao();
