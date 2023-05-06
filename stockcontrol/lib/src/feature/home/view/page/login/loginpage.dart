@@ -4,6 +4,8 @@ import 'package:stock_control/src/feature/home/view/page/homepage.dart';
 import 'package:stock_control/src/feature/home/view/page/login/resetpassword.dart';
 import 'package:stock_control/src/feature/home/view/page/login/singuppage.dart';
 
+import '../../../../../services/firebase_auth_service.dart';
+
 class LoginPage extends StatefulWidget {
   @override
   _LoginPageState createState() => _LoginPageState();
@@ -62,10 +64,7 @@ class _LoginPageState extends State<LoginPage> {
               const SizedBox(height: 150),
               ElevatedButton(
                 onPressed: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const HomePage()));
+                  loginuser(_email, _password);
                 },
                 child: Text("entrar".i18n()),
               ),
@@ -83,5 +82,14 @@ class _LoginPageState extends State<LoginPage> {
         ),
       ),
     );
+  }
+
+  loginuser(String emailrec, String passwordrec) async {
+    await FirebaseAuthService().signInWithEmailAndPassword(
+      email: emailrec,
+      password: passwordrec,
+    );
+    Navigator.push(
+        context, MaterialPageRoute(builder: (context) => const HomePage()));
   }
 }
