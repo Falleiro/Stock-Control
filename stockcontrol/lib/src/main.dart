@@ -5,6 +5,7 @@ import '../src/feature/home/repository/dao/estabelecimento_dao.dart';
 //import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:stock_control/src/services/firebase_auth_service.dart';
+import 'package:stock_control/firebase_options.dart';
 
 import 'app_module.dart';
 import 'app_widget.dart';
@@ -12,16 +13,22 @@ import 'app_widget.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
-    options: FirebaseOptions(
-      apiKey: "AIzaSyD-XfAUwc0i3wY0gwWu5APWaDcwS3eXVnQ",
-      authDomain: "stock-control-pdm.firebaseapp.com",
-      databaseURL: "YOUR_DATABASE_URL",
-      projectId: "stock-control-pdm",
-      storageBucket: "stock-control-pdm.appspot.com",
-      messagingSenderId: "598026633058",
-      appId: "1:598026633058:web:5a6438ddadf2245aa8f63b",
-    ),
+    options: DefaultFirebaseOptions.currentPlatform,
   );
+
+  // Testando a conexão com o Firebase
+  // OBS: empresaa.stockcontro já está cadastrado, para cadastrar mude e-mail
+  /*try {
+    final userCredential =
+        await FirebaseAuthService().createUserWithEmailAndPassword(
+      email: 'empresaa.stockcontro@gmail.com',
+      password: 'control@123',
+    );
+    debugPrint('Usuário criado com sucesso: ${userCredential.user!.email}');
+  } catch (e) {
+    debugPrint('Erro ao criar usuário: $e');
+  }  */
+
   final EstabelecimentoDao _estabelecimentoDao = EstabelecimentoDao();
   final ItemDao _itemDao = ItemDao();
   runApp(ModularApp(module: AppModule(), child: const AppWidget()));
