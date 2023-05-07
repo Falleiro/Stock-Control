@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:localization/localization.dart';
 import 'package:stock_control/src/feature/home/view/page/login/loginpage.dart';
 
 class UserAccount extends StatefulWidget {
@@ -20,7 +21,7 @@ class _UserAccountState extends State<UserAccount> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Conta do Usuário'),
+        title: Text("appbar-account".i18n()),
       ),
       body: Center(
         child: Column(
@@ -29,7 +30,7 @@ class _UserAccountState extends State<UserAccount> {
             //Text('Nome do Usuário: ${_user?.displayName ?? ""}'),
             ListTile(
               title: Text(
-                'E-mail do Usuário logado: ',
+                "email_logado".i18n(),
                 textAlign: TextAlign.center,
               ),
               subtitle: Text(
@@ -47,7 +48,7 @@ class _UserAccountState extends State<UserAccount> {
             right: 20.0,
             child: ElevatedButton(
               onPressed: _logout,
-              child: Text('Sair'),
+              child: Text("sair".i18n()),
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.red,
               ),

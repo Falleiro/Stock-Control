@@ -79,5 +79,7 @@
     "email_senha_origatorio": "Email e senha são obrigatórios",
     "email_invalido_ou_senha": "Email ou senha inválidos.",
     "email_invalido": "Email inválido.",
-    "rec_senha": "A senha deve ter pelo menos 6 caracteres."
+    "rec_senha": "A senha deve ter pelo menos 6 caracteres.",
+    "email_logado": "E-mail do Usuário logado:",
+    "sair": "Sair"
 }
