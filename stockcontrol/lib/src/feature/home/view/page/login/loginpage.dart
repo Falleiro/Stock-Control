@@ -85,6 +85,20 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   loginuser(String emailrec, String passwordrec) async {
+    if (!emailrec.contains('@')) {
+      showDialog(
+          context: context,
+          builder: (context) => AlertDialog(
+                title: Text("erro".i18n()),
+                content: Text("email_invalido_ou_senha".i18n()),
+                actions: [
+                  TextButton(
+                    onPressed: () => Navigator.pop(context),
+                    child: Text("ok".i18n()),
+                  ),
+                ],
+              ));
+    }
     await FirebaseAuthService().signInWithEmailAndPassword(
       email: emailrec,
       password: passwordrec,
