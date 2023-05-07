@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import '../feature/home/view/page/stock.dart';
-import '../feature/home/view/page/item_edit.dart';
 import '../feature/home/view/page/stockedit.dart';
 
 class MinhaAppBar extends AppBar {
@@ -63,23 +62,13 @@ class _LinhaState extends State<Linha> {
             IconButton(
               icon: const Icon(Icons.edit),
               onPressed: () {
-                if (widget.origem == 'estabelecimento') {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) =>
-                          UserStockEdit(estabelecimento: widget.text),
-                    ),
-                  );
-                } else {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) =>
-                          const UserItemEdit(text: 'arrumar isso dps'),
-                    ),
-                  );
-                }
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) =>
+                        UserStockEdit(estabelecimento: widget.text),
+                  ),
+                );
               },
             )
           ],
