@@ -20,6 +20,7 @@ class UserStock extends StatefulWidget {
 
 class _UserStockState extends State<UserStock> {
   final ItemDao _dao = ItemDao();
+  final Map<int, int> _itemQuantities = {};
 
   @override
   Widget build(BuildContext context) {
@@ -57,11 +58,17 @@ class _UserStockState extends State<UserStock> {
                 itemCount: itens.length,
                 itemBuilder: (context, int index) {
                   final item = itens[index];
+                  final int quantity = _itemQuantities[item.id] ?? item.qtd;
                   return LinhaItem(
-                    id: item.id,
-                    name: item.name,
-                    qtd: item.qtd,
-                  );
+                      idItem: item.id,
+                      name: item.name,
+                      qtd: quantity,
+                      idEstabelecimento: widget.idEstabelecimento,
+                      updateQuantity: (newQuantity) {
+                        setState(() {
+                          _itemQuantities[item.id] = newQuantity;
+                        });
+                      });
                 },
               );
 
@@ -91,11 +98,19 @@ class _UserStockState extends State<UserStock> {
 }
 
 class LinhaItem extends StatefulWidget {
-  final int id;
+  final int idItem;
   final String name;
   final int qtd;
-  const LinhaItem(
-      {super.key, required this.id, required this.name, required this.qtd});
+  final int idEstabelecimento;
+  final Function(int) updateQuantity;
+  const LinhaItem({
+    super.key,
+    required this.idItem,
+    required this.name,
+    required this.qtd,
+    required this.idEstabelecimento,
+    required this.updateQuantity,
+  });
 
   @override
   State<LinhaItem> createState() => _LinhaItemState();
@@ -105,7 +120,15 @@ class _LinhaItemState extends State<LinhaItem> {
   @override
   Widget build(BuildContext context) {
     final String name = widget.name;
-    final int qtd = widget.qtd;
+    int qtd = widget.qtd;
+
+    void _atualizaQtd(int novaQtd) {
+      setState(() {
+        qtd = novaQtd;
+      });
+      widget.updateQuantity(novaQtd);
+    }
+
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Container(
@@ -124,9 +147,17 @@ class _LinhaItemState extends State<LinhaItem> {
                 ),
                 onPressed: () {
                   Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => UserItemEdit(text: name)));
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => UserItemEdit(
+                        text: name,
+                        idEstabelecimento: widget.idEstabelecimento,
+                        idItem: widget.idItem,
+                        qtdItem: widget.qtd,
+                        atualizaQtd: _atualizaQtd,
+                      ),
+                    ),
+                  );
                 },
               ),
             ),
