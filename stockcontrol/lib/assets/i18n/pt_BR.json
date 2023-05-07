@@ -12,7 +12,7 @@
     "repita_senha": "Repita a senha",
     "cadastrar": "Cadastrar",
     "ja_tem_conta_acesse_aqui": "Já tem uma conta? Acesse aqui",
-    "nome_app": "Controle de estoque",
+    "nome_app": "Stock control",
     "add_estabelecimento": "Adiconar estabelecimento",
     "en": "EN",
     "pt": "PT",
@@ -74,5 +74,11 @@
     "ok": "Ok",
     "nova_senha": "Nova senha",
     "aparecera_senha": "Aqui aparecerá a sua senha",
-    "email_enviado": "E-mail enviado com sucesso!"
+    "email_enviado": "E-mail enviado com sucesso!",
+    "senha_diferente": "As senhas não correspondem. Por favor, tente novamente",
+    "erro": "Erro",
+    "email_senha_origatorio": "Email e senha são obrigatórios",
+    "email_invalido_ou_senha": "Email ou senha inválidos.",
+    "email_invalido": "Email inválido.",
+    "rec_senha": "A senha deve ter pelo menos 6 caracteres."
 }
