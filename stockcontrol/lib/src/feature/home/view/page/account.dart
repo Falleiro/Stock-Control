@@ -1,25 +1,67 @@
 import 'package:flutter/material.dart';
-import 'package:localization/localization.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:stock_control/src/feature/home/view/page/login/loginpage.dart';
 
-import '../../../../component/personalizados.dart';
+class UserAccount extends StatefulWidget {
+  @override
+  _UserAccountState createState() => _UserAccountState();
+}
 
-class UserAccount extends StatelessWidget {
-  const UserAccount({super.key});
+class _UserAccountState extends State<UserAccount> {
+  User? _user;
+
+  @override
+  void initState() {
+    super.initState();
+    _user = FirebaseAuth.instance.currentUser;
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: _minhabarra('appbar-account'.i18n(), context),
+      appBar: AppBar(
+        title: Text('Conta do Usuário'),
+      ),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            //Text('Nome do Usuário: ${_user?.displayName ?? ""}'),
+            ListTile(
+              title: Text(
+                'E-mail do Usuário logado: ',
+                textAlign: TextAlign.center,
+              ),
+              subtitle: Text(
+                '${_user?.email ?? ""}',
+                textAlign: TextAlign.center,
+              ),
+            )
+          ],
+        ),
+      ),
+      floatingActionButton: Stack(
+        children: <Widget>[
+          Positioned(
+            bottom: 20.0,
+            right: 20.0,
+            child: ElevatedButton(
+              onPressed: _logout,
+              child: Text('Sair'),
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.red,
+              ),
+            ),
+          ),
+        ],
+      ),
     );
   }
-}
 
-voltaTela(BuildContext context) => Navigator.pop(context);
-
-PreferredSizeWidget _minhabarra(String texto, context) {
-  return MinhaAppBar(
-    title:
-        Text(texto, style: const TextStyle(color: Colors.white, fontSize: 36)),
-    elevation: 10,
-  );
+  void _logout() async {
+    await FirebaseAuth.instance.signOut();
+    // ignore: use_build_context_synchronously
+    Navigator.push(
+        context, MaterialPageRoute(builder: (context) => LoginPage()));
+  }
 }
