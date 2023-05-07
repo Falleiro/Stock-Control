@@ -118,8 +118,8 @@ PreferredSizeWidget _minhabarra(String texto, context) {
           size: 40,
         ),
         onPressed: () {
-          Navigator.push(context,
-              MaterialPageRoute(builder: (context) => const UserAccount()));
+          Navigator.push(
+              context, MaterialPageRoute(builder: (context) => UserAccount()));
         },
       )
     ],
