@@ -77,5 +77,7 @@
     "email_senha_origatorio": "Email and password are required",
     "email_invalido_ou_senha": "Invalid email or password.",
     "email_invalido": "Invalid email.",
-    "rec_senha": "Password must be at least 6 characters long."
+    "rec_senha": "Password must be at least 6 characters long.",
+    "email_logado": "E-mail login user:",
+    "sair": "Logout"
 }
