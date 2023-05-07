@@ -61,4 +61,14 @@ class ItemDao {
     }
     return items;
   }
+
+  Future<void> updateQuantity(int itemId, int newQuantity) async {
+    final Database db = await getDataBase();
+    await db.update(
+      _tableName,
+      {_qtd: newQuantity},
+      where: '$_id = ?',
+      whereArgs: [itemId],
+    );
+  }
 }
