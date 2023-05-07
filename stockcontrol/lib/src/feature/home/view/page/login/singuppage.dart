@@ -1,10 +1,10 @@
-// ignore_for_file: unused_field, unused_local_variable
-
 import 'package:flutter/material.dart';
 import 'package:localization/localization.dart';
-
 import '../homepage.dart';
 import 'loginpage.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:stock_control/src/services/firebase_auth_service.dart';
+import 'package:stock_control/firebase_options.dart';
 
 class SignupPage extends StatefulWidget {
   @override
@@ -18,10 +18,70 @@ class _SignupPageState extends State<SignupPage> {
   late String _confirmPassword;
   late String _birthdate;
 
+  bool checkPasswordsMatch(String password, String confirmPassword) {
+    return password == confirmPassword;
+  }
+
+  // ignore: non_constant_identifier_names
+  creatuser(String emailrec, String passwordrec) async {
+    if (emailrec.isEmpty || passwordrec.isEmpty) {
+      showDialog(
+          context: context,
+          builder: (context) => AlertDialog(
+                title: Text("erro".i18n()),
+                content: Text("email_senha_origatorio".i18n()),
+                actions: [
+                  TextButton(
+                    onPressed: () => Navigator.pop(context),
+                    child: Text("ok".i18n()),
+                  ),
+                ],
+              ));
+    }
+    if (!emailrec.contains('@')) {
+      showDialog(
+          context: context,
+          builder: (context) => AlertDialog(
+                title: Text("erro".i18n()),
+                content: Text("email_invalido".i18n()),
+                actions: [
+                  TextButton(
+                    onPressed: () => Navigator.pop(context),
+                    child: Text("ok".i18n()),
+                  ),
+                ],
+              ));
+    }
+    if (passwordrec.length < 6) {
+      showDialog(
+          context: context,
+          builder: (context) => AlertDialog(
+                title: Text("erro".i18n()),
+                content: Text("rec_senha".i18n()),
+                actions: [
+                  TextButton(
+                    onPressed: () => Navigator.pop(context),
+                    child: Text("ok".i18n()),
+                  ),
+                ],
+              ));
+    }
+    try {
+      final userCredential =
+          await FirebaseAuthService().createUserWithEmailAndPassword(
+        email: emailrec,
+        password: passwordrec,
+      );
+      debugPrint('Usuário criado com sucesso: ${userCredential.user!.email}');
+      Navigator.push(
+          context, MaterialPageRoute(builder: (context) => const HomePage()));
+    } catch (e) {
+      debugPrint('Erro ao criar usuário: $e');
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
-    const Locale pt = Locale('pt', 'BR');
-    const Locale en = Locale('en', 'US');
     return Scaffold(
       backgroundColor: Color.fromARGB(248, 231, 231, 231),
       body: Center(
@@ -90,10 +150,22 @@ class _SignupPageState extends State<SignupPage> {
                     const SizedBox(height: 60.0),
                     ElevatedButton(
                       onPressed: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => const HomePage()));
+                        if (checkPasswordsMatch(_password, _confirmPassword)) {
+                          creatuser(_email, _password);
+                        } else {
+                          showDialog(
+                              context: context,
+                              builder: (context) => AlertDialog(
+                                    title: Text("erro".i18n()),
+                                    content: Text("senha_diferente".i18n()),
+                                    actions: [
+                                      TextButton(
+                                        onPressed: () => Navigator.pop(context),
+                                        child: Text("ok".i18n()),
+                                      ),
+                                    ],
+                                  ));
+                        }
                       },
                       child: Text("cadastrar".i18n()),
                     ),
