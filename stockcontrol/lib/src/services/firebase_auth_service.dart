@@ -1,7 +1,4 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:stock_control/src/feature/home/view/page/login/singuppage.dart';
-import 'package:stock_control/src/main.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 
 class FirebaseAuthService {
   static final FirebaseAuthService _instance = FirebaseAuthService._();

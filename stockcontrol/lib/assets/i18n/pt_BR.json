@@ -75,5 +75,9 @@
     "aparecera_senha": "Aqui aparecerá a sua senha",
     "email_enviado": "E-mail enviado com sucesso!",
     "senha_diferente": "As senhas não correspondem. Por favor, tente novamente",
-    "erro": "Erro"
+    "erro": "Erro",
+    "email_senha_origatorio": "Email e senha são obrigatórios",
+    "email_invalido_ou_senha": "Email ou senha inválidos.",
+    "email_invalido": "Email inválido.",
+    "rec_senha": "A senha deve ter pelo menos 6 caracteres."
 }

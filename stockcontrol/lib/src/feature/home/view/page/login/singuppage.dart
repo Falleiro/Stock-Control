@@ -24,6 +24,48 @@ class _SignupPageState extends State<SignupPage> {
 
   // ignore: non_constant_identifier_names
   creatuser(String emailrec, String passwordrec) async {
+    if (emailrec.isEmpty || passwordrec.isEmpty) {
+      showDialog(
+          context: context,
+          builder: (context) => AlertDialog(
+                title: Text("erro".i18n()),
+                content: Text("email_senha_origatorio".i18n()),
+                actions: [
+                  TextButton(
+                    onPressed: () => Navigator.pop(context),
+                    child: Text("ok".i18n()),
+                  ),
+                ],
+              ));
+    }
+    if (!emailrec.contains('@')) {
+      showDialog(
+          context: context,
+          builder: (context) => AlertDialog(
+                title: Text("erro".i18n()),
+                content: Text("email_invalido".i18n()),
+                actions: [
+                  TextButton(
+                    onPressed: () => Navigator.pop(context),
+                    child: Text("ok".i18n()),
+                  ),
+                ],
+              ));
+    }
+    if (passwordrec.length < 6) {
+      showDialog(
+          context: context,
+          builder: (context) => AlertDialog(
+                title: Text("erro".i18n()),
+                content: Text("rec_senha".i18n()),
+                actions: [
+                  TextButton(
+                    onPressed: () => Navigator.pop(context),
+                    child: Text("ok".i18n()),
+                  ),
+                ],
+              ));
+    }
     try {
       final userCredential =
           await FirebaseAuthService().createUserWithEmailAndPassword(
