@@ -1,8 +1,6 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:localization/localization.dart';
-import 'package:mailer/mailer.dart';
-import 'package:mailer/smtp_server.dart';
-import 'package:mailer/smtp_server/gmail.dart';
 
 class PasswordResetScreen extends StatefulWidget {
   const PasswordResetScreen({super.key});
@@ -14,6 +12,7 @@ class PasswordResetScreen extends StatefulWidget {
 
 class _PasswordResetScreenState extends State<PasswordResetScreen> {
   final TextEditingController _emailController = TextEditingController();
+  final user = FirebaseAuth.instance.currentUser;
 
   @override
   Widget build(BuildContext context) {
@@ -43,7 +42,7 @@ class _PasswordResetScreenState extends State<PasswordResetScreen> {
             const SizedBox(height: 16.0),
             ElevatedButton(
               onPressed: () {
-                _sendNewPassword(context, _emailController.text);
+                _sendNewPassword(_emailController.text);
               },
               child: Text("enviar_senha".i18n()),
             ),
@@ -53,30 +52,7 @@ class _PasswordResetScreenState extends State<PasswordResetScreen> {
     );
   }
 
-  void _sendNewPassword(BuildContext context, String email) async {
-    final smtpServer = gmail("stockcontrol38@gmail.com", "#Stockcontrol");
-
-    final message = Message()
-      ..from = const Address("stockcontrol38@gmail.com")
-      ..recipients.add(email)
-      ..subject = "Nova senha"
-      ..text = "Aqui aparecerá a sua senha";
-
-    try {
-      await send(message, smtpServer);
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text('E-mail enviado com sucesso!'),
-          duration: const Duration(seconds: 2),
-        ),
-      );
-    } on MailerException catch (e) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text('Erro ao enviar e-mail: $e'),
-          duration: const Duration(seconds: 2),
-        ),
-      );
-    }
+  void _sendNewPassword(String email) async {
+    await FirebaseAuth.instance.sendPasswordResetEmail(email: email);
   }
 }
