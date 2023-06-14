@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:localization/localization.dart';
+import 'package:stock_control/src/feature/home/view/page/account/accoutEdit.dart';
 import 'package:stock_control/src/feature/home/view/page/login/loginpage.dart';
 
 class UserAccount extends StatefulWidget {
@@ -27,7 +28,6 @@ class _UserAccountState extends State<UserAccount> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            //Text('Nome do Usuário: ${_user?.displayName ?? ""}'),
             ListTile(
               title: Text(
                 "email_logado".i18n(),
@@ -54,6 +54,14 @@ class _UserAccountState extends State<UserAccount> {
               ),
             ),
           ),
+          Positioned(
+            bottom: 20.0,
+            left: 20.0,
+            child: ElevatedButton(
+              onPressed: _editAccount,
+              child: Text("editar_conta".i18n()),
+            ),
+          ),
         ],
       ),
     );
@@ -61,8 +69,16 @@ class _UserAccountState extends State<UserAccount> {
 
   void _logout() async {
     await FirebaseAuth.instance.signOut();
-    // ignore: use_build_context_synchronously
     Navigator.push(
-        context, MaterialPageRoute(builder: (context) => LoginPage()));
+      context,
+      MaterialPageRoute(builder: (context) => LoginPage()),
+    );
+  }
+
+  void _editAccount() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => EditAccount()),
+    );
   }
 }

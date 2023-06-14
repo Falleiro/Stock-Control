@@ -59,6 +59,7 @@
     "carregando": "Loading.",
     "unknown-error": "Unknown error",
     "appbar-account": "My account",
+    "appbar-editAccount": "Account Edit",
     "home": "Home",
     "nome-item": "Item name",
     "validade": "Validity",
@@ -79,5 +80,9 @@
     "email_invalido": "Invalid email.",
     "rec_senha": "Password must be at least 6 characters long.",
     "email_logado": "E-mail login user:",
-    "sair": "Logout"
+    "sair": "Logout",
+    "deletar": "Delet",
+    "Voltar": "Back",
+    "texto_exclusão_conta": "Are you sure you want to delete your account? You will lose everything in it.",
+    "editar_conta": "Edit account"
 }
