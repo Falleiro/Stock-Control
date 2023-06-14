@@ -25,7 +25,7 @@ class Linha extends StatefulWidget {
   State<Linha> createState() => _LinhaState();
 }
 
-//LINHA QUE VAI SERVIR PARA ESTABELECIMENTO E ITEM
+//LINHA QUE VAI SERVIR PARA ESTABELECIMENTO
 class _LinhaState extends State<Linha> {
   @override
   Widget build(BuildContext context) {

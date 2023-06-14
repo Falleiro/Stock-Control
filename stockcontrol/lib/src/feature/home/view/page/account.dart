@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:localization/localization.dart';
 import 'package:stock_control/src/feature/home/view/page/login/loginpage.dart';
+import '../..//repository/app_repository.dart';
 
 class UserAccount extends StatefulWidget {
   @override
@@ -34,10 +35,10 @@ class _UserAccountState extends State<UserAccount> {
                 textAlign: TextAlign.center,
               ),
               subtitle: Text(
-                '${_user?.email ?? ""}',
+                _user?.email ?? "",
                 textAlign: TextAlign.center,
               ),
-            )
+            ),
           ],
         ),
       ),
@@ -53,6 +54,17 @@ class _UserAccountState extends State<UserAccount> {
                 backgroundColor: Colors.red,
               ),
             ),
+          ), //extra
+          Positioned(
+            bottom: 20.0,
+            left: 20.0,
+            child: ElevatedButton(
+              onPressed: _deleteacount,
+              child: Text("deletar"),
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.red,
+              ),
+            ),
           ),
         ],
       ),
@@ -64,5 +76,35 @@ class _UserAccountState extends State<UserAccount> {
     // ignore: use_build_context_synchronously
     Navigator.push(
         context, MaterialPageRoute(builder: (context) => LoginPage()));
+  }
+
+//extra
+  void _deleteacount() async {
+    await showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text("Tem certeza que quer deletar sua conta?"),
+          actions: [
+            TextButton(
+              child: Text("Voltar"),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+            TextButton(
+              child: Text("OK"),
+              onPressed: () async {
+                await _user?.delete();
+                // deletar();s
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => LoginPage()));
+              },
+            ),
+          ],
+        );
+      },
+    );
+    //await _user?.reauthenticateWithCredential(password as AuthCredential);
   }
 }

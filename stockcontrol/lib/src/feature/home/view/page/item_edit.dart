@@ -39,6 +39,11 @@ class _UserItemEditState extends State<UserItemEdit> {
         padding: const EdgeInsets.all(8),
         child: Column(
           children: [
+            //extra
+            Text(
+              'Quantidade do item ${widget.text}: ${widget.qtdItem}',
+              style: TextStyle(fontSize: 15),
+            ),
             //FORM PARA O ADD, para A2 arrumar isso aq, pq ta mt grande
             Padding(
               padding: const EdgeInsets.all(8),

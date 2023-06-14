@@ -112,7 +112,6 @@ class _MyItemFormState extends State<MyItemForm> {
         Padding(
           padding: const EdgeInsets.symmetric(vertical: 16.0),
           child: SizedBox(
-            width: double.maxFinite,
             child: ElevatedButton(
               onPressed: () {
                 if (_formKey.currentState!.validate()) {

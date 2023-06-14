@@ -50,18 +50,28 @@ class _HomePageState extends State<HomePage> {
               case ConnectionState.done:
                 final List<Estabelecimento> estabelecimentos =
                     snapshot.data ?? [];
-                return ListView.builder(
-                  padding: const EdgeInsets.all(8),
-                  itemCount: estabelecimentos.length,
-                  itemBuilder: (context, int index) {
-                    final estabelecimento = estabelecimentos[index];
-                    return Linha(
-                      text: estabelecimento.name,
-                      origem: 'estabelecimento',
-                      id: estabelecimento.id,
-                    );
-                  },
-                );
+                //extra
+                if (estabelecimentos.isEmpty) {
+                  return const Center(
+                    child: Text(
+                      'Comece clicando em Adicionar Estabelecimento',
+                      style: TextStyle(fontSize: 16),
+                    ),
+                  );
+                } else {
+                  return ListView.builder(
+                    padding: const EdgeInsets.all(8),
+                    itemCount: estabelecimentos.length,
+                    itemBuilder: (context, int index) {
+                      final estabelecimento = estabelecimentos[index];
+                      return Linha(
+                        text: estabelecimento.name,
+                        origem: 'estabelecimento',
+                        id: estabelecimento.id,
+                      );
+                    },
+                  );
+                }
               case ConnectionState.active:
                 break;
             }
