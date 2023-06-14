@@ -1,10 +1,10 @@
+// ignore_for_file: unused_field
+
 import 'package:flutter/material.dart';
 import 'package:localization/localization.dart';
-import '../homepage.dart';
+import '../homepage/homepage.dart';
 import 'loginpage.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:stock_control/src/services/firebase_auth_service.dart';
-import 'package:stock_control/firebase_options.dart';
 
 class SignupPage extends StatefulWidget {
   @override

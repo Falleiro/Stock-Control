@@ -1,46 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:localization/localization.dart';
-
-import '../../../../component/personalizados.dart';
-import '../../../../component/my_text_field.dart';
-import '../../repository/dao/itens_dao.dart';
-import '../../viewmodel/itens_viewmodel.dart';
-
-class UserItemCreate extends StatefulWidget {
-  final int idEstabelecimento;
-  const UserItemCreate({super.key, required this.idEstabelecimento});
-
-  @override
-  State<UserItemCreate> createState() => _UserItemCreateState();
-}
-
-class _UserItemCreateState extends State<UserItemCreate> {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: _minhabarra('appbar-cria-item'.i18n(), context),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            MyItemForm(
-              idEstabelecimento: widget.idEstabelecimento,
-            )
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-voltaTela(BuildContext context) => Navigator.pop(context);
-
-PreferredSizeWidget _minhabarra(String texto, context) {
-  return MinhaAppBar(
-    title:
-        Text(texto, style: const TextStyle(color: Colors.white, fontSize: 36)),
-    elevation: 10,
-  );
-}
+import 'package:stock_control/src/component/my_text_field.dart';
+import 'package:stock_control/src/feature/repository/dao/itens_dao.dart';
+import 'package:stock_control/src/feature/viewmodel/itens_viewmodel.dart';
 
 class MyItemForm extends StatefulWidget {
   final int idEstabelecimento;
@@ -82,7 +44,8 @@ class _MyItemFormState extends State<MyItemForm> {
           myIcon: Icons.edit,
           prefixIconColor: Colors.blue,
         ),
-        //fazendo o textform especial para o adicionar item
+        //Fazendo um TextFormFiel específico para o campo de adicionar item.
+        //Os outros estão sendo padronizados no /component/my_text_field.dart
         Padding(
           padding: const EdgeInsets.symmetric(vertical: 4),
           child: TextFormField(

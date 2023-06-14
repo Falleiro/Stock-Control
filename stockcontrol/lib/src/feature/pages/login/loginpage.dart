@@ -1,9 +1,9 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:localization/localization.dart';
-import 'package:stock_control/src/feature/home/view/page/homepage.dart';
-import 'package:stock_control/src/feature/home/view/page/login/resetpassword.dart';
-import 'package:stock_control/src/feature/home/view/page/login/singuppage.dart';
+import 'package:stock_control/src/feature/pages/homepage/homepage.dart';
+import 'package:stock_control/src/feature/pages/login/resetpassword.dart';
+import 'package:stock_control/src/feature/pages/login/singuppage.dart';
 import 'package:stock_control/src/services/firebase_auth_service.dart';
 
 class LoginPage extends StatefulWidget {

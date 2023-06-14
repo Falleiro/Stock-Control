@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:localization/localization.dart';
-import 'package:stock_control/src/feature/home/repository/dao/estabelecimento_dao.dart';
-import 'package:stock_control/src/feature/home/view/page/stock_create.dart';
-import 'package:stock_control/src/feature/home/viewmodel/estabelecimento_viewmodel.dart';
-import 'account/account.dart';
-import '../../../../component/personalizados.dart';
-import 'localization.dart';
+import 'package:stock_control/src/feature/pages/homepage/widget/button_row.dart';
+import 'package:stock_control/src/feature/repository/dao/estabelecimento_dao.dart';
+import 'package:stock_control/src/feature/viewmodel/estabelecimento_viewmodel.dart';
+import '../account/account.dart';
+import '../../../component/personalizados.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -29,13 +28,7 @@ class _HomePageState extends State<HomePage> {
           builder: (context, snapshot) {
             switch (snapshot.connectionState) {
               case ConnectionState.none:
-                return Center(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [Text('clique-no-botao-para-comecar'.i18n())],
-                  ),
-                );
+                break;
               case ConnectionState.waiting:
                 return Center(
                   child: Column(
@@ -50,7 +43,6 @@ class _HomePageState extends State<HomePage> {
               case ConnectionState.done:
                 final List<Estabelecimento> estabelecimentos =
                     snapshot.data ?? [];
-                //extra
                 if (estabelecimentos.isEmpty) {
                   return const Center(
                     child: Text(
@@ -78,46 +70,16 @@ class _HomePageState extends State<HomePage> {
             return Text('unknown-error'.i18n());
           },
         ),
-        floatingActionButton: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Container(
-              padding: const EdgeInsets.only(left: 24),
-              child: FloatingActionButton(
-                heroTag: null,
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => const UserLocalization()),
-                  );
-                },
-                tooltip: 'tooltip-localization'.i18n(),
-                child: const Icon(Icons.map),
-              ),
-            ),
-            FloatingActionButton(
-              heroTag: null,
-              onPressed: () async {
-                await Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const UserStockCreate(),
-                  ),
-                );
-                setState(() {});
-              },
-              tooltip: 'tooltip-estabelecimento'.i18n(),
-              child: const Icon(Icons.add),
-            ),
-          ],
-        ),
+        floatingActionButton: ButtonRow(atualizarLista: atualizarLista),
       ),
     );
   }
+
+  Future<void> atualizarLista() async {
+    setState(() {});
+  }
 }
 
-//APP BAR
 PreferredSizeWidget _minhabarra(String texto, context) {
   return MinhaAppBar(
     automaticallyImplyLeading: false,
@@ -131,8 +93,8 @@ PreferredSizeWidget _minhabarra(String texto, context) {
           size: 40,
         ),
         onPressed: () {
-          Navigator.push(
-              context, MaterialPageRoute(builder: (context) => UserAccount()));
+          Navigator.push(context,
+              MaterialPageRoute(builder: (context) => const UserAccount()));
         },
       )
     ],

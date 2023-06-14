@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:localization/localization.dart';
-import 'objectivepage.dart';
+import 'objective_page.dart';
 
 // ignore: camel_case_types
 class PresentationPage extends StatefulWidget {

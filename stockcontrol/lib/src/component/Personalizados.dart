@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import '../feature/home/view/page/stock.dart';
-import '../feature/home/view/page/stockedit.dart';
+import '../feature/pages/stock/stock.dart';
+import '../feature/pages/stock/stockedit.dart';
 
 class MinhaAppBar extends AppBar {
   MinhaAppBar({

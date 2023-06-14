@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:localization/localization.dart';
-import 'package:stock_control/src/feature/home/repository/dao/estabelecimento_dao.dart';
-import 'package:stock_control/src/feature/home/viewmodel/estabelecimento_viewmodel.dart';
+import 'package:stock_control/src/feature/repository/dao/estabelecimento_dao.dart';
+import 'package:stock_control/src/feature/viewmodel/estabelecimento_viewmodel.dart';
 
-import '../../../../component/personalizados.dart';
-import '../../../../component/my_text_field.dart';
+import '../../../component/personalizados.dart';
+import '../../../component/my_text_field.dart';
 
 class UserStockCreate extends StatefulWidget {
-  const UserStockCreate({super.key});
+  final Function atualizarLista;
+  const UserStockCreate({super.key, required this.atualizarLista});
 
   @override
   State<UserStockCreate> createState() => _UserStockCreateState();
@@ -20,7 +21,9 @@ class _UserStockCreateState extends State<UserStockCreate> {
       appBar: _minhabarra('appbar-add-estabelecimento'.i18n(), context),
       body: SingleChildScrollView(
         child: Column(
-          children: [MyStockForm()],
+          children: [
+            MyStockForm(atualizarLista: widget.atualizarLista),
+          ],
         ),
       ),
     );
@@ -38,7 +41,8 @@ PreferredSizeWidget _minhabarra(String texto, context) {
 }
 
 class MyStockForm extends StatefulWidget {
-  const MyStockForm({super.key});
+  final Function atualizarLista;
+  const MyStockForm({super.key, required this.atualizarLista});
 
   @override
   State<MyStockForm> createState() => _MyStockFormState();
@@ -128,9 +132,10 @@ class _MyStockFormState extends State<MyStockForm> {
                   const int id = 0;
                   final Estabelecimento newEstabelecimento =
                       Estabelecimento(name, id);
-                  _dao
-                      .save(newEstabelecimento)
-                      .then((id) => Navigator.pop(context));
+                  _dao.save(newEstabelecimento).then((id) {
+                    widget.atualizarLista();
+                    Navigator.of(context).pop();
+                  });
                 }
               },
               child: Text('submit'.i18n()),

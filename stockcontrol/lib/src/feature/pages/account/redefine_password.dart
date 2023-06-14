@@ -2,6 +2,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class RedefinePassword extends StatefulWidget {
+  const RedefinePassword({super.key});
+
   @override
   _RedefinePasswordState createState() => _RedefinePasswordState();
 }
@@ -46,11 +48,11 @@ class _RedefinePasswordState extends State<RedefinePassword> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text('Senha redefinida'),
-          content: Text('Sua senha foi alterada com sucesso.'),
+          title: const Text('Senha redefinida'),
+          content: const Text('Sua senha foi alterada com sucesso.'),
           actions: <Widget>[
             TextButton(
-              child: Text('OK'),
+              child: const Text('OK'),
               onPressed: () {
                 Navigator.of(context).pop();
               },
@@ -92,10 +94,10 @@ class _RedefinePasswordState extends State<RedefinePassword> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Redefinição de Senha'),
+        title: const Text('Redefinição de Senha'),
       ),
       body: Padding(
-        padding: EdgeInsets.all(16.0),
+        padding: const EdgeInsets.all(16.0),
         child: Form(
           key: _formKey,
           child: Column(
@@ -103,7 +105,7 @@ class _RedefinePasswordState extends State<RedefinePassword> {
             children: [
               TextFormField(
                 controller: _currentPasswordController,
-                decoration: InputDecoration(labelText: 'Senha atual'),
+                decoration: const InputDecoration(labelText: 'Senha atual'),
                 obscureText: true,
                 validator: (value) {
                   if (value!.isEmpty) {
@@ -114,7 +116,7 @@ class _RedefinePasswordState extends State<RedefinePassword> {
               ),
               TextFormField(
                 controller: _newPasswordController,
-                decoration: InputDecoration(labelText: 'Nova senha'),
+                decoration: const InputDecoration(labelText: 'Nova senha'),
                 obscureText: true,
                 onChanged: (value) {
                   setState(() {
@@ -155,7 +157,8 @@ class _RedefinePasswordState extends State<RedefinePassword> {
               ),
               TextFormField(
                 controller: _confirmPasswordController,
-                decoration: InputDecoration(labelText: 'Confirme a nova senha'),
+                decoration:
+                    const InputDecoration(labelText: 'Confirme a nova senha'),
                 obscureText: true,
                 validator: (value) {
                   if (value!.isEmpty) {
@@ -167,14 +170,14 @@ class _RedefinePasswordState extends State<RedefinePassword> {
                   return null;
                 },
               ),
-              SizedBox(height: 16.0),
+              const SizedBox(height: 16.0),
               ElevatedButton(
-                child: Text('Redefinir Senha'),
                 onPressed: _resetPassword,
+                child: const Text('Redefinir Senha'),
               ),
               Text(
                 _errorMessage,
-                style: TextStyle(color: Colors.red),
+                style: const TextStyle(color: Colors.red),
               ),
             ],
           ),

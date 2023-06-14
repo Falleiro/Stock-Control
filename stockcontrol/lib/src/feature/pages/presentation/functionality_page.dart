@@ -1,47 +1,45 @@
 import 'package:flutter/material.dart';
 import 'package:localization/localization.dart';
-import 'functionalitypage.dart';
-import 'presentationpage.dart';
+import '../login/loginpage.dart';
+import 'objective_page.dart';
 
-class ObjectivesPage extends StatelessWidget {
-  const ObjectivesPage({super.key});
+class FuncionalidadesScreen extends StatelessWidget {
+  const FuncionalidadesScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color.fromARGB(248, 231, 231, 231),
+      backgroundColor: const Color.fromARGB(248, 231, 231, 231),
       body: Container(
         padding: const EdgeInsets.all(16.0),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            SizedBox(height: 40.0),
+            const SizedBox(height: 40.0),
             Text(
-              "objetivos".i18n(),
-              style: TextStyle(
+              "funcionalidade_app".i18n(),
+              style: const TextStyle(
                   fontSize: 36, color: Color.fromARGB(255, 16, 52, 153)),
             ),
-            SizedBox(height: 30.0),
-            Text(
-              "texto_objetivo".i18n(),
-              style: TextStyle(fontSize: 20.0),
-              textAlign: TextAlign.center,
-            ),
-            SizedBox(height: 30.0),
+            const SizedBox(height: 16.0),
             Expanded(
               child: ListView(
                 children: [
                   ListTile(
-                    leading: Icon(Icons.timelapse),
-                    title: Text("economizar_tempo".i18n()),
+                    title: Text("cadastro_produto".i18n()),
+                    subtitle: Text("texto_cadastro".i18n()),
                   ),
                   ListTile(
-                    leading: Icon(Icons.monetization_on),
-                    title: Text("reduzir_custos".i18n()),
+                    title: Text("controle_estoque".i18n()),
+                    subtitle: Text("texto_controle".i18n()),
                   ),
                   ListTile(
-                    leading: Icon(Icons.check_circle),
-                    title: Text("melhorar_eficiencia".i18n()),
+                    title: Text("gestao_estabelecimento".i18n()),
+                    subtitle: Text("gestao_texto".i18n()),
+                  ),
+                  ListTile(
+                    title: Text("sugestao_produto".i18n()),
+                    subtitle: Text("texto_sugestao".i18n()),
                   ),
                 ],
               ),
@@ -58,8 +56,7 @@ class ObjectivesPage extends StatelessWidget {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) =>
-                                    const PresentationPage()));
+                                builder: (context) => const ObjectivesPage()));
                       },
                       child: Text("voltar".i18n()),
                     ),
@@ -74,11 +71,11 @@ class ObjectivesPage extends StatelessWidget {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => const FuncionalidadesScreen(),
+                            builder: (context) => LoginPage(),
                           ),
                         );
                       },
-                      child: Text("proximo".i18n()),
+                      child: Text("finalizar".i18n()),
                     ),
                   ),
                 ),

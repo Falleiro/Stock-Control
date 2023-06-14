@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:localization/localization.dart';
-import 'package:stock_control/src/feature/home/view/page/account/accoutEdit.dart';
-import 'package:stock_control/src/feature/home/view/page/login/loginpage.dart';
-import '../..//repository/app_repository.dart';
+import 'package:stock_control/src/feature/pages/account/redefine_password.dart';
+import 'package:stock_control/src/feature/pages/login/loginpage.dart';
 
-class UserAccount extends StatefulWidget {
+class EditAccount extends StatefulWidget {
+  const EditAccount({super.key});
+
   @override
-  _UserAccountState createState() => _UserAccountState();
+  _EditAccountState createState() => _EditAccountState();
 }
 
-class _UserAccountState extends State<UserAccount> {
+class _EditAccountState extends State<EditAccount> {
   User? _user;
 
   @override
@@ -23,12 +24,13 @@ class _UserAccountState extends State<UserAccount> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("appbar-account".i18n()),
+        title: Text("appbar-editAccount".i18n()),
       ),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            //Text('Nome do Usuário: ${_user?.displayName ?? ""}'),
             ListTile(
               title: Text(
                 "email_logado".i18n(),
@@ -38,7 +40,7 @@ class _UserAccountState extends State<UserAccount> {
                 _user?.email ?? "",
                 textAlign: TextAlign.center,
               ),
-            ),
+            )
           ],
         ),
       ),
@@ -48,30 +50,26 @@ class _UserAccountState extends State<UserAccount> {
             bottom: 20.0,
             right: 20.0,
             child: ElevatedButton(
-              onPressed: _logout,
-              child: Text("sair".i18n()),
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.red,
-              ),
-            ),
-          ), //extra
-          Positioned(
-            bottom: 20.0,
-            left: 20.0,
-            child: ElevatedButton(
-              onPressed: _deleteacount,
-              child: Text("deletar"),
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.red,
-              ),
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => RedefinePassword(),
+                  ),
+                );
+              },
+              child: Text("redefinir_senha".i18n()),
             ),
           ),
           Positioned(
             bottom: 20.0,
             left: 20.0,
             child: ElevatedButton(
-              onPressed: _editAccount,
-              child: Text("editar_conta".i18n()),
+              onPressed: _deleteacount,
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.red,
+              ),
+              child: Text("deletar".i18n()),
             ),
           ),
         ],
@@ -79,40 +77,24 @@ class _UserAccountState extends State<UserAccount> {
     );
   }
 
-  void _logout() async {
-    await FirebaseAuth.instance.signOut();
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => LoginPage()),
-    );
-  }
-
-  void _editAccount() {
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => EditAccount()),
-    );
-  }
-
-//extra
   void _deleteacount() async {
     await showDialog(
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text("Tem certeza que quer deletar sua conta?"),
+          title: const Text(
+              "Tem certeza que quer deletar sua conta? Você irá perder tudo que esta nela."),
           actions: [
             TextButton(
-              child: Text("Voltar"),
+              child: Text("Voltar".i18n()),
               onPressed: () {
                 Navigator.of(context).pop();
               },
             ),
             TextButton(
-              child: Text("OK"),
+              child: Text("OK".i18n()),
               onPressed: () async {
                 await _user?.delete();
-                // deletar();s
                 Navigator.push(context,
                     MaterialPageRoute(builder: (context) => LoginPage()));
               },
