@@ -3,7 +3,7 @@ import 'package:localization/localization.dart';
 import 'package:stock_control/src/feature/home/repository/dao/estabelecimento_dao.dart';
 import 'package:stock_control/src/feature/home/view/page/stock_create.dart';
 import 'package:stock_control/src/feature/home/viewmodel/estabelecimento_viewmodel.dart';
-import 'account.dart';
+import 'account/account.dart';
 import '../../../../component/personalizados.dart';
 import 'localization.dart';
 
