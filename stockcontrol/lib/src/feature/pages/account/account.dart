@@ -5,7 +5,7 @@ import 'package:stock_control/src/feature/pages/account/accout_edit.dart';
 import 'package:stock_control/src/feature/pages/login/loginpage.dart';
 
 class UserAccount extends StatefulWidget {
-  const UserAccount({super.key});
+  const UserAccount({Key? key}) : super(key: key);
 
   @override
   _UserAccountState createState() => _UserAccountState();
@@ -55,12 +55,12 @@ class _UserAccountState extends State<UserAccount> {
               ),
               child: Text("sair".i18n()),
             ),
-          ), //extra
+          ),
           Positioned(
             bottom: 20.0,
             left: 20.0,
             child: ElevatedButton(
-              onPressed: _deleteacount,
+              onPressed: _deleteAccount,
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.red,
               ),
@@ -81,22 +81,24 @@ class _UserAccountState extends State<UserAccount> {
   }
 
   void _logout() async {
+    final currentContext = context;
     await FirebaseAuth.instance.signOut();
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => LoginPage()),
-    );
+    await Future.delayed(Duration.zero, () {
+      Navigator.push(
+        currentContext,
+        MaterialPageRoute(builder: (context) => const LoginPage()),
+      );
+    });
   }
 
   void _editAccount() {
     Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => EditAccount()),
+      MaterialPageRoute(builder: (context) => const EditAccount()),
     );
   }
 
-//extra
-  void _deleteacount() async {
+  void _deleteAccount() async {
     await showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -112,16 +114,19 @@ class _UserAccountState extends State<UserAccount> {
             TextButton(
               child: const Text("OK"),
               onPressed: () async {
+                final currentContext = context;
                 await _user?.delete();
-                // deletar();s
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => LoginPage()));
+                await Future.delayed(Duration.zero, () {
+                  Navigator.push(
+                    currentContext,
+                    MaterialPageRoute(builder: (context) => const LoginPage()),
+                  );
+                });
               },
             ),
           ],
         );
       },
     );
-    //await _user?.reauthenticateWithCredential(password as AuthCredential);
   }
 }

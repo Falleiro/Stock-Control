@@ -10,6 +10,8 @@ class UserItemEdit extends StatefulWidget {
   final int idEstabelecimento;
   final int idItem;
   final int qtdItem;
+  final String validade;
+  final int lote;
   final void Function(int) atualizaQtd;
   const UserItemEdit({
     super.key,
@@ -18,6 +20,8 @@ class UserItemEdit extends StatefulWidget {
     required this.idItem,
     required this.qtdItem,
     required this.atualizaQtd,
+    required this.validade,
+    required this.lote,
   });
 
   @override
@@ -29,6 +33,9 @@ class _UserItemEditState extends State<UserItemEdit> {
   final _removeFormKey = GlobalKey<FormState>();
   final _add = TextEditingController();
   final _remove = TextEditingController();
+  final _nome = TextEditingController();
+  final _validade = TextEditingController();
+  final _lote = TextEditingController();
   final ItemDao _dao = ItemDao();
 
   addItem() {
@@ -73,6 +80,7 @@ class _UserItemEditState extends State<UserItemEdit> {
                     child: MyTextForm(
                       myController: _add,
                       fieldName: 'add-item'.i18n(),
+                      hintText: '',
                     ),
                   ),
                 ),
@@ -102,6 +110,7 @@ class _UserItemEditState extends State<UserItemEdit> {
                     child: MyTextForm(
                       myController: _remove,
                       fieldName: 'remove-item'.i18n(),
+                      hintText: '',
                     ),
                   ),
                 ),
@@ -120,6 +129,27 @@ class _UserItemEditState extends State<UserItemEdit> {
               ],
             ),
           ),
+          Form(
+            child: Column(
+              children: [
+                MyTextForm(
+                  myController: _nome,
+                  fieldName: 'Nome do item',
+                  hintText: widget.text,
+                ),
+                MyTextForm(
+                  myController: _lote,
+                  fieldName: 'Lote do item',
+                  hintText: widget.text,
+                ),
+                MyTextForm(
+                  myController: _validade,
+                  fieldName: 'Validade do item',
+                  hintText: widget.text,
+                ),
+              ],
+            ),
+          )
         ],
       ),
     );

@@ -9,7 +9,9 @@ class ItemDao {
       '$_id INTEGER PRIMARY KEY AUTOINCREMENT,'
       '$_name TEXT, '
       '$_qtd INTEGER, '
-      '$_idEstabelecimento INTEGER,'
+      '$_idEstabelecimento INTEGER, '
+      '$_validade TEXT, '
+      '$_lote INTEGER, '
       'FOREIGN KEY ($_idEstabelecimento) REFERENCES estabelecimentos(id))';
 
   static const String _tableName = 'itens';
@@ -17,6 +19,8 @@ class ItemDao {
   static const String _name = 'name';
   static const String _idEstabelecimento = 'estabelecimento_id';
   static const String _qtd = 'qtd';
+  static const String _validade = 'validade';
+  static const String _lote = 'lote';
 
   Future<int> save(Item item) async {
     final Database db = await getDataBase();
@@ -29,6 +33,8 @@ class ItemDao {
     itemMap[_name] = item.name;
     itemMap[_idEstabelecimento] = item.idEstabelecimento;
     itemMap[_qtd] = item.qtd;
+    itemMap[_validade] = item.validade;
+    itemMap[_lote] = item.lote;
     return itemMap;
   }
 
@@ -56,6 +62,8 @@ class ItemDao {
         row[_idEstabelecimento],
         row[_id],
         row[_qtd],
+        row[_validade],
+        row[_lote],
       );
       items.add(item);
     }

@@ -3,8 +3,12 @@ import 'package:flutter/material.dart';
 class MyTextForm extends StatefulWidget {
   final TextEditingController myController;
   final String fieldName;
+  final String hintText;
   const MyTextForm(
-      {super.key, required this.myController, required this.fieldName});
+      {super.key,
+      required this.myController,
+      required this.fieldName,
+      required this.hintText});
 
   @override
   State<MyTextForm> createState() => _MyTextFormState();
@@ -19,6 +23,7 @@ class _MyTextFormState extends State<MyTextForm> {
         controller: widget.myController,
         decoration: InputDecoration(
             labelText: widget.fieldName,
+            hintText: widget.hintText,
             prefixIcon: const Icon(
               Icons.edit,
               color: Colors.blue,

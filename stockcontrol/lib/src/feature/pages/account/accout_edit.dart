@@ -54,7 +54,7 @@ class _EditAccountState extends State<EditAccount> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => RedefinePassword(),
+                    builder: (context) => const RedefinePassword(),
                   ),
                 );
               },
@@ -94,9 +94,19 @@ class _EditAccountState extends State<EditAccount> {
             TextButton(
               child: Text("OK".i18n()),
               onPressed: () async {
+                final currentContext = context;
                 await _user?.delete();
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => LoginPage()));
+                await Future.delayed(
+                  Duration.zero,
+                  () {
+                    Navigator.push(
+                      currentContext,
+                      MaterialPageRoute(
+                        builder: (context) => const LoginPage(),
+                      ),
+                    );
+                  },
+                );
               },
             ),
           ],
