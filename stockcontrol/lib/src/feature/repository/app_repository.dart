@@ -8,10 +8,10 @@ Future<Database> getDataBase() async {
 
   // Descomentar caso queira apagar
   // Exclui o banco de dados antigo
-  // bool exists = await databaseExists(path);
-  // if (exists) {
-  //   await deleteDatabase(path);
-  // }
+  bool exists = await databaseExists(path);
+  if (exists) {
+    await deleteDatabase(path);
+  }
 
   // Cria um novo banco de dados
   return openDatabase(

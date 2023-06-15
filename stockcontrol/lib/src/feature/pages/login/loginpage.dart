@@ -1,4 +1,3 @@
-import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:localization/localization.dart';
 import 'package:stock_control/src/feature/pages/homepage/homepage.dart';
@@ -7,6 +6,8 @@ import 'package:stock_control/src/feature/pages/login/singuppage.dart';
 import 'package:stock_control/src/services/firebase_auth_service.dart';
 
 class LoginPage extends StatefulWidget {
+  const LoginPage({super.key});
+
   @override
   _LoginPageState createState() => _LoginPageState();
 }
@@ -20,7 +21,7 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color.fromARGB(248, 231, 231, 231),
+      backgroundColor: const Color.fromARGB(248, 231, 231, 231),
       body: Center(
         child: Padding(
           padding: const EdgeInsets.all(16.0),
@@ -57,7 +58,7 @@ class _LoginPageState extends State<LoginPage> {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => PasswordResetScreen()));
+                          builder: (context) => const PasswordResetScreen()));
                 },
                 icon: Text(
                   "esqueci_a_senha".i18n(),
@@ -89,8 +90,10 @@ class _LoginPageState extends State<LoginPage> {
               ),
               IconButton(
                 onPressed: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => SignupPage()));
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const SignupPage()));
                 },
                 icon: Text(
                   "nao_tem_conta_cadastre".i18n(),
@@ -109,9 +112,17 @@ class _LoginPageState extends State<LoginPage> {
         email: emailrec,
         password: passwordrec,
       );
-      Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => const HomePage()),
+      final currentContext = context;
+      Future.delayed(
+        Duration.zero,
+        () {
+          Navigator.push(
+            currentContext,
+            MaterialPageRoute(
+              builder: (context) => const HomePage(),
+            ),
+          );
+        },
       );
     } catch (e) {
       String errorMessage;

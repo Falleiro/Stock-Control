@@ -7,6 +7,8 @@ import 'loginpage.dart';
 import 'package:stock_control/src/services/firebase_auth_service.dart';
 
 class SignupPage extends StatefulWidget {
+  const SignupPage({super.key});
+
   @override
   _SignupPageState createState() => _SignupPageState();
 }
@@ -73,8 +75,18 @@ class _SignupPageState extends State<SignupPage> {
         password: passwordrec,
       );
       debugPrint('Usuário criado com sucesso: ${userCredential.user!.email}');
-      Navigator.push(
-          context, MaterialPageRoute(builder: (context) => const HomePage()));
+      final currentContext = context;
+      Future.delayed(
+        Duration.zero,
+        () {
+          Navigator.push(
+            currentContext,
+            MaterialPageRoute(
+              builder: (context) => const HomePage(),
+            ),
+          );
+        },
+      );
     } catch (e) {
       debugPrint('Erro ao criar usuário: $e');
     }
@@ -85,7 +97,7 @@ class _SignupPageState extends State<SignupPage> {
     return WillPopScope(
       onWillPop: () async => false, // Impede o usuário de voltar
       child: Scaffold(
-        backgroundColor: Color.fromARGB(248, 231, 231, 231),
+        backgroundColor: const Color.fromARGB(248, 231, 231, 231),
         body: Center(
           child: Padding(
               padding: const EdgeInsets.all(16.0),
@@ -96,11 +108,11 @@ class _SignupPageState extends State<SignupPage> {
                     style: const TextStyle(
                         fontSize: 30, color: Color.fromARGB(255, 16, 52, 153)),
                   ),
-                  SizedBox(height: 30),
+                  const SizedBox(height: 30),
                   Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      SizedBox(height: 30),
+                      const SizedBox(height: 30),
                       TextFormField(
                         decoration: InputDecoration(labelText: "nome".i18n()),
                         onChanged: (value) {
@@ -109,7 +121,7 @@ class _SignupPageState extends State<SignupPage> {
                           });
                         },
                       ),
-                      SizedBox(height: 30),
+                      const SizedBox(height: 30),
                       TextFormField(
                         decoration: InputDecoration(labelText: "email".i18n()),
                         onChanged: (value) {
@@ -118,7 +130,7 @@ class _SignupPageState extends State<SignupPage> {
                           });
                         },
                       ),
-                      SizedBox(height: 30),
+                      const SizedBox(height: 30),
                       TextFormField(
                         decoration: InputDecoration(
                             labelText: "data_nascimento".i18n()),
@@ -128,7 +140,7 @@ class _SignupPageState extends State<SignupPage> {
                           });
                         },
                       ),
-                      SizedBox(height: 30),
+                      const SizedBox(height: 30),
                       TextFormField(
                         decoration: InputDecoration(labelText: "senha".i18n()),
                         obscureText: true,
@@ -138,7 +150,7 @@ class _SignupPageState extends State<SignupPage> {
                           });
                         },
                       ),
-                      SizedBox(height: 30),
+                      const SizedBox(height: 30),
                       TextFormField(
                         decoration:
                             InputDecoration(labelText: "repita_senha".i18n()),
@@ -179,7 +191,8 @@ class _SignupPageState extends State<SignupPage> {
                     onPressed: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => LoginPage()),
+                        MaterialPageRoute(
+                            builder: (context) => const LoginPage()),
                       );
                     },
                     iconSize: 50,
