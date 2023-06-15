@@ -1,11 +1,11 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:localization/localization.dart';
 import 'package:stock_control/src/feature/pages/account/redefine_password.dart';
 import 'package:stock_control/src/feature/pages/login/loginpage.dart';
+import 'package:flutter/services.dart';
 
 class EditAccount extends StatefulWidget {
   const EditAccount({Key? key}) : super(key: key);
@@ -18,7 +18,6 @@ class _EditAccountState extends State<EditAccount> {
   final _formKey = GlobalKey<FormState>();
   TextEditingController _nameController = TextEditingController();
   TextEditingController _birthdateController = TextEditingController();
-  TextEditingController _emailController = TextEditingController();
   User? _user;
   late DatabaseReference _userRef;
 
@@ -42,32 +41,26 @@ class _EditAccountState extends State<EditAccount> {
               _nameController.text = userData['name'] as String? ?? '';
               _birthdateController.text =
                   userData['birthdate'] as String? ?? '';
-              _emailController.text = _user?.email ?? '';
             });
           }
         } as FutureOr Function(DatabaseEvent value))
         .catchError((error) {
-      // Lidar com o erro, se houver
-      print('Erro ao carregar os dados do usuário: $error');
+      // Handle the error, if any
+      print('Error loading user data: $error');
     });
   }
 
   void _updateUserData() async {
-    await _userRef.update({
-      'name': _nameController.text,
-      'birthdate': _birthdateController.text,
-    });
-
-    try {
-      // Atualizar o email
-      await _user!.updateEmail(_emailController.text);
+    if (_nameController.text.isNotEmpty) {
+      await _userRef.child('name').set(_nameController.text);
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        content: Text("dados_atualizados".i18n()),
+        content: Text('Nome alterado com sucesso!'),
       ));
-    } catch (error) {
-      print('Erro ao atualizar o email: $error');
+    }
+    if (_birthdateController.text.isNotEmpty) {
+      await _userRef.child('birthdate').set(_birthdateController.text);
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        content: Text('Erro ao atualizar o email'),
+        content: Text('Data de aniversário alterada com sucesso!'),
       ));
     }
   }
@@ -84,8 +77,24 @@ class _EditAccountState extends State<EditAccount> {
           child: Form(
             key: _formKey,
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.start,
               children: [
+                ListTile(
+                  title: Text(
+                    'Email logado',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      color: Colors.black,
+                    ),
+                  ),
+                  subtitle: Text(
+                    _user?.email ?? "",
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      color: const Color.fromARGB(255, 129, 124, 124),
+                    ),
+                  ),
+                ),
                 TextFormField(
                   controller: _nameController,
                   decoration: InputDecoration(
@@ -93,92 +102,68 @@ class _EditAccountState extends State<EditAccount> {
                     hintText: 'Digite seu nome',
                   ),
                   style: TextStyle(
-                    color: Colors.black, // Altera a cor do texto para branco
+                    color: Colors.black,
                   ),
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Por favor, digite seu nome';
-                    }
-                    return null;
-                  },
                 ),
                 SizedBox(height: 16),
                 TextFormField(
                   controller: _birthdateController,
                   decoration: InputDecoration(
-                    labelText: 'Data de Nascimento',
-                    hintText: 'Digite sua data de nascimento',
+                    labelText: 'Data de aniversario',
+                    hintText: 'Altere sua data (DD/MM/AAAA)',
                   ),
                   style: TextStyle(
-                      color: Colors.black // Altera a cor do texto para branco
-                      ),
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Por favor, digite sua data de nascimento';
-                    }
-                    return null;
-                  },
-                ),
-                SizedBox(height: 16),
-                TextFormField(
-                  controller: _emailController,
-                  decoration: InputDecoration(
-                    labelText: 'E-mail',
-                    hintText: 'Digite seu e-mail',
+                    color: Colors.black,
                   ),
-                  style: TextStyle(
-                    color: Colors.black, // Altera a cor do texto para branco
-                  ),
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Por favor, digite seu e-mail';
-                    }
-                    return null;
-                  },
+                  inputFormatters: [
+                    FilteringTextInputFormatter.digitsOnly,
+                    _DateInputFormatter(),
+                  ],
                 ),
-                SizedBox(height: 30),
+                SizedBox(height: 55),
                 ElevatedButton(
                   onPressed: () {
                     if (_formKey.currentState!.validate()) {
                       _updateUserData();
                     }
                   },
-                  child: Text("Salvar Alterações"),
+                  child: Text("Salvar modificações"),
                 ),
               ],
             ),
           ),
         ),
       ),
-      floatingActionButton: Stack(
-        children: <Widget>[
-          Positioned(
-            bottom: 20.0,
-            right: 20.0,
-            child: ElevatedButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => RedefinePassword(),
-                  ),
-                );
-              },
-              child: Text("redefinir_senha".i18n()),
-            ),
-          ),
-          Positioned(
-            bottom: 20.0,
-            left: 20.0,
-            child: ElevatedButton(
-              onPressed: _deleteAccount,
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.red,
+      resizeToAvoidBottomInset: false,
+      floatingActionButton: Align(
+        alignment: Alignment.bottomCenter,
+        child: Container(
+          margin: EdgeInsets.only(bottom: 20.0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              ElevatedButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => RedefinePassword(),
+                    ),
+                  );
+                },
+                child: Text("redefinir_senha".i18n()),
               ),
-              child: Text("deletar".i18n()),
-            ),
+              SizedBox(width: 20.0),
+              ElevatedButton(
+                onPressed: _deleteAccount,
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.red,
+                ),
+                child: Text("deletar".i18n()),
+              ),
+            ],
           ),
-        ],
+        ),
       ),
     );
   }
@@ -189,10 +174,10 @@ class _EditAccountState extends State<EditAccount> {
       builder: (BuildContext context) {
         return AlertDialog(
           title: const Text(
-              "Tem certeza que quer deletar sua conta? Você irá perder tudo que está nela."),
+              "Are you sure you want to delete your account? You will lose all your data."),
           actions: [
             TextButton(
-              child: Text("Voltar".i18n()),
+              child: Text("Back".i18n()),
               onPressed: () {
                 Navigator.of(context).pop();
               },
@@ -200,7 +185,13 @@ class _EditAccountState extends State<EditAccount> {
             TextButton(
               child: Text("OK".i18n()),
               onPressed: () async {
+                // Remover nó do usuário no banco de dados
+                await _userRef.remove();
+
+                // Excluir a conta do usuário
                 await _user?.delete();
+
+                // Redirecionar para a página de login
                 Navigator.push(
                   context,
                   MaterialPageRoute(builder: (context) => LoginPage()),
@@ -211,5 +202,31 @@ class _EditAccountState extends State<EditAccount> {
         );
       },
     );
+  }
+}
+
+class _DateInputFormatter extends TextInputFormatter {
+  @override
+  TextEditingValue formatEditUpdate(
+      TextEditingValue oldValue, TextEditingValue newValue) {
+    final String formattedText = _formatDate(newValue.text);
+    return newValue.copyWith(
+      text: formattedText,
+      selection: TextSelection.collapsed(offset: formattedText.length),
+    );
+  }
+
+  String _formatDate(String value) {
+    value = value.replaceAll('/', ''); // Remove all existing slashes
+    if (value.length > 8) {
+      value = value.substring(0, 8); // Limit to 8 characters
+    }
+    if (value.length >= 3) {
+      value = value.substring(0, 2) + '/' + value.substring(2);
+    }
+    if (value.length >= 6) {
+      value = value.substring(0, 5) + '/' + value.substring(5);
+    }
+    return value;
   }
 }
