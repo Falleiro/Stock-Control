@@ -19,6 +19,10 @@ class _SignupPageState extends State<SignupPage> {
   late String _password;
   late String _confirmPassword;
   late String _birthdate;
+  bool _isUpperCaseValid = false;
+  bool _isNumberValid = false;
+  bool _isSpecialCharValid = false;
+  bool _isLengthValid = false;
 
   bool checkPasswordsMatch(String password, String confirmPassword) {
     return password == confirmPassword;
@@ -32,34 +36,6 @@ class _SignupPageState extends State<SignupPage> {
           builder: (context) => AlertDialog(
                 title: Text("erro".i18n()),
                 content: Text("email_senha_origatorio".i18n()),
-                actions: [
-                  TextButton(
-                    onPressed: () => Navigator.pop(context),
-                    child: Text("ok".i18n()),
-                  ),
-                ],
-              ));
-    }
-    if (!emailrec.contains('@')) {
-      showDialog(
-          context: context,
-          builder: (context) => AlertDialog(
-                title: Text("erro".i18n()),
-                content: Text("email_invalido".i18n()),
-                actions: [
-                  TextButton(
-                    onPressed: () => Navigator.pop(context),
-                    child: Text("ok".i18n()),
-                  ),
-                ],
-              ));
-    }
-    if (passwordrec.length < 6) {
-      showDialog(
-          context: context,
-          builder: (context) => AlertDialog(
-                title: Text("erro".i18n()),
-                content: Text("rec_senha".i18n()),
                 actions: [
                   TextButton(
                     onPressed: () => Navigator.pop(context),
@@ -90,6 +66,33 @@ class _SignupPageState extends State<SignupPage> {
     } catch (e) {
       debugPrint('Erro ao criar usuário: $e');
     }
+  }
+
+  String? validatePassword(String value) {
+    if (value.isEmpty) {
+      return 'Digite a nova senha';
+    }
+    if (value.length < 6) {
+      _isLengthValid = false;
+      return 'A senha deve ter pelo menos 6 caracteres';
+    }
+    _isLengthValid = true;
+    if (value.contains(RegExp(r'[A-Z]'))) {
+      _isUpperCaseValid = true;
+    } else {
+      _isUpperCaseValid = false;
+    }
+    if (value.contains(RegExp(r'[0-9]'))) {
+      _isNumberValid = true;
+    } else {
+      _isNumberValid = false;
+    }
+    if (value.contains(RegExp(r'[!@#$%^&*(),.?":{}|<>]'))) {
+      _isSpecialCharValid = true;
+    } else {
+      _isSpecialCharValid = false;
+    }
+    return null;
   }
 
   @override
@@ -147,10 +150,38 @@ class _SignupPageState extends State<SignupPage> {
                         onChanged: (value) {
                           setState(() {
                             _password = value;
+                            validatePassword(value);
                           });
                         },
                       ),
+<<<<<<< HEAD
                       const SizedBox(height: 30),
+=======
+                      Text(
+                        ' Pelo menos 6 caracteres',
+                        style: TextStyle(
+                            color: _isLengthValid ? Colors.green : Colors.red),
+                      ),
+                      Text(
+                        ' Pelo menos uma letra maiúscula',
+                        style: TextStyle(
+                            color:
+                                _isUpperCaseValid ? Colors.green : Colors.red),
+                      ),
+                      Text(
+                        ' Pelo menos um número',
+                        style: TextStyle(
+                            color: _isNumberValid ? Colors.green : Colors.red),
+                      ),
+                      Text(
+                        'Pelo menos um caractere especial',
+                        style: TextStyle(
+                            color: _isSpecialCharValid
+                                ? Colors.green
+                                : Colors.red),
+                      ),
+                      SizedBox(height: 30),
+>>>>>>> 1569be8794d9cf1eec573771fe4e2ebc6d02cac3
                       TextFormField(
                         decoration:
                             InputDecoration(labelText: "repita_senha".i18n()),

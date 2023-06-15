@@ -87,5 +87,7 @@
     "deletar": "Deletar",
     "Voltar": "Voltar",
     "texto_exclusão_conta": "Tem certeza que quer deletar sua conta? Você irá perder tudo que esta nela.",
-    "editar_conta": "Editar conta"
+    "editar_conta": "Editar conta",
+    "campos_obrigatorios": "Campo de usuario e senha vazios.",
+    "caractere_especial": "Pelo menos um caractere especial"
 }

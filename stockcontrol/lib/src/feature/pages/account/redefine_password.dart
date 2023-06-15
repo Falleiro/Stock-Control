@@ -1,5 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:localization/localization.dart';
+import 'package:stock_control/src/feature/pages/account/account.dart';
 
 class RedefinePassword extends StatefulWidget {
   const RedefinePassword({super.key});
@@ -52,9 +54,10 @@ class _RedefinePasswordState extends State<RedefinePassword> {
           content: const Text('Sua senha foi alterada com sucesso.'),
           actions: <Widget>[
             TextButton(
-              child: const Text('OK'),
+              child: Text("OK".i18n()),
               onPressed: () {
-                Navigator.of(context).pop();
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => UserAccount()));
               },
             ),
           ],
@@ -94,7 +97,7 @@ class _RedefinePasswordState extends State<RedefinePassword> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Redefinição de Senha'),
+        title: Text("redefinir_senha".i18n()),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -128,30 +131,22 @@ class _RedefinePasswordState extends State<RedefinePassword> {
                 },
               ),
               Text(
-                _isLengthValid
-                    ? '✓ Pelo menos 6 caracteres'
-                    : '× Pelo menos 6 caracteres',
+                ' Pelo menos 6 caracteres',
                 style: TextStyle(
                     color: _isLengthValid ? Colors.green : Colors.red),
               ),
               Text(
-                _isUpperCaseValid
-                    ? '✓ Pelo menos uma letra maiúscula'
-                    : '× Pelo menos uma letra maiúscula',
+                ' Pelo menos uma letra maiúscula',
                 style: TextStyle(
                     color: _isUpperCaseValid ? Colors.green : Colors.red),
               ),
               Text(
-                _isNumberValid
-                    ? '✓ Pelo menos um número'
-                    : '× Pelo menos um número',
+                ' Pelo menos um número',
                 style: TextStyle(
                     color: _isNumberValid ? Colors.green : Colors.red),
               ),
               Text(
-                _isSpecialCharValid
-                    ? '✓ Pelo menos um caractere especial'
-                    : '× Pelo menos um caractere especial',
+                "caractere_especial".i18n(),
                 style: TextStyle(
                     color: _isSpecialCharValid ? Colors.green : Colors.red),
               ),
@@ -173,7 +168,7 @@ class _RedefinePasswordState extends State<RedefinePassword> {
               const SizedBox(height: 16.0),
               ElevatedButton(
                 onPressed: _resetPassword,
-                child: const Text('Redefinir Senha'),
+                child: Text("redefinir_senha".i18n()),
               ),
               Text(
                 _errorMessage,
