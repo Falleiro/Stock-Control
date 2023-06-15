@@ -18,8 +18,10 @@ class _EditAccountState extends State<EditAccount> {
   final _formKey = GlobalKey<FormState>();
   TextEditingController _nameController = TextEditingController();
   TextEditingController _birthdateController = TextEditingController();
+  TextEditingController _passwordController = TextEditingController();
   User? _user;
   late DatabaseReference _userRef;
+  String? _errorText;
 
   @override
   void initState() {
@@ -53,16 +55,32 @@ class _EditAccountState extends State<EditAccount> {
   void _updateUserData() async {
     if (_nameController.text.isNotEmpty) {
       await _userRef.child('name').set(_nameController.text);
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        content: Text('Nome alterado com sucesso!'),
-      ));
+      _showAlertDialog('Sucesso', 'Nome alterado com sucesso!');
     }
     if (_birthdateController.text.isNotEmpty) {
       await _userRef.child('birthdate').set(_birthdateController.text);
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        content: Text('Data de aniversário alterada com sucesso!'),
-      ));
+      _showAlertDialog('Sucesso', 'Data de aniversário alterada com sucesso!');
     }
+  }
+
+  void _showAlertDialog(String title, String message) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text(title),
+          content: Text(message),
+          actions: <Widget>[
+            TextButton(
+              child: Text('OK'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
   }
 
   @override
@@ -174,7 +192,17 @@ class _EditAccountState extends State<EditAccount> {
       builder: (BuildContext context) {
         return AlertDialog(
           title: const Text(
-              "Are you sure you want to delete your account? You will lose all your data."),
+            "Are you sure you want to delete your account? You will lose all your data.",
+          ),
+          content: TextFormField(
+            controller: _passwordController,
+            obscureText: true,
+            decoration: InputDecoration(
+              labelText: 'Senha',
+              hintText: 'Digite sua senha',
+              errorText: _errorText,
+            ),
+          ),
           actions: [
             TextButton(
               child: Text("Back".i18n()),
@@ -185,17 +213,30 @@ class _EditAccountState extends State<EditAccount> {
             TextButton(
               child: Text("OK".i18n()),
               onPressed: () async {
-                // Remover nó do usuário no banco de dados
-                await _userRef.remove();
+                try {
+                  // Reautentica o usuário
+                  AuthCredential credential = EmailAuthProvider.credential(
+                    email: _user!.email!,
+                    password: _passwordController.text,
+                  );
+                  await _user!.reauthenticateWithCredential(credential);
 
-                // Excluir a conta do usuário
-                await _user?.delete();
+                  // Remove nó do usuário no banco de dados
+                  await _userRef.remove();
 
-                // Redirecionar para a página de login
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => LoginPage()),
-                );
+                  // Exclui a conta do usuário
+                  await _user!.delete();
+
+                  // Redireciona para a página de login
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => LoginPage()),
+                  );
+                } catch (error) {
+                  setState(() {
+                    _errorText = 'Senha inválida';
+                  });
+                }
               },
             ),
           ],
