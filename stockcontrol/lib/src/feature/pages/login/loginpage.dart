@@ -66,7 +66,9 @@ class _LoginPageState extends State<LoginPage> {
               const SizedBox(height: 150),
               ElevatedButton(
                 onPressed: () {
-                  if (_emailKey.currentState!.validate() &&
+                  if (_email.isNotEmpty &&
+                      _password.isNotEmpty &&
+                      _emailKey.currentState!.validate() &&
                       _passwordKey.currentState!.validate()) {
                     loginuser(_email, _password);
                   } else {
@@ -115,7 +117,7 @@ class _LoginPageState extends State<LoginPage> {
       );
     } catch (e) {
       String errorMessage;
-      if (e.toString().contains('Exception: Senha incorreta')) {
+      if (e.toString().contains('Exception: Senha incorreta.')) {
         errorMessage = "Senha_incorreta".i18n();
       } else {
         errorMessage = ("usuario-não-encontrado".i18n());

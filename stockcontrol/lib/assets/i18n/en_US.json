@@ -83,5 +83,6 @@
     "deletar": "Delet",
     "Voltar": "Back",
     "texto_exclusão_conta": "Are you sure you want to delete your account? You will lose everything in it.",
-    "editar_conta": "Edit account"
+    "editar_conta": "Edit account",
+    "campos_obrigatorios": "Campo de usuario e senha vazios."
 }
