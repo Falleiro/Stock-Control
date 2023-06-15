@@ -178,7 +178,7 @@ class _SignupPageState extends State<SignupPage> {
                                 ? Colors.green
                                 : Colors.red),
                       ),
-                      SizedBox(height: 30),
+                      const SizedBox(height: 30),
                       TextFormField(
                         decoration:
                             InputDecoration(labelText: "repita_senha".i18n()),

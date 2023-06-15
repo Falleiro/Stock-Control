@@ -6,19 +6,22 @@ class LinhaItem extends StatefulWidget {
   final String name;
   final int qtd;
   final int idEstabelecimento;
-  final Function(int) updateQuantity;
   final String validade;
   final int lote;
-  const LinhaItem({
-    super.key,
-    required this.idItem,
-    required this.name,
-    required this.qtd,
-    required this.idEstabelecimento,
-    required this.updateQuantity,
-    required this.validade,
-    required this.lote,
-  });
+  final Function(int) updateQuantity;
+  final Function(String) updateName;
+  final Function refresh;
+  const LinhaItem(
+      {super.key,
+      required this.idItem,
+      required this.name,
+      required this.qtd,
+      required this.idEstabelecimento,
+      required this.validade,
+      required this.lote,
+      required this.updateQuantity,
+      required this.updateName,
+      required this.refresh});
 
   @override
   State<LinhaItem> createState() => _LinhaItemState();
@@ -27,7 +30,7 @@ class LinhaItem extends StatefulWidget {
 class _LinhaItemState extends State<LinhaItem> {
   @override
   Widget build(BuildContext context) {
-    final String name = widget.name;
+    String name = widget.name;
     int qtd = widget.qtd;
 
     void atualizaQtd(int novaQtd) {
@@ -35,6 +38,13 @@ class _LinhaItemState extends State<LinhaItem> {
         qtd = novaQtd;
       });
       widget.updateQuantity(novaQtd);
+    }
+
+    void atualizaNome(String novoName) {
+      setState(() {
+        name = novoName.toString();
+      });
+      widget.updateName(novoName);
     }
 
     return Padding(
@@ -58,13 +68,15 @@ class _LinhaItemState extends State<LinhaItem> {
                     context,
                     MaterialPageRoute(
                       builder: (context) => UserItemEdit(
-                        text: name,
+                        name: name,
                         idEstabelecimento: widget.idEstabelecimento,
                         idItem: widget.idItem,
                         qtdItem: widget.qtd,
-                        atualizaQtd: atualizaQtd,
                         validade: widget.validade,
                         lote: widget.lote,
+                        atualizaQtd: atualizaQtd,
+                        atualizaNome: atualizaNome,
+                        refresh: widget.refresh,
                       ),
                     ),
                   );

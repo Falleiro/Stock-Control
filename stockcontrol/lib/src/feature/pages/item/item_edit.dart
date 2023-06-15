@@ -6,22 +6,26 @@ import 'package:stock_control/src/feature/repository/dao/itens_dao.dart';
 import '../../../component/personalizados.dart';
 
 class UserItemEdit extends StatefulWidget {
-  final String text;
+  final String name;
   final int idEstabelecimento;
   final int idItem;
   final int qtdItem;
   final String validade;
   final int lote;
-  final void Function(int) atualizaQtd;
+  final Function(int) atualizaQtd;
+  final Function(String) atualizaNome;
+  final Function refresh;
   const UserItemEdit({
     super.key,
-    required this.text,
+    required this.name,
     required this.idEstabelecimento,
     required this.idItem,
     required this.qtdItem,
-    required this.atualizaQtd,
     required this.validade,
     required this.lote,
+    required this.atualizaQtd,
+    required this.atualizaNome,
+    required this.refresh,
   });
 
   @override
@@ -31,6 +35,9 @@ class UserItemEdit extends StatefulWidget {
 class _UserItemEditState extends State<UserItemEdit> {
   final _addFormKey = GlobalKey<FormState>();
   final _removeFormKey = GlobalKey<FormState>();
+  final _nameFormKey = GlobalKey<FormState>();
+  final _loteFormKey = GlobalKey<FormState>();
+  final _validadeFormKey = GlobalKey<FormState>();
   final _add = TextEditingController();
   final _remove = TextEditingController();
   final _nome = TextEditingController();
@@ -58,16 +65,46 @@ class _UserItemEditState extends State<UserItemEdit> {
     }
   }
 
+  atualizaNome() {
+    if (_nameFormKey.currentState!.validate()) {
+      widget.atualizaNome(_nome.text.toString());
+      _dao
+          .updateName(widget.idItem, _nome.text)
+          .then((id) => Navigator.pop(context));
+    }
+  }
+
+  atualizaLote() {
+    debugPrint('Chamando a função');
+    widget.refresh();
+    if (_loteFormKey.currentState!.validate()) {
+      _dao
+          .updateLote(widget.idItem, int.parse(_lote.text))
+          .then((id) => Navigator.pop(context));
+    }
+  }
+
+  atualizaValidade() {
+    widget.refresh();
+    if (_validadeFormKey.currentState!.validate()) {
+      _dao
+          .updateValidade(widget.idItem, _validade.text)
+          .then((id) => Navigator.pop(context));
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     _dao.findAllByEstabelecimento(widget.idEstabelecimento);
     return Scaffold(
-      appBar: _minhabarra(widget.text, context),
-      body: Column(
+      appBar: _minhabarra(widget.name, context),
+      body: ListView(
         children: [
-          Text(
-            'Quantidade do item ${widget.text}: ${widget.qtdItem}',
-            style: const TextStyle(fontSize: 15),
+          Center(
+            child: Text(
+              'Quantidade de ${widget.name}: ${widget.qtdItem}',
+              style: const TextStyle(fontSize: 15),
+            ),
           ),
           //FORM PARA O ADD
           Padding(
@@ -81,13 +118,14 @@ class _UserItemEditState extends State<UserItemEdit> {
                       myController: _add,
                       fieldName: 'add-item'.i18n(),
                       hintText: '',
+                      isAddOrRemove: true,
                     ),
                   ),
                 ),
                 SizedBox(
                   width: 120,
                   child: Align(
-                    alignment: Alignment.centerRight,
+                    alignment: Alignment.center,
                     child: ElevatedButton(
                       onPressed: () {
                         addItem();
@@ -111,13 +149,14 @@ class _UserItemEditState extends State<UserItemEdit> {
                       myController: _remove,
                       fieldName: 'remove-item'.i18n(),
                       hintText: '',
+                      isAddOrRemove: true,
                     ),
                   ),
                 ),
                 SizedBox(
                   width: 120,
                   child: Align(
-                    alignment: Alignment.centerRight,
+                    alignment: Alignment.center,
                     child: ElevatedButton(
                       onPressed: () {
                         removeItem();
@@ -129,27 +168,98 @@ class _UserItemEditState extends State<UserItemEdit> {
               ],
             ),
           ),
-          Form(
-            child: Column(
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Row(
               children: [
-                MyTextForm(
-                  myController: _nome,
-                  fieldName: 'Nome do item',
-                  hintText: widget.text,
+                Expanded(
+                  child: Form(
+                    key: _nameFormKey,
+                    child: MyTextForm(
+                      myController: _nome,
+                      fieldName: 'Nome do item',
+                      hintText: widget.name,
+                      isAddOrRemove: false,
+                    ),
+                  ),
                 ),
-                MyTextForm(
-                  myController: _lote,
-                  fieldName: 'Lote do item',
-                  hintText: widget.text,
-                ),
-                MyTextForm(
-                  myController: _validade,
-                  fieldName: 'Validade do item',
-                  hintText: widget.text,
+                SizedBox(
+                  width: 120,
+                  child: Align(
+                    alignment: Alignment.center,
+                    child: ElevatedButton(
+                      onPressed: () {
+                        debugPrint('ATUALIANDO O NOME!!');
+                        atualizaNome();
+                      },
+                      child: Text('submit'.i18n()),
+                    ),
+                  ),
                 ),
               ],
             ),
-          )
+          ),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Row(
+              children: [
+                Expanded(
+                  child: Form(
+                    key: _loteFormKey,
+                    child: MyTextForm(
+                      myController: _lote,
+                      fieldName: 'Lote: ${widget.lote}',
+                      hintText: '',
+                      isAddOrRemove: false,
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  width: 120,
+                  child: Align(
+                    alignment: Alignment.center,
+                    child: ElevatedButton(
+                      onPressed: () {
+                        debugPrint('Antes de chamar a função');
+                        atualizaLote();
+                      },
+                      child: Text('submit'.i18n()),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Row(
+              children: [
+                Expanded(
+                  child: Form(
+                    key: _validadeFormKey,
+                    child: MyTextForm(
+                      myController: _validade,
+                      fieldName: 'Validade: ${widget.validade}',
+                      hintText: '',
+                      isAddOrRemove: false,
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  width: 120,
+                  child: Align(
+                    alignment: Alignment.center,
+                    child: ElevatedButton(
+                      onPressed: () {
+                        atualizaValidade();
+                      },
+                      child: Text('submit'.i18n()),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
         ],
       ),
     );

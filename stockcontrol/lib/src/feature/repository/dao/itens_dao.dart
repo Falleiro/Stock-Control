@@ -25,7 +25,7 @@ class ItemDao {
   Future<int> save(Item item) async {
     final Database db = await getDataBase();
     Map<String, dynamic> itemMap = _toMap(item);
-    return db.insert(_tableName, itemMap);
+    return await db.insert(_tableName, itemMap);
   }
 
   Map<String, dynamic> _toMap(Item item) {
@@ -62,8 +62,8 @@ class ItemDao {
         row[_idEstabelecimento],
         row[_id],
         row[_qtd],
-        row[_validade],
         row[_lote],
+        row[_validade],
       );
       items.add(item);
     }
@@ -75,6 +75,39 @@ class ItemDao {
     await db.update(
       _tableName,
       {_qtd: newQuantity},
+      where: '$_id = ?',
+      whereArgs: [itemId],
+    );
+  }
+
+  Future<void> updateName(int itemId, String newName) async {
+    final Database db = await getDataBase();
+    await db.update(
+      _tableName,
+      {_name: newName},
+      where: '$_id = ?',
+      whereArgs: [itemId],
+    );
+  }
+
+  Future<void> updateLote(int itemId, int newLote) async {
+    debugPrint('Agora na função do banco de dados função');
+
+    final Database db = await getDataBase();
+    await db.update(
+      _tableName,
+      {_lote: newLote},
+      where: '$_id = ?',
+      whereArgs: [itemId],
+    );
+    debugPrint('Depois de atualizar');
+  }
+
+  Future<void> updateValidade(int itemId, String newValidade) async {
+    final Database db = await getDataBase();
+    await db.update(
+      _tableName,
+      {_validade: newValidade},
       where: '$_id = ?',
       whereArgs: [itemId],
     );
