@@ -4,11 +4,13 @@ class MyTextForm extends StatefulWidget {
   final TextEditingController myController;
   final String fieldName;
   final String hintText;
+  final bool isAddOrRemove;
   const MyTextForm(
       {super.key,
       required this.myController,
       required this.fieldName,
-      required this.hintText});
+      required this.hintText,
+      required this.isAddOrRemove});
 
   @override
   State<MyTextForm> createState() => _MyTextFormState();
@@ -34,8 +36,14 @@ class _MyTextFormState extends State<MyTextForm> {
             ),
             labelStyle: const TextStyle(color: Colors.black)),
         validator: (value) {
-          if (value != null && int.tryParse(value) == null) {
-            return 'Informe um NÚMERO';
+          if (widget.isAddOrRemove) {
+            if (value != null && int.tryParse(value) == null) {
+              return 'Informe um NÚMERO';
+            }
+          } else {
+            if (value != null && value.isEmpty) {
+              return 'Informe algo no campo';
+            }
           }
           return null;
         },
