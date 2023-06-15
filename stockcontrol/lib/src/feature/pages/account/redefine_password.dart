@@ -56,8 +56,10 @@ class _RedefinePasswordState extends State<RedefinePassword> {
             TextButton(
               child: Text("OK".i18n()),
               onPressed: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => UserAccount()));
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const UserAccount()));
               },
             ),
           ],

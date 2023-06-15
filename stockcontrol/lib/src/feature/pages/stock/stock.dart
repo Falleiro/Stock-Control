@@ -21,6 +21,9 @@ class UserStock extends StatefulWidget {
 class _UserStockState extends State<UserStock> {
   final ItemDao _dao = ItemDao();
   final Map<int, int> _itemQuantities = {};
+  rebuild() {
+    setState(() {});
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -69,9 +72,13 @@ class _UserStockState extends State<UserStock> {
                       validade: item.validade,
                       lote: item.lote,
                       updateQuantity: (newQuantity) {
-                        setState(() {
-                          _itemQuantities[item.id] = newQuantity;
-                        });
+                        rebuild();
+                      },
+                      updateName: (newName) {
+                        rebuild();
+                      },
+                      refresh: () {
+                        rebuild();
                       },
                     );
                   },
