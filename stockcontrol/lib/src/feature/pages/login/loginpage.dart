@@ -92,10 +92,8 @@ class _LoginPageState extends State<LoginPage> {
               ),
               IconButton(
                 onPressed: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const SignupPage()));
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => SignupPage()));
                 },
                 icon: Text(
                   "nao_tem_conta_cadastre".i18n(),

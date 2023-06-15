@@ -75,8 +75,9 @@ class _RedefinePasswordState extends State<RedefinePassword> {
     if (value.length < 6) {
       _isLengthValid = false;
       return 'A senha deve ter pelo menos 6 caracteres';
+    } else {
+      _isLengthValid = true;
     }
-    _isLengthValid = true;
     if (value.contains(RegExp(r'[A-Z]'))) {
       _isUpperCaseValid = true;
     } else {
