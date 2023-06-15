@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import '../feature/home/view/page/stock.dart';
-import '../feature/home/view/page/stockedit.dart';
+import '../feature/pages/stock/stock.dart';
+import '../feature/pages/stock/stockedit.dart';
 
 class MinhaAppBar extends AppBar {
   MinhaAppBar({
@@ -25,7 +25,7 @@ class Linha extends StatefulWidget {
   State<Linha> createState() => _LinhaState();
 }
 
-//LINHA QUE VAI SERVIR PARA ESTABELECIMENTO E ITEM
+//LINHA QUE VAI SERVIR PARA ESTABELECIMENTO
 class _LinhaState extends State<Linha> {
   @override
   Widget build(BuildContext context) {

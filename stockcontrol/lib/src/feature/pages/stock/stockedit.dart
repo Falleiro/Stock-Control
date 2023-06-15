@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:localization/localization.dart';
 
-import '../../../../component/personalizados.dart';
+import '../../../component/personalizados.dart';
 
-class UserLocalization extends StatelessWidget {
-  const UserLocalization({super.key});
+class UserStockEdit extends StatelessWidget {
+  final String estabelecimento;
+  const UserStockEdit({super.key, required this.estabelecimento});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: _minhabarra('appbar-localization'.i18n(), context),
+      appBar: _minhabarra(estabelecimento, context),
     );
   }
 }

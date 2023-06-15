@@ -1,9 +1,11 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:localization/localization.dart';
-import 'presentationpage.dart';
+import 'presentation_page.dart';
 
 class LogoPage extends StatefulWidget {
+  const LogoPage({super.key});
+
   @override
   // ignore: library_private_types_in_public_api
   _LogoPageState createState() => _LogoPageState();

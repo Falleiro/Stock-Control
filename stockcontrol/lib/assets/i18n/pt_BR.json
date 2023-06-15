@@ -42,7 +42,7 @@
     "tooltip-item": "Vai para a tela 'Cria item'",
     "tooltip-stock": "Vai para a tela 'Cria estabelecimento'",
     "tooltip-localization": "Vai para a tela 'Localization'",
-    "tooltip-estabelecimento": "Vai para a tela 'Estabelecimento'",
+    "tooltip-estabelecimento": "Vai para a tela 'Criar Estabelecimento'",
     "nome-estabelecimento": "Nome do Estoque",
     "cep": "CEP",
     "uf": "UF",
@@ -59,6 +59,7 @@
     "carregando": "Carregando",
     "unknown-error": "Erro desconhecido",
     "appbar-account": "Minha conta",
+    "appbar-editAccount": "Editar conta",
     "home": "Home",
     "nome-item": "Nome do item",
     "validade": "Validade",
@@ -82,5 +83,11 @@
     "email_invalido": "Email inválido.",
     "rec_senha": "A senha deve ter pelo menos 6 caracteres.",
     "email_logado": "E-mail do Usuário logado:",
-    "sair": "Sair"
+    "sair": "Sair",
+    "deletar": "Deletar",
+    "Voltar": "Voltar",
+    "texto_exclusão_conta": "Tem certeza que quer deletar sua conta? Você irá perder tudo que esta nela.",
+    "editar_conta": "Editar conta",
+    "campos_obrigatorios": "Campo de usuario e senha vazios.",
+    "caractere_especial": "Pelo menos um caractere especial"
 }

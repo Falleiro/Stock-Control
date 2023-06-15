@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:localization/localization.dart';
-import 'package:stock_control/src/feature/home/repository/dao/itens_dao.dart';
-import 'package:stock_control/src/feature/home/view/page/item_create.dart';
-import '../../../../component/personalizados.dart';
+import 'package:stock_control/src/feature/repository/dao/itens_dao.dart';
+import 'package:stock_control/src/feature/pages/item/item_create.dart';
+import '../../../component/personalizados.dart';
 import '../../viewmodel/itens_viewmodel.dart';
-import 'item_edit.dart';
+import '../item/item_edit.dart';
 
 class UserStock extends StatefulWidget {
   final String estabelecimento;
@@ -122,7 +122,7 @@ class _LinhaItemState extends State<LinhaItem> {
     final String name = widget.name;
     int qtd = widget.qtd;
 
-    void _atualizaQtd(int novaQtd) {
+    void atualizaQtd(int novaQtd) {
       setState(() {
         qtd = novaQtd;
       });
@@ -154,7 +154,7 @@ class _LinhaItemState extends State<LinhaItem> {
                         idEstabelecimento: widget.idEstabelecimento,
                         idItem: widget.idItem,
                         qtdItem: widget.qtd,
-                        atualizaQtd: _atualizaQtd,
+                        atualizaQtd: atualizaQtd,
                       ),
                     ),
                   );
@@ -172,7 +172,7 @@ class _LinhaItemState extends State<LinhaItem> {
                   overflow: TextOverflow.ellipsis,
                   textAlign: TextAlign.center,
                   '$qtd',
-                  style: TextStyle(fontSize: 26),
+                  style: const TextStyle(fontSize: 26),
                 ),
               ),
             ),
