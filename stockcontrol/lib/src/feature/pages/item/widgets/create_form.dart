@@ -82,9 +82,12 @@ class _MyItemFormState extends State<MyItemForm> {
                   const int id = 0;
                   final int idEstabelecimento = widget.idEstabelecimento;
                   final int qtd = int.parse(_adicionar.text);
+                  final int lote = int.parse(_lote.text);
+                  final String validade = _validade.text;
                   debugPrint(
-                      'Esta sendo criado um item com o Id do estabelecimento: $idEstabelecimento e foi atribuído o valor de: $qtd');
-                  final Item newItem = Item(name, idEstabelecimento, id, qtd);
+                      'Esta sendo criado o item $name com o Id do estabelecimento: $idEstabelecimento e foi atribuído o valor de: $qtd, validade: $validade, lote: $lote');
+                  final Item newItem =
+                      Item(name, idEstabelecimento, id, qtd, lote, validade);
                   _itemDao.save(newItem).then((id) => Navigator.pop(context));
                 }
               },
