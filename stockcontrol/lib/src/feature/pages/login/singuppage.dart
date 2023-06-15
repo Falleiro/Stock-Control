@@ -154,9 +154,7 @@ class _SignupPageState extends State<SignupPage> {
                           });
                         },
                       ),
-<<<<<<< HEAD
                       const SizedBox(height: 30),
-=======
                       Text(
                         ' Pelo menos 6 caracteres',
                         style: TextStyle(
@@ -181,7 +179,6 @@ class _SignupPageState extends State<SignupPage> {
                                 : Colors.red),
                       ),
                       SizedBox(height: 30),
->>>>>>> 1569be8794d9cf1eec573771fe4e2ebc6d02cac3
                       TextFormField(
                         decoration:
                             InputDecoration(labelText: "repita_senha".i18n()),
