@@ -23,15 +23,7 @@ class _MyStockFormState extends State<MyStockForm> {
 
   final _uf = TextEditingController();
 
-  final _bairro = TextEditingController();
-
   final _cidade = TextEditingController();
-
-  final _rua = TextEditingController();
-
-  final _numero = TextEditingController();
-
-  final _complemento = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -57,32 +49,8 @@ class _MyStockFormState extends State<MyStockForm> {
           prefixIconColor: Colors.blue,
         ),
         MyTextField(
-          myController: _bairro,
-          fieldName: 'bairro'.i18n(),
-          myIcon: Icons.home,
-          prefixIconColor: Colors.blue,
-        ),
-        MyTextField(
           myController: _cidade,
           fieldName: 'cidade'.i18n(),
-          myIcon: Icons.home,
-          prefixIconColor: Colors.blue,
-        ),
-        MyTextField(
-          myController: _rua,
-          fieldName: 'rua'.i18n(),
-          myIcon: Icons.home,
-          prefixIconColor: Colors.blue,
-        ),
-        MyTextField(
-          myController: _numero,
-          fieldName: 'numero'.i18n(),
-          myIcon: Icons.home,
-          prefixIconColor: Colors.blue,
-        ),
-        MyTextField(
-          myController: _complemento,
-          fieldName: 'complemento'.i18n(),
           myIcon: Icons.home,
           prefixIconColor: Colors.blue,
         ),
