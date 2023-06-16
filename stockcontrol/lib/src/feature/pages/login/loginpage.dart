@@ -20,86 +20,89 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: const Color.fromARGB(248, 231, 231, 231),
-      body: Center(
-        child: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: ListView(
-            children: [
-              Text(
-                "acessar".i18n(),
-                style: const TextStyle(
-                    fontSize: 40, color: Color.fromARGB(255, 16, 52, 153)),
-              ),
-              const SizedBox(height: 90),
-              TextFormField(
-                key: _emailKey,
-                decoration: InputDecoration(labelText: "email".i18n()),
-                onChanged: (value) {
-                  setState(() {
-                    _email = value;
-                  });
-                },
-              ),
-              const SizedBox(height: 30),
-              TextFormField(
-                key: _passwordKey,
-                decoration: InputDecoration(labelText: "senha".i18n()),
-                obscureText: true,
-                onChanged: (value) {
-                  setState(() {
-                    _password = value;
-                  });
-                },
-              ),
-              IconButton(
-                onPressed: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const PasswordResetScreen()));
-                },
-                icon: Text(
-                  "esqueci_a_senha".i18n(),
+    return WillPopScope(
+      onWillPop: () async => false, // Impede o usuário de voltar
+      child: Scaffold(
+        backgroundColor: const Color.fromARGB(248, 231, 231, 231),
+        body: Center(
+          child: Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: ListView(
+              children: [
+                Text(
+                  "acessar".i18n(),
+                  style: const TextStyle(
+                      fontSize: 40, color: Color.fromARGB(255, 16, 52, 153)),
                 ),
-              ),
-              const SizedBox(height: 150),
-              ElevatedButton(
-                onPressed: () {
-                  if (_email.isNotEmpty &&
-                      _password.isNotEmpty &&
-                      _emailKey.currentState!.validate() &&
-                      _passwordKey.currentState!.validate()) {
-                    loginuser(_email, _password);
-                  } else {
-                    showDialog(
-                      context: context,
-                      builder: (context) => AlertDialog(
-                        title: Text("erro".i18n()),
-                        content: Text("campos_obrigatorios".i18n()),
-                        actions: [
-                          TextButton(
-                            onPressed: () => Navigator.pop(context),
-                            child: Text("ok".i18n()),
-                          ),
-                        ],
-                      ),
-                    );
-                  }
-                },
-                child: Text("entrar".i18n()),
-              ),
-              IconButton(
-                onPressed: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => SignupPage()));
-                },
-                icon: Text(
-                  "nao_tem_conta_cadastre".i18n(),
+                const SizedBox(height: 90),
+                TextFormField(
+                  key: _emailKey,
+                  decoration: InputDecoration(labelText: "email".i18n()),
+                  onChanged: (value) {
+                    setState(() {
+                      _email = value;
+                    });
+                  },
                 ),
-              ),
-            ],
+                const SizedBox(height: 30),
+                TextFormField(
+                  key: _passwordKey,
+                  decoration: InputDecoration(labelText: "senha".i18n()),
+                  obscureText: true,
+                  onChanged: (value) {
+                    setState(() {
+                      _password = value;
+                    });
+                  },
+                ),
+                IconButton(
+                  onPressed: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const PasswordResetScreen()));
+                  },
+                  icon: Text(
+                    "esqueci_a_senha".i18n(),
+                  ),
+                ),
+                const SizedBox(height: 150),
+                ElevatedButton(
+                  onPressed: () {
+                    if (_email.isNotEmpty &&
+                        _password.isNotEmpty &&
+                        _emailKey.currentState!.validate() &&
+                        _passwordKey.currentState!.validate()) {
+                      loginuser(_email, _password);
+                    } else {
+                      showDialog(
+                        context: context,
+                        builder: (context) => AlertDialog(
+                          title: Text("erro".i18n()),
+                          content: Text("campos_obrigatorios".i18n()),
+                          actions: [
+                            TextButton(
+                              onPressed: () => Navigator.pop(context),
+                              child: Text("ok".i18n()),
+                            ),
+                          ],
+                        ),
+                      );
+                    }
+                  },
+                  child: Text("entrar".i18n()),
+                ),
+                IconButton(
+                  onPressed: () {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => SignupPage()));
+                  },
+                  icon: Text(
+                    "nao_tem_conta_cadastre".i18n(),
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ),
