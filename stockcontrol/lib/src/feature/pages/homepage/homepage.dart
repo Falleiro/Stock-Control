@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:localization/localization.dart';
 import 'package:stock_control/src/feature/pages/homepage/widget/my_line.dart';
-import 'package:stock_control/src/feature/pages/homepage/widget/button_row.dart';
+import 'package:stock_control/src/feature/pages/homepage/widget/button.dart';
 import 'package:stock_control/src/feature/repository/dao/estabelecimento_dao.dart';
 import 'package:stock_control/src/feature/viewmodel/estabelecimento_viewmodel.dart';
 import '../account/account.dart';
@@ -71,7 +71,7 @@ class _HomePageState extends State<HomePage> {
             return Text('unknown-error'.i18n());
           },
         ),
-        floatingActionButton: ButtonRow(atualizarLista: atualizarLista),
+        floatingActionButton: Button(atualizarLista: atualizarLista),
       ),
     );
   }

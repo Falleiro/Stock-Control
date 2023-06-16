@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:localization/localization.dart';
+import 'package:stock_control/src/feature/pages/item/widgets/delete_button.dart';
 import 'package:stock_control/src/feature/pages/item/widgets/row_form.dart';
 import 'package:stock_control/src/feature/repository/dao/itens_dao.dart';
 
@@ -93,6 +94,11 @@ class _UserItemEditState extends State<UserItemEdit> {
     }
   }
 
+  deletaItem() {
+    widget.refresh();
+    _dao.delete(widget.idItem).then((id) => Navigator.pop(context));
+  }
+
   @override
   Widget build(BuildContext context) {
     _dao.findAllByEstabelecimento(widget.idEstabelecimento);
@@ -149,6 +155,10 @@ class _UserItemEditState extends State<UserItemEdit> {
             hintText: '',
             isAddOrRemove: false,
             operation: atualizaValidade,
+          ),
+          DeleteButton(
+            nomeItem: widget.name,
+            deletaItem: deletaItem,
           ),
         ],
       ),

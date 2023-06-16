@@ -112,4 +112,13 @@ class ItemDao {
       whereArgs: [itemId],
     );
   }
+
+  delete(int itemId) async {
+    final Database db = await getDataBase();
+    return db.delete(
+      _tableName,
+      where: '$_id = ?',
+      whereArgs: [itemId],
+    );
+  }
 }
