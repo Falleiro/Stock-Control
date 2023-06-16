@@ -21,7 +21,6 @@ class _EditAccountState extends State<EditAccount> {
   TextEditingController _passwordController = TextEditingController();
   User? _user;
   late DatabaseReference _userRef;
-  String? _errorText;
 
   @override
   void initState() {
@@ -47,39 +46,50 @@ class _EditAccountState extends State<EditAccount> {
           }
         } as FutureOr Function(DatabaseEvent value))
         .catchError((error) {
-      // Handle the error, if any
-      print('Error loading user data: $error');
+      print('$error');
     });
   }
 
   void _updateUserData() async {
-    if (_nameController.text.isNotEmpty) {
+    if (_nameController.text.isNotEmpty &&
+        _birthdateController.text.isNotEmpty) {
       await _userRef.child('name').set(_nameController.text);
-      _showAlertDialog('Sucesso', 'Nome alterado com sucesso!');
-    }
-    if (_birthdateController.text.isNotEmpty) {
       await _userRef.child('birthdate').set(_birthdateController.text);
-      _showAlertDialog('Sucesso', 'Data de aniversário alterada com sucesso!');
+      _showTemporaryDialog(
+          "nome_e_data_alterado".i18n(), Color.fromRGBO(127, 233, 131, 1));
+    } else if (_nameController.text.isNotEmpty) {
+      await _userRef.child('name').set(_nameController.text);
+      _showTemporaryDialog(
+          "nome_alterado".i18n(), Color.fromRGBO(127, 233, 131, 1));
+    } else if (_birthdateController.text.isNotEmpty) {
+      await _userRef.child('birthdate').set(_birthdateController.text);
+      _showTemporaryDialog(
+          "data_alterada".i18n(), Color.fromRGBO(127, 233, 131, 1));
     }
   }
 
-  void _showAlertDialog(String title, String message) {
+  void _showTemporaryDialog(String message, Color color) {
     showDialog(
       context: context,
       builder: (BuildContext context) {
+        Timer(Duration(seconds: 1, milliseconds: 250), () {
+          Navigator.of(context).pop();
+        });
+
         return AlertDialog(
-          title: Text(title),
           content: Text(message),
-          actions: <Widget>[
-            TextButton(
-              child: Text('OK'),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-            ),
-          ],
+          backgroundColor: color,
         );
       },
+    );
+  }
+
+  void _showSnackBar(String message, Color color) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(message),
+        backgroundColor: color,
+      ),
     );
   }
 
@@ -99,7 +109,7 @@ class _EditAccountState extends State<EditAccount> {
               children: [
                 ListTile(
                   title: Text(
-                    'Email logado',
+                    "email_logado".i18n(),
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       color: Colors.black,
@@ -109,15 +119,15 @@ class _EditAccountState extends State<EditAccount> {
                     _user?.email ?? "",
                     textAlign: TextAlign.center,
                     style: TextStyle(
-                      color: const Color.fromARGB(255, 129, 124, 124),
+                      color: Color.fromARGB(255, 153, 149, 149),
                     ),
                   ),
                 ),
                 TextFormField(
                   controller: _nameController,
                   decoration: InputDecoration(
-                    labelText: 'Nome',
-                    hintText: 'Digite seu nome',
+                    labelText: "nome".i18n(),
+                    hintText: "digite_nome".i18n(),
                   ),
                   style: TextStyle(
                     color: Colors.black,
@@ -127,8 +137,8 @@ class _EditAccountState extends State<EditAccount> {
                 TextFormField(
                   controller: _birthdateController,
                   decoration: InputDecoration(
-                    labelText: 'Data de aniversario',
-                    hintText: 'Altere sua data (DD/MM/AAAA)',
+                    labelText: "data_aniversario".i18n(),
+                    hintText: "alterar_data".i18n(),
                   ),
                   style: TextStyle(
                     color: Colors.black,
@@ -145,7 +155,7 @@ class _EditAccountState extends State<EditAccount> {
                       _updateUserData();
                     }
                   },
-                  child: Text("Salvar modificações"),
+                  child: Text("salvar_modificacoes".i18n()),
                 ),
               ],
             ),
@@ -187,59 +197,74 @@ class _EditAccountState extends State<EditAccount> {
   }
 
   void _deleteAccount() async {
-    await showDialog(
+    String? errorText;
+
+    showDialog(
       context: context,
       builder: (BuildContext context) {
-        return AlertDialog(
-          title: const Text(
-            "Are you sure you want to delete your account? You will lose all your data.",
-          ),
-          content: TextFormField(
-            controller: _passwordController,
-            obscureText: true,
-            decoration: InputDecoration(
-              labelText: 'Senha',
-              hintText: 'Digite sua senha',
-              errorText: _errorText,
-            ),
-          ),
-          actions: [
-            TextButton(
-              child: Text("Back".i18n()),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-            ),
-            TextButton(
-              child: Text("OK".i18n()),
-              onPressed: () async {
-                try {
-                  // Reautentica o usuário
-                  AuthCredential credential = EmailAuthProvider.credential(
-                    email: _user!.email!,
-                    password: _passwordController.text,
-                  );
-                  await _user!.reauthenticateWithCredential(credential);
+        return StatefulBuilder(
+          builder: (BuildContext context, setState) {
+            return AlertDialog(
+              title: Text("texto_exclusão_conta".i18n()),
+              content: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  TextFormField(
+                    controller: _passwordController,
+                    obscureText: true,
+                    decoration: InputDecoration(
+                      labelText: "senha_exclusao".i18n(),
+                      hintText: "digite_senha".i18n(),
+                      errorText: errorText,
+                    ),
+                  ),
+                ],
+              ),
+              actions: [
+                TextButton(
+                  child: Text("voltar".i18n()),
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                ),
+                TextButton(
+                  child: Text("ok".i18n()),
+                  onPressed: () async {
+                    if (_passwordController.text.isEmpty) {
+                      setState(() {
+                        errorText = "digite_senha".i18n();
+                      });
+                      return;
+                    }
 
-                  // Remove nó do usuário no banco de dados
-                  await _userRef.remove();
+                    try {
+                      AuthCredential credential = EmailAuthProvider.credential(
+                        email: _user!.email!,
+                        password: _passwordController.text,
+                      );
+                      await _user!.reauthenticateWithCredential(credential);
 
-                  // Exclui a conta do usuário
-                  await _user!.delete();
+                      await _userRef.remove();
+                      await _user!.delete();
+                      _showSnackBar("conta_deletada".i18n(), Colors.green);
 
-                  // Redireciona para a página de login
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => LoginPage()),
-                  );
-                } catch (error) {
-                  setState(() {
-                    _errorText = 'Senha inválida';
-                  });
-                }
-              },
-            ),
-          ],
+                      Timer(Duration(seconds: 1, milliseconds: 500), () {
+                        Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const LoginPage()),
+                        );
+                      });
+                    } catch (error) {
+                      setState(() {
+                        errorText = "senha_invalida".i18n();
+                      });
+                    }
+                  },
+                ),
+              ],
+            );
+          },
         );
       },
     );
@@ -257,17 +282,14 @@ class _DateInputFormatter extends TextInputFormatter {
     );
   }
 
-  String _formatDate(String value) {
-    value = value.replaceAll('/', ''); // Remove all existing slashes
-    if (value.length > 8) {
-      value = value.substring(0, 8); // Limit to 8 characters
+  String _formatDate(String text) {
+    text = text.replaceAll('/', '');
+    if (text.length <= 2) {
+      return text;
+    } else if (text.length <= 4) {
+      return '${text.substring(0, 2)}/${text.substring(2)}';
+    } else {
+      return '${text.substring(0, 2)}/${text.substring(2, 4)}/${text.substring(4)}';
     }
-    if (value.length >= 3) {
-      value = value.substring(0, 2) + '/' + value.substring(2);
-    }
-    if (value.length >= 6) {
-      value = value.substring(0, 5) + '/' + value.substring(5);
-    }
-    return value;
   }
 }

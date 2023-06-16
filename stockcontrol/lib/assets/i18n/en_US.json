@@ -84,5 +84,15 @@
     "Voltar": "Back",
     "texto_exclusão_conta": "Are you sure you want to delete your account? You will lose everything in it.",
     "editar_conta": "Edit account",
-    "campos_obrigatorios": "Campo de usuario e senha vazios."
+    "campos_obrigatorios": "Campo de usuario e senha vazios.",
+    "caractere_especial": "Pelo menos um caractere especial",
+    "senha_invalida": "Senha inválida",
+    "senha_exclusao": "Digite a senha para excluir a conta",
+    "digite_senha": "Digite sua senha",
+    "salvar_modificacoes": "Salvar modificações",
+    "alterar_data": "Altere sua data (DD/MM/AAAA)",
+    "data_aniversario": "Data de aniversario",
+    "digite_nome": "Digite seu nome para alterar",
+    "conta_deletada": "Conta deletada com sucesso",
+    "nome_e_data_alterado": "Nome e Data alterados com sucesso"
 }
