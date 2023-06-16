@@ -34,10 +34,16 @@ class _UserAccountState extends State<UserAccount> {
               title: Text(
                 "email_logado".i18n(),
                 textAlign: TextAlign.center,
+                style: TextStyle(
+                  color: Colors.black,
+                ),
               ),
               subtitle: Text(
                 _user?.email ?? "",
                 textAlign: TextAlign.center,
+                style: TextStyle(
+                  color: Color.fromARGB(255, 153, 149, 149),
+                ),
               ),
             ),
           ],
@@ -54,17 +60,6 @@ class _UserAccountState extends State<UserAccount> {
                 backgroundColor: Colors.red,
               ),
               child: Text("sair".i18n()),
-            ),
-          ),
-          Positioned(
-            bottom: 20.0,
-            left: 20.0,
-            child: ElevatedButton(
-              onPressed: _deleteAccount,
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.red,
-              ),
-              child: const Text("deletar"),
             ),
           ),
           Positioned(
@@ -95,38 +90,6 @@ class _UserAccountState extends State<UserAccount> {
     Navigator.push(
       context,
       MaterialPageRoute(builder: (context) => const EditAccount()),
-    );
-  }
-
-  void _deleteAccount() async {
-    await showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: const Text("Tem certeza que quer deletar sua conta?"),
-          actions: [
-            TextButton(
-              child: const Text("Voltar"),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-            ),
-            TextButton(
-              child: const Text("OK"),
-              onPressed: () async {
-                final currentContext = context;
-                await _user?.delete();
-                await Future.delayed(Duration.zero, () {
-                  Navigator.push(
-                    currentContext,
-                    MaterialPageRoute(builder: (context) => const LoginPage()),
-                  );
-                });
-              },
-            ),
-          ],
-        );
-      },
     );
   }
 }
