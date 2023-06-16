@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:localization/localization.dart';
+import 'package:stock_control/src/feature/pages/homepage/widget/my_line.dart';
 import 'package:stock_control/src/feature/pages/homepage/widget/button_row.dart';
 import 'package:stock_control/src/feature/repository/dao/estabelecimento_dao.dart';
 import 'package:stock_control/src/feature/viewmodel/estabelecimento_viewmodel.dart';
 import '../account/account.dart';
-import '../../../component/personalizados.dart';
+import '../../../component/my_appbar.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -56,7 +57,7 @@ class _HomePageState extends State<HomePage> {
                     itemCount: estabelecimentos.length,
                     itemBuilder: (context, int index) {
                       final estabelecimento = estabelecimentos[index];
-                      return Linha(
+                      return MyLine(
                         text: estabelecimento.name,
                         origem: 'estabelecimento',
                         id: estabelecimento.id,

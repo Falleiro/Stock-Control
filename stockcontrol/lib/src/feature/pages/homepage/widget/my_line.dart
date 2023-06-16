@@ -1,32 +1,19 @@
 import 'package:flutter/material.dart';
-import '../feature/pages/stock/stock.dart';
-import '../feature/pages/stock/stockedit.dart';
+import '../../stock/stock.dart';
+import '../../stock/stockedit.dart';
 
-class MinhaAppBar extends AppBar {
-  MinhaAppBar({
-    super.key,
-    super.backgroundColor = Colors.blue,
-    super.title = const Text('Home'),
-    super.elevation,
-    super.actions,
-    super.automaticallyImplyLeading,
-  });
-}
-
-class Linha extends StatefulWidget {
+class MyLine extends StatefulWidget {
   final String origem;
   final String text;
-  //esse id pode ser tanto do estabelecimento quanto do item, depende do que é a linha
   final int id;
-  const Linha(
+  const MyLine(
       {super.key, required this.text, required this.origem, required this.id});
 
   @override
-  State<Linha> createState() => _LinhaState();
+  State<MyLine> createState() => _MyLineState();
 }
 
-//LINHA QUE VAI SERVIR PARA ESTABELECIMENTO
-class _LinhaState extends State<Linha> {
+class _MyLineState extends State<MyLine> {
   @override
   Widget build(BuildContext context) {
     return Padding(

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:localization/localization.dart';
 
-import '../../../component/personalizados.dart';
+import '../../../component/my_appbar.dart';
 
 class UserLocalization extends StatelessWidget {
   const UserLocalization({super.key});
@@ -9,17 +9,11 @@ class UserLocalization extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: _minhabarra('appbar-localization'.i18n(), context),
+      appBar: MinhaAppBar(
+        title: Text('appbar-localization'.i18n(),
+            style: const TextStyle(color: Colors.white, fontSize: 36)),
+        elevation: 10,
+      ),
     );
   }
-}
-
-voltaTela(BuildContext context) => Navigator.pop(context);
-
-PreferredSizeWidget _minhabarra(String texto, context) {
-  return MinhaAppBar(
-    title:
-        Text(texto, style: const TextStyle(color: Colors.white, fontSize: 36)),
-    elevation: 10,
-  );
 }
