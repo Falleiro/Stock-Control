@@ -143,7 +143,7 @@ class _SignupPageState extends State<SignupPage> {
                         });
                       },
                     ),
-                    SizedBox(height: 30),
+                    SizedBox(height: 25),
                     TextFormField(
                       decoration: InputDecoration(labelText: "senha".i18n()),
                       obscureText: true,
@@ -154,8 +154,9 @@ class _SignupPageState extends State<SignupPage> {
                         });
                       },
                     ),
+                    SizedBox(height: 10),
                     Padding(
-                      padding: EdgeInsets.only(left: 16),
+                      padding: EdgeInsets.only(left: 13),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
@@ -189,7 +190,7 @@ class _SignupPageState extends State<SignupPage> {
                         ],
                       ),
                     ),
-                    SizedBox(height: 30),
+                    SizedBox(height: 1),
                     TextFormField(
                       decoration:
                           InputDecoration(labelText: "repita_senha".i18n()),
@@ -200,7 +201,7 @@ class _SignupPageState extends State<SignupPage> {
                         });
                       },
                     ),
-                    const SizedBox(height: 60.0),
+                    const SizedBox(height: 40.0),
                     ElevatedButton(
                       onPressed: () {
                         if (checkPasswordsMatch(_password, _confirmPassword)) {
