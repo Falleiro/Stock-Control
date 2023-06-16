@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:localization/localization.dart';
 import 'package:stock_control/src/feature/pages/stock/widget/stock_form.dart';
-import '../../../component/personalizados.dart';
+import '../../../component/my_appbar.dart';
 
 class UserStockCreate extends StatefulWidget {
   final Function atualizarLista;
@@ -15,7 +15,11 @@ class _UserStockCreateState extends State<UserStockCreate> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: _minhabarra('appbar-add-estabelecimento'.i18n(), context),
+      appBar: MinhaAppBar(
+        title: Text('appbar-add-estabelecimento'.i18n(),
+            style: const TextStyle(color: Colors.white, fontSize: 25)),
+        elevation: 10,
+      ),
       body: SingleChildScrollView(
         child: Column(
           children: [
@@ -25,12 +29,4 @@ class _UserStockCreateState extends State<UserStockCreate> {
       ),
     );
   }
-}
-
-PreferredSizeWidget _minhabarra(String texto, context) {
-  return MinhaAppBar(
-    title:
-        Text(texto, style: const TextStyle(color: Colors.white, fontSize: 25)),
-    elevation: 10,
-  );
 }

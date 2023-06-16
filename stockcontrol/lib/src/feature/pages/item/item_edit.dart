@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:localization/localization.dart';
-import 'package:stock_control/src/feature/pages/item/widgets/edit_form.dart';
+import 'package:stock_control/src/feature/pages/item/widgets/row_form.dart';
 import 'package:stock_control/src/feature/repository/dao/itens_dao.dart';
 
-import '../../../component/personalizados.dart';
+import '../../../component/my_appbar.dart';
 
 class UserItemEdit extends StatefulWidget {
   final String name;
@@ -97,7 +97,11 @@ class _UserItemEditState extends State<UserItemEdit> {
   Widget build(BuildContext context) {
     _dao.findAllByEstabelecimento(widget.idEstabelecimento);
     return Scaffold(
-      appBar: _minhabarra(widget.name, context),
+      appBar: MinhaAppBar(
+        title: Text(widget.name,
+            style: const TextStyle(color: Colors.white, fontSize: 36)),
+        elevation: 10,
+      ),
       body: ListView(
         children: [
           Center(
@@ -106,170 +110,48 @@ class _UserItemEditState extends State<UserItemEdit> {
               style: const TextStyle(fontSize: 15),
             ),
           ),
-          //FORM PARA O ADD
-          Padding(
-            padding: const EdgeInsets.all(8),
-            child: Row(
-              children: [
-                Expanded(
-                  child: Form(
-                    key: _addFormKey,
-                    child: MyTextForm(
-                      myController: _add,
-                      fieldName: 'add-item'.i18n(),
-                      hintText: '',
-                      isAddOrRemove: true,
-                    ),
-                  ),
-                ),
-                SizedBox(
-                  width: 120,
-                  child: Align(
-                    alignment: Alignment.center,
-                    child: ElevatedButton(
-                      onPressed: () {
-                        addItem();
-                      },
-                      child: Text('submit'.i18n()),
-                    ),
-                  ),
-                ),
-              ],
-            ),
+          MyRowForm(
+            formKey: _addFormKey,
+            myController: _add,
+            fieldName: 'add-item'.i18n(),
+            hintText: '',
+            isAddOrRemove: true,
+            operation: addItem,
           ),
-          //FORM PARA O REMOVE
-          Padding(
-            padding: const EdgeInsets.all(8),
-            child: Row(
-              children: [
-                Expanded(
-                  child: Form(
-                    key: _removeFormKey,
-                    child: MyTextForm(
-                      myController: _remove,
-                      fieldName: 'remove-item'.i18n(),
-                      hintText: '',
-                      isAddOrRemove: true,
-                    ),
-                  ),
-                ),
-                SizedBox(
-                  width: 120,
-                  child: Align(
-                    alignment: Alignment.center,
-                    child: ElevatedButton(
-                      onPressed: () {
-                        removeItem();
-                      },
-                      child: Text('submit'.i18n()),
-                    ),
-                  ),
-                ),
-              ],
-            ),
+          MyRowForm(
+            formKey: _removeFormKey,
+            myController: _remove,
+            fieldName: 'remove-item'.i18n(),
+            hintText: '',
+            isAddOrRemove: true,
+            operation: removeItem,
           ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Row(
-              children: [
-                Expanded(
-                  child: Form(
-                    key: _nameFormKey,
-                    child: MyTextForm(
-                      myController: _nome,
-                      fieldName: 'Nome do item',
-                      hintText: widget.name,
-                      isAddOrRemove: false,
-                    ),
-                  ),
-                ),
-                SizedBox(
-                  width: 120,
-                  child: Align(
-                    alignment: Alignment.center,
-                    child: ElevatedButton(
-                      onPressed: () {
-                        debugPrint('ATUALIANDO O NOME!!');
-                        atualizaNome();
-                      },
-                      child: Text('submit'.i18n()),
-                    ),
-                  ),
-                ),
-              ],
-            ),
+          MyRowForm(
+            formKey: _nameFormKey,
+            myController: _nome,
+            fieldName: 'Nome do item',
+            hintText: widget.name,
+            isAddOrRemove: false,
+            operation: atualizaNome,
           ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Row(
-              children: [
-                Expanded(
-                  child: Form(
-                    key: _loteFormKey,
-                    child: MyTextForm(
-                      myController: _lote,
-                      fieldName: 'Lote: ${widget.lote}',
-                      hintText: '',
-                      isAddOrRemove: false,
-                    ),
-                  ),
-                ),
-                SizedBox(
-                  width: 120,
-                  child: Align(
-                    alignment: Alignment.center,
-                    child: ElevatedButton(
-                      onPressed: () {
-                        debugPrint('Antes de chamar a função');
-                        atualizaLote();
-                      },
-                      child: Text('submit'.i18n()),
-                    ),
-                  ),
-                ),
-              ],
-            ),
+          MyRowForm(
+            formKey: _loteFormKey,
+            myController: _lote,
+            fieldName: 'Lote: ${widget.lote}',
+            hintText: '',
+            isAddOrRemove: false,
+            operation: atualizaLote,
           ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Row(
-              children: [
-                Expanded(
-                  child: Form(
-                    key: _validadeFormKey,
-                    child: MyTextForm(
-                      myController: _validade,
-                      fieldName: 'Validade: ${widget.validade}',
-                      hintText: '',
-                      isAddOrRemove: false,
-                    ),
-                  ),
-                ),
-                SizedBox(
-                  width: 120,
-                  child: Align(
-                    alignment: Alignment.center,
-                    child: ElevatedButton(
-                      onPressed: () {
-                        atualizaValidade();
-                      },
-                      child: Text('submit'.i18n()),
-                    ),
-                  ),
-                ),
-              ],
-            ),
+          MyRowForm(
+            formKey: _validadeFormKey,
+            myController: _validade,
+            fieldName: 'Validade: ${widget.validade}',
+            hintText: '',
+            isAddOrRemove: false,
+            operation: atualizaValidade,
           ),
         ],
       ),
     );
   }
-}
-
-PreferredSizeWidget _minhabarra(String texto, context) {
-  return MinhaAppBar(
-    title:
-        Text(texto, style: const TextStyle(color: Colors.white, fontSize: 36)),
-    elevation: 10,
-  );
 }
