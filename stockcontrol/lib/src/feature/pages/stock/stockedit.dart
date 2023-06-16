@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../component/personalizados.dart';
+import '../../../component/my_appbar.dart';
 
 class UserStockEdit extends StatelessWidget {
   final String estabelecimento;
@@ -9,17 +9,11 @@ class UserStockEdit extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: _minhabarra(estabelecimento, context),
+      appBar: MinhaAppBar(
+        title: Text(estabelecimento,
+            style: const TextStyle(color: Colors.white, fontSize: 36)),
+        elevation: 10,
+      ),
     );
   }
-}
-
-voltaTela(BuildContext context) => Navigator.pop(context);
-
-PreferredSizeWidget _minhabarra(String texto, context) {
-  return MinhaAppBar(
-    title:
-        Text(texto, style: const TextStyle(color: Colors.white, fontSize: 36)),
-    elevation: 10,
-  );
 }

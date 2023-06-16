@@ -3,7 +3,7 @@ import 'package:localization/localization.dart';
 import 'package:stock_control/src/feature/pages/stock/widget/item_line.dart';
 import 'package:stock_control/src/feature/repository/dao/itens_dao.dart';
 import 'package:stock_control/src/feature/pages/item/item_create.dart';
-import '../../../component/personalizados.dart';
+import '../../../component/my_appbar.dart';
 import '../../viewmodel/itens_viewmodel.dart';
 
 class UserStock extends StatefulWidget {
@@ -28,8 +28,11 @@ class _UserStockState extends State<UserStock> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar:
-          _minhabarra('appbar-item'.i18n() + widget.estabelecimento, context),
+      appBar: MinhaAppBar(
+        title: Text('appbar-item'.i18n() + widget.estabelecimento,
+            style: const TextStyle(color: Colors.white, fontSize: 26)),
+        elevation: 10,
+      ),
       body: FutureBuilder<List<Item>>(
         initialData: const [],
         future: _dao.findAllByEstabelecimento(widget.idEstabelecimento),
@@ -107,12 +110,4 @@ class _UserStockState extends State<UserStock> {
       ),
     );
   }
-}
-
-PreferredSizeWidget _minhabarra(String texto, context) {
-  return MinhaAppBar(
-    title:
-        Text(texto, style: const TextStyle(color: Colors.white, fontSize: 26)),
-    elevation: 10,
-  );
 }
