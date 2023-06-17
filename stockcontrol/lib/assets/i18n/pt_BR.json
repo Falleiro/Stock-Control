@@ -73,7 +73,6 @@
     "texto_email_enviado": "Sua nova senha foi enviada para o e-mail",
     "nova_senha_enviada": "Nova senha enviada",
     "ok": "Ok",
-    "nova_senha": "Nova senha",
     "aparecera_senha": "Aqui aparecerá a sua senha",
     "email_enviado": "E-mail enviado com sucesso!",
     "senha_diferente": "As senhas não correspondem. Por favor, tente novamente",
@@ -101,5 +100,12 @@
     "nome_alterado": "Nome alterado com sucesso!",
     "data_alterada": "Data de aniversário alterada com sucesso!",
     "conta_deletada": "Conta deletada com sucesso",
-    "nome_e_data_alterado": "Nome e Data alterados com sucesso"
+    "nome_e_data_alterado": "Nome e Data alterados com sucesso",
+    "comeca_inicio" : "Comece clicando em Adicionar Estabelecimento",
+    "nome_invalido": "Nome inválido",
+    "letras_no_nome": "O nome deve conter apenas letras.",
+    "senha_atual": "Senha atual",
+    "confirme_nova_senha": "Confirme a nova senha",
+    "nova_senha": "Nova senha"
+
 }

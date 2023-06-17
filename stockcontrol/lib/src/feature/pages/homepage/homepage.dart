@@ -45,9 +45,9 @@ class _HomePageState extends State<HomePage> {
                 final List<Estabelecimento> estabelecimentos =
                     snapshot.data ?? [];
                 if (estabelecimentos.isEmpty) {
-                  return const Center(
+                  return Center(
                     child: Text(
-                      'Comece clicando em Adicionar Estabelecimento',
+                      "comeca_inicio".i18n(),
                       style: TextStyle(fontSize: 16),
                     ),
                   );
