@@ -94,5 +94,10 @@
     "data_aniversario": "Birthday",
     "digite_nome": "Enter your name to change",
     "conta_deletada": "Account deleted successfully",
-    "nome_e_data_alterado": "Name and Date successfully changed"
+    "nome_e_data_alterado": "Name and Date successfully changed",
+    "comeca_inicio" : "Start by clicking Add establishment",
+    "nome_alterado": "Name successfully changed!",
+    "data_alterada": "Birthday successfully changed!",
+    "nome_invalido": "Invalid name",
+    "letras_no_nome": "The name must contain only letters."
 }
