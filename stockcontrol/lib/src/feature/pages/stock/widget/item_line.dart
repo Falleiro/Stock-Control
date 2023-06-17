@@ -9,7 +9,7 @@ class LinhaItem extends StatefulWidget {
   final String validade;
   final int lote;
   final Function(int) updateQuantity;
-  final Function(String) updateName;
+  final Function updateName;
   final Function refresh;
   const LinhaItem(
       {super.key,
@@ -44,7 +44,7 @@ class _LinhaItemState extends State<LinhaItem> {
       setState(() {
         name = novoName.toString();
       });
-      widget.updateName(novoName);
+      widget.updateName();
     }
 
     return Padding(
