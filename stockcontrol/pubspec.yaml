@@ -1,0 +1,48 @@
+#git.ignore
+name: stock_control
+description: A new Flutter project.
+
+publish_to: "none"
+
+version: 1.0.0+1
+
+environment:
+  sdk: ">=2.18.6 <3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  flutter_localizations:
+    sdk: flutter
+  sqflite:
+  path: ^1.8.0
+
+  cupertino_icons: ^1.0.2
+  localization: ^2.1.0
+  #flutter_svg_provider: ^1
+  flutter_triple: ^1.2.7+4
+  flutter_modular: ^5.0.3
+  dio: ^5.1.0
+  mailer: ^6.0.1
+  firebase_auth_web: ^5.2.2
+  firebase_auth: ^4.2.2
+  firebase_database: ^10.2.3
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+  flutter_lints: ^2.0.0
+
+flutter:
+  uses-material-design: true
+  assets:
+    - lib/assets/
+    - lib/assets/i18n/
+    - lib/assets/images/
+    - lib/assets/fonts/
+
+  fonts:
+    - family: Billabong
+      fonts:
+        - asset: lib/assets/fonts/Billabong.ttf
