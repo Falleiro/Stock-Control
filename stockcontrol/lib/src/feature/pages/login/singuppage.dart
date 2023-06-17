@@ -112,8 +112,8 @@ class _SignupPageState extends State<SignupPage> {
           backgroundColor: Color.fromARGB(255, 245, 66, 66),
           contentTextStyle: TextStyle(color: Color.fromARGB(220, 0, 0, 0)),
           titleTextStyle: TextStyle(color: Color.fromARGB(220, 0, 0, 0)),
-          title: Text('Nome inválido'),
-          content: Text('O nome deve conter apenas letras.'),
+          title: Text("nome_invalido".i18n()),
+          content: Text("letras_no_nome".i18n()),
         );
       },
     );
