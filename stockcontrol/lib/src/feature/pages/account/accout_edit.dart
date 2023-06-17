@@ -53,11 +53,21 @@ class _EditAccountState extends State<EditAccount> {
   void _updateUserData() async {
     if (_nameController.text.isNotEmpty &&
         _birthdateController.text.isNotEmpty) {
+      if (!_isNameValid(_nameController.text)) {
+        _showInvalidNameDialog();
+        return;
+      }
+
       await _userRef.child('name').set(_nameController.text);
       await _userRef.child('birthdate').set(_birthdateController.text);
       _showTemporaryDialog(
           "nome_e_data_alterado".i18n(), Color.fromRGBO(127, 233, 131, 1));
     } else if (_nameController.text.isNotEmpty) {
+      if (!_isNameValid(_nameController.text)) {
+        _showInvalidNameDialog();
+        return;
+      }
+
       await _userRef.child('name').set(_nameController.text);
       _showTemporaryDialog(
           "nome_alterado".i18n(), Color.fromRGBO(127, 233, 131, 1));
@@ -66,6 +76,29 @@ class _EditAccountState extends State<EditAccount> {
       _showTemporaryDialog(
           "data_alterada".i18n(), Color.fromRGBO(127, 233, 131, 1));
     }
+  }
+
+  bool _isNameValid(String name) {
+    final RegExp nameRegExp = RegExp(r'^[a-zA-Z]+$');
+    return nameRegExp.hasMatch(name);
+  }
+
+  void _showInvalidNameDialog() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          backgroundColor: Color.fromARGB(255, 245, 66, 66),
+          contentTextStyle: TextStyle(color: Color.fromARGB(220, 0, 0, 0)),
+          titleTextStyle: TextStyle(color: Color.fromARGB(220, 0, 0, 0)),
+          title: Text('Nome inválido'),
+          content: Text('O nome deve conter apenas letras.'),
+        );
+      },
+    );
+    Timer(Duration(seconds: 1, milliseconds: 750), () {
+      Navigator.of(context).pop();
+    });
   }
 
   void _showTemporaryDialog(String message, Color color) {
@@ -289,7 +322,11 @@ class _DateInputFormatter extends TextInputFormatter {
     } else if (text.length <= 4) {
       return '${text.substring(0, 2)}/${text.substring(2)}';
     } else {
-      return '${text.substring(0, 2)}/${text.substring(2, 4)}/${text.substring(4)}';
+      String year = text.substring(4);
+      if (year.length > 4) {
+        year = year.substring(0, 4);
+      }
+      return '${text.substring(0, 2)}/${text.substring(2, 4)}/$year';
     }
   }
 }

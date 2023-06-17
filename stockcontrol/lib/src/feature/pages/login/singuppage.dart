@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:localization/localization.dart';
@@ -44,6 +46,10 @@ class _SignupPageState extends State<SignupPage> {
     }
 
     try {
+      if (!_isNameValid(_name)) {
+        _showInvalidNameDialog();
+        return;
+      }
       final userCredential = await FirebaseAuthService()
           .createUserWithEmailAndPassword(email: email, password: password);
       debugPrint('Usuário criado com sucesso: ${userCredential.user!.email}');
@@ -91,6 +97,29 @@ class _SignupPageState extends State<SignupPage> {
       _isSpecialCharValid = false;
     }
     return null;
+  }
+
+  bool _isNameValid(String name) {
+    final RegExp nameRegExp = RegExp(r'^[a-zA-Z]+$');
+    return nameRegExp.hasMatch(name);
+  }
+
+  void _showInvalidNameDialog() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          backgroundColor: Color.fromARGB(255, 245, 66, 66),
+          contentTextStyle: TextStyle(color: Color.fromARGB(220, 0, 0, 0)),
+          titleTextStyle: TextStyle(color: Color.fromARGB(220, 0, 0, 0)),
+          title: Text('Nome inválido'),
+          content: Text('O nome deve conter apenas letras.'),
+        );
+      },
+    );
+    Timer(Duration(seconds: 1, milliseconds: 750), () {
+      Navigator.of(context).pop();
+    });
   }
 
   @override
