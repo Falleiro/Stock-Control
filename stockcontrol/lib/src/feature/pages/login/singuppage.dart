@@ -191,12 +191,14 @@ class _SignupPageState extends State<SignupPage> {
                         children: [
                           Text(
                             'Pelo menos 6 caracteres',
+                            textAlign: TextAlign.left,
                             style: TextStyle(
                               color: _isLengthValid ? Colors.green : Colors.red,
                             ),
                           ),
                           Text(
                             'Pelo menos uma letra maiúscula',
+                            textAlign: TextAlign.left,
                             style: TextStyle(
                               color:
                                   _isUpperCaseValid ? Colors.green : Colors.red,
@@ -204,12 +206,14 @@ class _SignupPageState extends State<SignupPage> {
                           ),
                           Text(
                             'Pelo menos um número',
+                            textAlign: TextAlign.left,
                             style: TextStyle(
                               color: _isNumberValid ? Colors.green : Colors.red,
                             ),
                           ),
                           Text(
                             'Pelo menos um caractere especial',
+                            textAlign: TextAlign.left,
                             style: TextStyle(
                               color: _isSpecialCharValid
                                   ? Colors.green
