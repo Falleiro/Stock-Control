@@ -17,6 +17,8 @@ class _LoginPageState extends State<LoginPage> {
   final _passwordKey = GlobalKey<FormFieldState<String>>();
   late String _email;
   late String _password;
+  bool _showPassword =
+      false; // Variável para controlar a exibição dos caracteres da senha
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +37,7 @@ class _LoginPageState extends State<LoginPage> {
                       fontSize: 40, color: Color.fromARGB(255, 16, 52, 153)),
                 ),
                 const SizedBox(height: 90),
-                TextFormField(
+                TextField(
                   key: _emailKey,
                   decoration: InputDecoration(labelText: "email".i18n()),
                   onChanged: (value) {
@@ -45,10 +47,22 @@ class _LoginPageState extends State<LoginPage> {
                   },
                 ),
                 const SizedBox(height: 30),
-                TextFormField(
+                TextField(
                   key: _passwordKey,
-                  decoration: InputDecoration(labelText: "senha".i18n()),
-                  obscureText: true,
+                  decoration: InputDecoration(
+                    labelText: "senha".i18n(),
+                    suffixIcon: IconButton(
+                      icon: Icon(_showPassword
+                          ? Icons.visibility
+                          : Icons.visibility_off),
+                      onPressed: () {
+                        setState(() {
+                          _showPassword = !_showPassword;
+                        });
+                      },
+                    ),
+                  ),
+                  obscureText: !_showPassword,
                   onChanged: (value) {
                     setState(() {
                       _password = value;
