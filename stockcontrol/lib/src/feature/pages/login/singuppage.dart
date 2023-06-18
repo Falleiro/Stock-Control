@@ -22,6 +22,8 @@ class _SignupPageState extends State<SignupPage> {
   bool _isNumberValid = false;
   bool _isSpecialCharValid = false;
   bool _isLengthValid = false;
+  bool _isPasswordVisible = false;
+  bool _isConfirmPasswordVisible = false;
 
   bool checkPasswordsMatch(String password, String confirmPassword) {
     return password == confirmPassword;
@@ -122,6 +124,59 @@ class _SignupPageState extends State<SignupPage> {
     });
   }
 
+  void togglePasswordVisibility() {
+    setState(() {
+      _isPasswordVisible = !_isPasswordVisible;
+    });
+  }
+
+  void toggleConfirmPasswordVisibility() {
+    setState(() {
+      _isConfirmPasswordVisible = !_isConfirmPasswordVisible;
+    });
+  }
+
+  TextFormField buildPasswordTextField() {
+    return TextFormField(
+      decoration: InputDecoration(
+        labelText: "senha".i18n(),
+        suffixIcon: IconButton(
+          onPressed: togglePasswordVisibility,
+          icon: Icon(
+            _isPasswordVisible ? Icons.visibility : Icons.visibility_off,
+          ),
+        ),
+      ),
+      obscureText: !_isPasswordVisible,
+      onChanged: (value) {
+        setState(() {
+          _password = value;
+          validatePassword(value);
+        });
+      },
+    );
+  }
+
+  TextFormField buildConfirmPasswordTextField() {
+    return TextFormField(
+      decoration: InputDecoration(
+        labelText: "repita_senha".i18n(),
+        suffixIcon: IconButton(
+          onPressed: toggleConfirmPasswordVisibility,
+          icon: Icon(
+            _isConfirmPasswordVisible ? Icons.visibility : Icons.visibility_off,
+          ),
+        ),
+      ),
+      obscureText: !_isConfirmPasswordVisible,
+      onChanged: (value) {
+        setState(() {
+          _confirmPassword = value;
+        });
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
@@ -173,16 +228,7 @@ class _SignupPageState extends State<SignupPage> {
                       },
                     ),
                     SizedBox(height: 25),
-                    TextFormField(
-                      decoration: InputDecoration(labelText: "senha".i18n()),
-                      obscureText: true,
-                      onChanged: (value) {
-                        setState(() {
-                          _password = value;
-                          validatePassword(value);
-                        });
-                      },
-                    ),
+                    buildPasswordTextField(),
                     SizedBox(height: 10),
                     Padding(
                       padding: EdgeInsets.only(left: 13),
@@ -219,53 +265,53 @@ class _SignupPageState extends State<SignupPage> {
                         ],
                       ),
                     ),
-                    SizedBox(height: 1),
-                    TextFormField(
-                      decoration:
-                          InputDecoration(labelText: "repita_senha".i18n()),
-                      obscureText: true,
-                      onChanged: (value) {
-                        setState(() {
-                          _confirmPassword = value;
-                        });
-                      },
+                    SizedBox(height: 25),
+                    buildConfirmPasswordTextField(),
+                    SizedBox(height: 50),
+                    SizedBox(
+                      width: 250,
+                      height: 50,
+                      child: ElevatedButton(
+                        onPressed: () {
+                          if (checkPasswordsMatch(
+                              _password, _confirmPassword)) {
+                            createUser(_email, _password);
+                          } else {
+                            showDialog(
+                              context: context,
+                              builder: (context) => AlertDialog(
+                                title: Text("senhas_nao_coincidem".i18n()),
+                                content: Text("verifique_senhas".i18n()),
+                                actions: [
+                                  TextButton(
+                                    onPressed: () => Navigator.pop(context),
+                                    child: Text("ok".i18n()),
+                                  ),
+                                ],
+                              ),
+                            );
+                          }
+                        },
+                        child: Text("cadastrar".i18n()),
+                      ),
                     ),
-                    const SizedBox(height: 40.0),
-                    ElevatedButton(
-                      onPressed: () {
-                        if (checkPasswordsMatch(_password, _confirmPassword)) {
-                          createUser(_email, _password);
-                        } else {
-                          showDialog(
-                            context: context,
-                            builder: (context) => AlertDialog(
-                              title: Text("erro".i18n()),
-                              content: Text("senha_diferente".i18n()),
-                              actions: [
-                                TextButton(
-                                  onPressed: () => Navigator.pop(context),
-                                  child: Text("ok".i18n()),
-                                ),
-                              ],
-                            ),
-                          );
-                        }
+                    SizedBox(height: 15),
+                    InkWell(
+                      onTap: () {
+                        Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(builder: (context) => LoginPage()),
+                        );
                       },
-                      child: Text("cadastrar".i18n()),
+                      child: Text(
+                        "ja_tem_conta".i18n(),
+                        style: TextStyle(
+                          decoration: TextDecoration.underline,
+                          color: Colors.blue,
+                        ),
+                      ),
                     ),
                   ],
-                ),
-                IconButton(
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => LoginPage()),
-                    );
-                  },
-                  iconSize: 50,
-                  icon: Text(
-                    "ja_tem_conta_acesse_aqui".i18n(),
-                  ),
                 ),
               ],
             ),
