@@ -50,8 +50,8 @@ class _RedefinePasswordState extends State<RedefinePassword> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: const Text('Senha redefinida'),
-          content: const Text('Sua senha foi alterada com sucesso.'),
+          title: Text("senha_redefinida".i18n()),
+          content: Text("senha_alterada".i18n()),
           actions: <Widget>[
             TextButton(
               child: Text("OK".i18n()),
@@ -70,11 +70,11 @@ class _RedefinePasswordState extends State<RedefinePassword> {
 
   String? validatePassword(String value) {
     if (value.isEmpty) {
-      return 'Digite a nova senha';
+      return "digite_nova_senha".i18n();
     }
     if (value.length < 6) {
       _isLengthValid = false;
-      return 'A senha deve ter pelo menos 6 caracteres';
+      return "min_caracteres".i18n();
     } else {
       _isLengthValid = true;
     }
@@ -111,18 +111,18 @@ class _RedefinePasswordState extends State<RedefinePassword> {
             children: [
               TextFormField(
                 controller: _currentPasswordController,
-                decoration: const InputDecoration(labelText: 'Senha atual'),
+                decoration: InputDecoration(labelText: "senha_atual".i18n()),
                 obscureText: true,
                 validator: (value) {
                   if (value!.isEmpty) {
-                    return 'Digite a senha atual';
+                    return "digite_senha_atual".i18n();
                   }
                   return null;
                 },
               ),
               TextFormField(
                 controller: _newPasswordController,
-                decoration: const InputDecoration(labelText: 'Nova senha'),
+                decoration: InputDecoration(labelText: "nova_senha".i18n()),
                 obscureText: true,
                 onChanged: (value) {
                   setState(() {
@@ -134,17 +134,17 @@ class _RedefinePasswordState extends State<RedefinePassword> {
                 },
               ),
               Text(
-                ' Pelo menos 6 caracteres',
+                "caracteres".i18n(),
                 style: TextStyle(
                     color: _isLengthValid ? Colors.green : Colors.red),
               ),
               Text(
-                ' Pelo menos uma letra maiúscula',
+                "letra_maiuscula".i18n(),
                 style: TextStyle(
                     color: _isUpperCaseValid ? Colors.green : Colors.red),
               ),
               Text(
-                ' Pelo menos um número',
+                "numbers".i18n(),
                 style: TextStyle(
                     color: _isNumberValid ? Colors.green : Colors.red),
               ),
@@ -156,14 +156,14 @@ class _RedefinePasswordState extends State<RedefinePassword> {
               TextFormField(
                 controller: _confirmPasswordController,
                 decoration:
-                    const InputDecoration(labelText: 'Confirme a nova senha'),
+                    InputDecoration(labelText: "confirme_nova_senha".i18n()),
                 obscureText: true,
                 validator: (value) {
                   if (value!.isEmpty) {
-                    return 'Digite a confirmação de senha';
+                    return "confirmacao_senha".i18n();
                   }
                   if (value != _newPasswordController.text) {
-                    return 'As senhas não correspondem';
+                    return "senha_diferentes".i18n();
                   }
                   return null;
                 },

@@ -101,5 +101,19 @@
     "nome_invalido": "Invalid name",
     "letras_no_nome": "The name must contain only letters.",
     "senha_incorreta": "Invalid Password",
-    "usuario_nao_encontrado": "User not found"
-}
+    "usuario_nao_encontrado": "User not found",
+
+    "senha_alterada": "Your password has been changed successfully",
+    "senha_redefinida": "Password reseted",
+    "min_caracteres": "Password must be at least 6 characters long",
+    "digite_nova_senha": "Enter new password",
+    "digite_senha_atual": "Enter current password",
+    "confirmacao_senha": "Enter password confirmation",
+    "caracteres": "At least 6 characters",
+    "letra_maiuscula":"At least one uppercase letter",
+    "numbers": "At least one number",
+    "senha_atual": "Current password",
+    "confirme_nova_senha": "Confirm the new password",
+    "nova_senha": "New password",
+    "senha_diferentes":"Passwords do not match"
+} 
