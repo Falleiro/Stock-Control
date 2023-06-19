@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:localization/localization.dart';
 
 class DeleteButton extends StatelessWidget {
   final String nome;
@@ -14,27 +15,27 @@ class DeleteButton extends StatelessWidget {
           showDialog(
             context: context,
             builder: (context) => AlertDialog(
-              title: Text(' Deseja realmente remover $nome'),
+              title: Text("deseja_remover".i18n() + ' $nome?'),
               actions: [
                 TextButton(
                   onPressed: () {
                     Navigator.pop(context);
                   },
-                  child: const Text('Não'),
+                  child: Text("nao".i18n()),
                 ),
                 TextButton(
                   onPressed: () {
                     delete();
                     Navigator.pop(context);
                   },
-                  child: const Text('Sim'),
+                  child: Text("sim".i18n()),
                 ),
               ],
             ),
           );
         },
         style: ElevatedButton.styleFrom(backgroundColor: Colors.red),
-        child: Text('Deletar $nome'),
+        child: Text("deletar_item".i18n()),
       ),
     );
   }
