@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 
 class DeleteButton extends StatelessWidget {
-  final String nomeItem;
-  final Function deletaItem;
-  const DeleteButton(
-      {super.key, required this.nomeItem, required this.deletaItem});
+  final String nome;
+  final Function delete;
+  const DeleteButton({super.key, required this.nome, required this.delete});
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +14,7 @@ class DeleteButton extends StatelessWidget {
           showDialog(
             context: context,
             builder: (context) => AlertDialog(
-              title: Text(' Deseja realmente remover $nomeItem'),
+              title: Text(' Deseja realmente remover $nome'),
               actions: [
                 TextButton(
                   onPressed: () {
@@ -25,7 +24,7 @@ class DeleteButton extends StatelessWidget {
                 ),
                 TextButton(
                   onPressed: () {
-                    deletaItem();
+                    delete();
                     Navigator.pop(context);
                   },
                   child: const Text('Sim'),
@@ -35,7 +34,7 @@ class DeleteButton extends StatelessWidget {
           );
         },
         style: ElevatedButton.styleFrom(backgroundColor: Colors.red),
-        child: const Text('Deletar item'),
+        child: Text('Deletar $nome'),
       ),
     );
   }
