@@ -3,14 +3,12 @@ import 'package:flutter/material.dart';
 class MyTextForm extends StatefulWidget {
   final TextEditingController myController;
   final String fieldName;
-  final String hintText;
-  final bool isAddOrRemove;
+  final bool isNumber;
   const MyTextForm(
       {super.key,
       required this.myController,
       required this.fieldName,
-      required this.hintText,
-      required this.isAddOrRemove});
+      required this.isNumber});
 
   @override
   State<MyTextForm> createState() => _MyTextFormState();
@@ -25,7 +23,6 @@ class _MyTextFormState extends State<MyTextForm> {
         controller: widget.myController,
         decoration: InputDecoration(
             labelText: widget.fieldName,
-            hintText: widget.hintText,
             prefixIcon: const Icon(
               Icons.edit,
               color: Colors.blue,
@@ -36,7 +33,7 @@ class _MyTextFormState extends State<MyTextForm> {
             ),
             labelStyle: const TextStyle(color: Colors.black)),
         validator: (value) {
-          if (widget.isAddOrRemove) {
+          if (widget.isNumber) {
             if (value != null && int.tryParse(value) == null) {
               return 'Informe um NÚMERO';
             }

@@ -6,8 +6,7 @@ class MyRowForm extends StatelessWidget {
   final Key? formKey;
   final TextEditingController myController;
   final String fieldName;
-  final String hintText;
-  final bool isAddOrRemove;
+  final bool isNumber;
   final Function operation;
 
   const MyRowForm({
@@ -15,8 +14,7 @@ class MyRowForm extends StatelessWidget {
     this.formKey,
     required this.myController,
     required this.fieldName,
-    required this.hintText,
-    required this.isAddOrRemove,
+    required this.isNumber,
     required this.operation,
   });
 
@@ -32,8 +30,7 @@ class MyRowForm extends StatelessWidget {
               child: MyTextForm(
                 myController: myController,
                 fieldName: fieldName,
-                hintText: hintText,
-                isAddOrRemove: isAddOrRemove,
+                isNumber: isNumber,
               ),
             ),
             MySubmitButton(
