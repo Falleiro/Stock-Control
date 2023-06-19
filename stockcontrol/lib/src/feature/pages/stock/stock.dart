@@ -54,9 +54,9 @@ class _UserStockState extends State<UserStock> {
             case ConnectionState.done:
               final List<Item> itens = snapshot.data ?? [];
               if (itens.isEmpty) {
-                return const Center(
+                return Center(
                   child: Text(
-                    'Comece clicando em Adicionar Item',
+                    "adicionar_item".i18n(),
                     style: TextStyle(fontSize: 16),
                   ),
                 );
