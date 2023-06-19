@@ -8,7 +8,7 @@
     "nao_tem_conta_cadastre": "Não tem conta? Cadastre-se",
     "nome": "Nome",
     "idioma": "Idioma",
-    "data_nascimento": "Data nascimento",
+    "data_nascimento": "Data de nascimento",
     "repita_senha": "Repita a senha",
     "cadastrar": "Cadastrar",
     "ja_tem_conta_acesse_aqui": "Já tem uma conta? Acesse aqui",
@@ -94,7 +94,6 @@
     "digite_senha": "Digite sua senha",
     "salvar_modificacoes": "Salvar modificações",
     "alterar_data": "Altere sua data (DD/MM/AAAA)",
-    "data_aniversario": "Data de aniversario",
     "digite_nome": "Digite seu nome para alterar",
     "sucesso": "Sucesso",
     "nome_alterado": "Nome alterado com sucesso!",
@@ -125,10 +124,11 @@
     "digite_data_valida": "Por favor, digite uma data válida.",
     "adicionar_item": "Comece clicando em Adicionar Item",
     "nome_item": "Nome do item",
-    "deletar_item" : "Deletar item",
-    "quantidade_de" : "Quantidade de",
+    "deletar_item": "Deletar item",
+    "quantidade_de": "Quantidade de",
     "deseja_remover": "Deseja realmente remover",
     "sim": "Sim",
-    "nao": "Não"
-
+    "nao": "Não",
+    "email_utilizado": "Email já utilizado!",
+    "texto_email_utilizado": "O email fornecido já esta em uso."
 }
