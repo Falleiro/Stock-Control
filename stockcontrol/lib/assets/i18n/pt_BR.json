@@ -122,5 +122,13 @@
     "data_nome_invalido": "Nome e data inválidos",
     "digite_data_nome_valido": "Por favor, digite um nome e uma data válida!",
     "data_invalida": "Formato de data invalida",
-    "digite_data_valida": "Por favor, digite uma data válida."
+    "digite_data_valida": "Por favor, digite uma data válida.",
+    "adicionar_item": "Comece clicando em Adicionar Item",
+    "nome_item": "Nome do item",
+    "deletar_item" : "Deletar item",
+    "quantidade_de" : "Quantidade de",
+    "deseja_remover": "Deseja realmente remover",
+    "sim": "Sim",
+    "nao": "Não"
+
 }

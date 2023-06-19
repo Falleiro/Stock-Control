@@ -112,7 +112,7 @@ class _UserItemEditState extends State<UserItemEdit> {
         children: [
           Center(
             child: Text(
-              'Quantidade de ${widget.name}: ${widget.qtdItem}',
+              "quantidade_de".i18n() + ' ${widget.name}: ${widget.qtdItem}',
               style: const TextStyle(fontSize: 15),
             ),
           ),
@@ -135,7 +135,7 @@ class _UserItemEditState extends State<UserItemEdit> {
           MyRowForm(
             formKey: _nameFormKey,
             myController: _nome,
-            fieldName: 'Nome do item',
+            fieldName: "nome_item".i18n(),
             hintText: widget.name,
             isAddOrRemove: false,
             operation: atualizaNome,
@@ -143,7 +143,7 @@ class _UserItemEditState extends State<UserItemEdit> {
           MyRowForm(
             formKey: _loteFormKey,
             myController: _lote,
-            fieldName: 'Lote: ${widget.lote}',
+            fieldName: "lote".i18n() + ': ${widget.lote}',
             hintText: '',
             isAddOrRemove: false,
             operation: atualizaLote,
@@ -151,7 +151,7 @@ class _UserItemEditState extends State<UserItemEdit> {
           MyRowForm(
             formKey: _validadeFormKey,
             myController: _validade,
-            fieldName: 'Validade: ${widget.validade}',
+            fieldName: "validade".i18n() + ': ${widget.validade}',
             hintText: '',
             isAddOrRemove: false,
             operation: atualizaValidade,
