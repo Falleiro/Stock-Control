@@ -91,10 +91,22 @@ class _EditAccountState extends State<EditAccount> {
     final RegExp regex = RegExp(r'^\d{2}/\d{2}/\d{4}$');
 
     if (regex.hasMatch(date)) {
-      return true;
-    } else {
-      return false;
+      List<String> components = date.split('/');
+      int day = int.parse(components[0]);
+      int month = int.parse(components[1]);
+      int year = int.parse(components[2]);
+
+      if (day <= 31 &&
+          day > 0 &&
+          month > 0 &&
+          month <= 12 &&
+          year <= 2023 &&
+          year >= 1900) {
+        return true;
+      }
     }
+
+    return false;
   }
 
   void _showInvalidDateNameDialog() {
@@ -220,7 +232,7 @@ class _EditAccountState extends State<EditAccount> {
                 TextFormField(
                   controller: _birthdateController,
                   decoration: InputDecoration(
-                    labelText: "data_aniversario".i18n(),
+                    labelText: "data_nascimento".i18n(),
                     hintText: "alterar_data".i18n(),
                   ),
                   style: TextStyle(
