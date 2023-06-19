@@ -87,7 +87,7 @@
     "Voltar": "Voltar",
     "texto_exclusão_conta": "Tem certeza que quer deletar sua conta? Você irá perder tudo que esta nela.",
     "editar_conta": "Editar conta",
-    "campos_obrigatorios": "Campo de usuario e senha vazios.",
+    "campos_obrigatorios": "Campo de usuario ou senha vazios.",
     "caractere_especial": "Pelo menos um caractere especial",
     "senha_invalida": "Senha inválida",
     "senha_exclusao": "Digite a senha para excluir a conta",
@@ -101,11 +101,12 @@
     "data_alterada": "Data de aniversário alterada com sucesso!",
     "conta_deletada": "Conta deletada com sucesso",
     "nome_e_data_alterado": "Nome e Data alterados com sucesso",
-    "comeca_inicio" : "Comece clicando em Adicionar Estabelecimento",
+    "comeca_inicio": "Comece clicando em Adicionar Estabelecimento",
     "nome_invalido": "Nome inválido",
     "letras_no_nome": "O nome deve conter apenas letras.",
     "senha_atual": "Senha atual",
     "confirme_nova_senha": "Confirme a nova senha",
-    "nova_senha": "Nova senha"
-
+    "nova_senha": "Nova senha",
+    "senha_incorreta": "Senha incorreta",
+    "usuario_nao_encontrado": "Usuário não encontrado"
 }

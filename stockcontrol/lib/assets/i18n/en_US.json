@@ -84,7 +84,7 @@
     "Voltar": "Back",
     "texto_exclusão_conta": "Are you sure you want to delete your account? You will lose everything in it.",
     "editar_conta": "Edit account",
-    "campos_obrigatorios": "Empty username and password field.",
+    "campos_obrigatorios": "Empty username or password field.",
     "caractere_especial": "At least one special character",
     "senha_invalida": "Invalid password",
     "senha_exclusao": "Enter password to delete account",
@@ -95,9 +95,11 @@
     "digite_nome": "Enter your name to change",
     "conta_deletada": "Account deleted successfully",
     "nome_e_data_alterado": "Name and Date successfully changed",
-    "comeca_inicio" : "Start by clicking Add establishment",
+    "comeca_inicio": "Start by clicking Add establishment",
     "nome_alterado": "Name successfully changed!",
     "data_alterada": "Birthday successfully changed!",
     "nome_invalido": "Invalid name",
-    "letras_no_nome": "The name must contain only letters."
+    "letras_no_nome": "The name must contain only letters.",
+    "senha_incorreta": "Invalid Password",
+    "usuario_nao_encontrado": "User not found"
 }
