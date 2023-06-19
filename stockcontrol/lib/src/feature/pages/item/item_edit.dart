@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:localization/localization.dart';
 import 'package:stock_control/src/feature/pages/item/widgets/delete_button.dart';
-import 'package:stock_control/src/feature/pages/item/widgets/row_form.dart';
+import 'package:stock_control/src/component/row_form.dart';
 import 'package:stock_control/src/feature/repository/dao/itens_dao.dart';
 
 import '../../../component/my_appbar.dart';
@@ -14,7 +14,6 @@ class UserItemEdit extends StatefulWidget {
   final String validade;
   final int lote;
   final Function(int) atualizaQtd;
-  final Function(String) atualizaNome;
   final Function refresh;
   const UserItemEdit({
     super.key,
@@ -25,7 +24,6 @@ class UserItemEdit extends StatefulWidget {
     required this.validade,
     required this.lote,
     required this.atualizaQtd,
-    required this.atualizaNome,
     required this.refresh,
   });
 
@@ -68,7 +66,7 @@ class _UserItemEditState extends State<UserItemEdit> {
 
   atualizaNome() {
     if (_nameFormKey.currentState!.validate()) {
-      widget.atualizaNome(_nome.text.toString());
+      widget.refresh();
       _dao
           .updateName(widget.idItem, _nome.text)
           .then((id) => Navigator.pop(context));
@@ -112,7 +110,7 @@ class _UserItemEditState extends State<UserItemEdit> {
         children: [
           Center(
             child: Text(
-              "quantidade_de".i18n() + ' ${widget.name}: ${widget.qtdItem}',
+              '${"quantidade_de".i18n()} ${widget.name}: ${widget.qtdItem}',
               style: const TextStyle(fontSize: 15),
             ),
           ),
@@ -120,45 +118,40 @@ class _UserItemEditState extends State<UserItemEdit> {
             formKey: _addFormKey,
             myController: _add,
             fieldName: 'add-item'.i18n(),
-            hintText: '',
-            isAddOrRemove: true,
+            isNumber: true,
             operation: addItem,
           ),
           MyRowForm(
             formKey: _removeFormKey,
             myController: _remove,
             fieldName: 'remove-item'.i18n(),
-            hintText: '',
-            isAddOrRemove: true,
+            isNumber: true,
             operation: removeItem,
           ),
           MyRowForm(
             formKey: _nameFormKey,
             myController: _nome,
             fieldName: "nome_item".i18n(),
-            hintText: widget.name,
-            isAddOrRemove: false,
+            isNumber: false,
             operation: atualizaNome,
           ),
           MyRowForm(
             formKey: _loteFormKey,
             myController: _lote,
-            fieldName: "lote".i18n() + ': ${widget.lote}',
-            hintText: '',
-            isAddOrRemove: false,
+            fieldName: '${"lote".i18n()}: ${widget.lote}',
+            isNumber: false,
             operation: atualizaLote,
           ),
           MyRowForm(
             formKey: _validadeFormKey,
             myController: _validade,
-            fieldName: "validade".i18n() + ': ${widget.validade}',
-            hintText: '',
-            isAddOrRemove: false,
+            fieldName: '${"validade".i18n()}: ${widget.validade}',
+            isNumber: false,
             operation: atualizaValidade,
           ),
           DeleteButton(
-            nomeItem: widget.name,
-            deletaItem: deletaItem,
+            nome: widget.name,
+            delete: deletaItem,
           ),
         ],
       ),

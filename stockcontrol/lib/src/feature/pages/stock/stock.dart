@@ -77,9 +77,6 @@ class _UserStockState extends State<UserStock> {
                       updateQuantity: (newQuantity) {
                         rebuild();
                       },
-                      updateName: () {
-                        rebuild();
-                      },
                       refresh: () {
                         rebuild();
                       },

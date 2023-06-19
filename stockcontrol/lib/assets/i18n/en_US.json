@@ -91,7 +91,6 @@
     "digite_senha": "Type your password",
     "salvar_modificacoes": "Save changes",
     "alterar_data": "Change your date (DD/MM/AAAA)",
-    "data_aniversario": "Birthday",
     "digite_nome": "Enter your name to change",
     "conta_deletada": "Account deleted successfully",
     "nome_e_data_alterado": "Name and Date successfully changed",
@@ -121,9 +120,12 @@
     "digite_data_valida": "Please enter a valid date.",
     "adicionar_item": "Start by clicking Add Item",
     "nome_item": "Item name",
-    "deletar_item" : "Delete item",
-    "quantidade_de" : "Quantity of",
+    "deletar_item": "Delete item",
+    "quantidade_de": "Quantity of",
     "deseja_remover": "Do you really want to remove",
     "sim": "Yes",
-    "nao": "No"
+    "nao": "No",
+    "email_utilizado": "Email already used!",
+    "texto_email_utilizado": "The provided email is already in use.",
+    "adicionar_data": "Add your date (DD/MM/AAAA)"
 }

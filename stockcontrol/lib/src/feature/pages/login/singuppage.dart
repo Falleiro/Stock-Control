@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:firebase_database/firebase_database.dart';
+import 'package:flutter/services.dart';
 import 'package:localization/localization.dart';
 import '../homepage/homepage.dart';
 import 'loginpage.dart';
@@ -17,7 +18,7 @@ class _SignupPageState extends State<SignupPage> {
   late String _email;
   late String _password;
   late String _confirmPassword;
-  late String _birthdate;
+  TextEditingController _birthdate = TextEditingController();
   bool _isUpperCaseValid = false;
   bool _isNumberValid = false;
   bool _isSpecialCharValid = false;
@@ -27,8 +28,42 @@ class _SignupPageState extends State<SignupPage> {
     return password == confirmPassword;
   }
 
-  Future<void> createUser(String email, String password) async {
-    if (email.isEmpty || password.isEmpty) {
+  Future<void> createUser(
+      String email, String password, String name, String birthdate) async {
+    if (email.isNotEmpty &&
+        password.isNotEmpty &&
+        _isNameValid(name) &&
+        _isDateValid(birthdate)) {
+      try {
+        final userCredential = await FirebaseAuthService()
+            .createUserWithEmailAndPassword(email: email, password: password);
+        debugPrint('Usuário criado com sucesso: ${userCredential.user!.email}');
+
+        // Salvar nome e data de nascimento no Realtime Database
+        final database = FirebaseDatabase.instance;
+        final userRef =
+            database.reference().child('users').child(userCredential.user!.uid);
+        await userRef.set({
+          'name': name,
+          'birthdate': birthdate,
+        });
+
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => const HomePage()),
+        );
+      } catch (e) {
+        _showemailusadoDialog();
+        //debugPrint('Erro ao criar usuário: $e');
+      }
+    }
+    if (!_isNameValid(name)) {
+      _showInvalidNameDialog();
+    }
+    if (!_isDateValid(birthdate)) {
+      _showInvalidDateDialog();
+    }
+    /*
       showDialog(
         context: context,
         builder: (context) => AlertDialog(
@@ -43,33 +78,7 @@ class _SignupPageState extends State<SignupPage> {
         ),
       );
       return;
-    }
-
-    try {
-      if (!_isNameValid(_name)) {
-        _showInvalidNameDialog();
-        return;
-      }
-      final userCredential = await FirebaseAuthService()
-          .createUserWithEmailAndPassword(email: email, password: password);
-      debugPrint('Usuário criado com sucesso: ${userCredential.user!.email}');
-
-      // Salvar nome e data de nascimento no Realtime Database
-      final database = FirebaseDatabase.instance;
-      final userRef =
-          database.reference().child('users').child(userCredential.user!.uid);
-      await userRef.set({
-        'name': _name,
-        'birthdate': _birthdate,
-      });
-
-      Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => const HomePage()),
-      );
-    } catch (e) {
-      debugPrint('Erro ao criar usuário: $e');
-    }
+    */
   }
 
   String? validatePassword(String value) {
@@ -102,6 +111,64 @@ class _SignupPageState extends State<SignupPage> {
   bool _isNameValid(String name) {
     final RegExp nameRegExp = RegExp(r'^[a-zA-Z]+$');
     return nameRegExp.hasMatch(name);
+  }
+
+  bool _isDateValid(String date) {
+    final RegExp regex = RegExp(r'^\d{2}/\d{2}/\d{4}$');
+
+    if (regex.hasMatch(date)) {
+      List<String> components = date.split('/');
+      int day = int.parse(components[0]);
+      int month = int.parse(components[1]);
+      int year = int.parse(components[2]);
+
+      if (day <= 31 &&
+          day > 0 &&
+          month > 0 &&
+          month <= 12 &&
+          year <= 2023 &&
+          year >= 1900) {
+        return true;
+      }
+    }
+
+    return false;
+  }
+
+  void _showInvalidDateDialog() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          backgroundColor: Color.fromARGB(255, 245, 66, 66),
+          contentTextStyle: TextStyle(color: Color.fromARGB(220, 0, 0, 0)),
+          titleTextStyle: TextStyle(color: Color.fromARGB(220, 0, 0, 0)),
+          title: Text("data_invalida".i18n()),
+          content: Text("digite_data_valida".i18n()),
+        );
+      },
+    );
+    Timer(Duration(seconds: 1, milliseconds: 750), () {
+      Navigator.of(context).pop();
+    });
+  }
+
+  void _showemailusadoDialog() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          backgroundColor: Color.fromARGB(255, 245, 66, 66),
+          contentTextStyle: TextStyle(color: Color.fromARGB(220, 0, 0, 0)),
+          titleTextStyle: TextStyle(color: Color.fromARGB(220, 0, 0, 0)),
+          title: Text("email_utilizado".i18n()),
+          content: Text("texto_email_utilizado".i18n()),
+        );
+      },
+    );
+    Timer(Duration(seconds: 1, milliseconds: 750), () {
+      Navigator.of(context).pop();
+    });
   }
 
   void _showInvalidNameDialog() {
@@ -164,13 +231,18 @@ class _SignupPageState extends State<SignupPage> {
                     ),
                     SizedBox(height: 30),
                     TextFormField(
-                      decoration:
-                          InputDecoration(labelText: "data_nascimento".i18n()),
-                      onChanged: (value) {
-                        setState(() {
-                          _birthdate = value;
-                        });
-                      },
+                      controller: _birthdate,
+                      decoration: InputDecoration(
+                        labelText: "data_nascimento".i18n(),
+                        hintText: "adicionar_data".i18n(),
+                      ),
+                      style: TextStyle(
+                        color: Colors.black,
+                      ),
+                      inputFormatters: [
+                        FilteringTextInputFormatter.digitsOnly,
+                        _DateInputFormatter(),
+                      ],
                     ),
                     SizedBox(height: 25),
                     TextFormField(
@@ -238,7 +310,7 @@ class _SignupPageState extends State<SignupPage> {
                     ElevatedButton(
                       onPressed: () {
                         if (checkPasswordsMatch(_password, _confirmPassword)) {
-                          createUser(_email, _password);
+                          createUser(_email, _password, _name, _birthdate.text);
                         } else {
                           showDialog(
                             context: context,
@@ -277,5 +349,32 @@ class _SignupPageState extends State<SignupPage> {
         ),
       ),
     );
+  }
+}
+
+class _DateInputFormatter extends TextInputFormatter {
+  @override
+  TextEditingValue formatEditUpdate(
+      TextEditingValue oldValue, TextEditingValue newValue) {
+    final String formattedText = _formatDate(newValue.text);
+    return newValue.copyWith(
+      text: formattedText,
+      selection: TextSelection.collapsed(offset: formattedText.length),
+    );
+  }
+
+  String _formatDate(String text) {
+    text = text.replaceAll('/', '');
+    if (text.length <= 2) {
+      return text;
+    } else if (text.length <= 4) {
+      return '${text.substring(0, 2)}/${text.substring(2)}';
+    } else {
+      String year = text.substring(4);
+      if (year.length > 4) {
+        year = year.substring(0, 4);
+      }
+      return '${text.substring(0, 2)}/${text.substring(2, 4)}/$year';
+    }
   }
 }
