@@ -15,6 +15,10 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  rebuild() {
+    setState(() {});
+  }
+
   final EstabelecimentoDao _dao = EstabelecimentoDao();
   @override
   Widget build(BuildContext context) {
@@ -59,8 +63,11 @@ class _HomePageState extends State<HomePage> {
                       final estabelecimento = estabelecimentos[index];
                       return MyLine(
                         text: estabelecimento.name,
-                        origem: 'estabelecimento',
                         id: estabelecimento.id,
+                        rebuild: rebuild,
+                        cep: estabelecimento.cep,
+                        estado: estabelecimento.estado,
+                        cidade: estabelecimento.cidade,
                       );
                     },
                   );

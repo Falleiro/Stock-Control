@@ -2,10 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:localization/localization.dart';
 
 class DeleteButton extends StatelessWidget {
-  final String nomeItem;
-  final Function deletaItem;
-  const DeleteButton(
-      {super.key, required this.nomeItem, required this.deletaItem});
+  final String nome;
+  final Function delete;
+  const DeleteButton({super.key, required this.nome, required this.delete});
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +15,7 @@ class DeleteButton extends StatelessWidget {
           showDialog(
             context: context,
             builder: (context) => AlertDialog(
-              title: Text("deseja_remover".i18n() + ' $nomeItem?'),
+              title: Text('${"deseja_remover".i18n()} $nome?'),
               actions: [
                 TextButton(
                   onPressed: () {
@@ -26,7 +25,7 @@ class DeleteButton extends StatelessWidget {
                 ),
                 TextButton(
                   onPressed: () {
-                    deletaItem();
+                    delete();
                     Navigator.pop(context);
                   },
                   child: Text("sim".i18n()),

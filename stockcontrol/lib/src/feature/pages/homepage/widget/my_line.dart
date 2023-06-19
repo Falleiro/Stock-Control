@@ -3,11 +3,21 @@ import '../../stock/stock.dart';
 import '../../stock/stockedit.dart';
 
 class MyLine extends StatefulWidget {
-  final String origem;
   final String text;
   final int id;
-  const MyLine(
-      {super.key, required this.text, required this.origem, required this.id});
+  final Function rebuild;
+  final int cep;
+  final String estado;
+  final String cidade;
+  const MyLine({
+    super.key,
+    required this.text,
+    required this.id,
+    required this.rebuild,
+    required this.cep,
+    required this.estado,
+    required this.cidade,
+  });
 
   @override
   State<MyLine> createState() => _MyLineState();
@@ -28,16 +38,14 @@ class _MyLineState extends State<MyLine> {
             Expanded(
               child: TextButton(
                 onPressed: () {
-                  if (widget.origem == 'estabelecimento') {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => UserStock(
-                            estabelecimento: widget.text,
-                            idEstabelecimento: widget.id),
-                      ),
-                    );
-                  } else {}
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => UserStock(
+                          estabelecimento: widget.text,
+                          idEstabelecimento: widget.id),
+                    ),
+                  );
                 },
                 child: Text(
                   widget.text,
@@ -52,8 +60,14 @@ class _MyLineState extends State<MyLine> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) =>
-                        UserStockEdit(estabelecimento: widget.text),
+                    builder: (context) => UserStockEdit(
+                      estabelecimento: widget.text,
+                      idEstabelecimento: widget.id,
+                      rebuild: widget.rebuild,
+                      cep: widget.cep,
+                      estado: widget.estado,
+                      cidade: widget.cidade,
+                    ),
                   ),
                 );
               },

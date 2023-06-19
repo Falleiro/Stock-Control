@@ -62,8 +62,16 @@ class _MyStockFormState extends State<MyStockForm> {
                 if (_formKey.currentState!.validate()) {
                   final String name = _nome.text;
                   const int id = 0;
-                  final Estabelecimento newEstabelecimento =
-                      Estabelecimento(name, id);
+                  final int cep = int.parse(_cep.text);
+                  final String estado = _uf.text.toString();
+                  final String cidade = _cidade.text.toString();
+                  final Estabelecimento newEstabelecimento = Estabelecimento(
+                    id,
+                    name,
+                    cep,
+                    estado,
+                    cidade,
+                  );
                   _dao.save(newEstabelecimento).then((id) {
                     widget.atualizarLista();
                     Navigator.of(context).pop();

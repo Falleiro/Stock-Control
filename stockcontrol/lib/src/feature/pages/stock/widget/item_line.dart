@@ -9,7 +9,6 @@ class LinhaItem extends StatefulWidget {
   final String validade;
   final int lote;
   final Function(int) updateQuantity;
-  final Function updateName;
   final Function refresh;
   const LinhaItem(
       {super.key,
@@ -20,7 +19,6 @@ class LinhaItem extends StatefulWidget {
       required this.validade,
       required this.lote,
       required this.updateQuantity,
-      required this.updateName,
       required this.refresh});
 
   @override
@@ -38,13 +36,6 @@ class _LinhaItemState extends State<LinhaItem> {
         qtd = novaQtd;
       });
       widget.updateQuantity(novaQtd);
-    }
-
-    void atualizaNome(String novoName) {
-      setState(() {
-        name = novoName.toString();
-      });
-      widget.updateName();
     }
 
     return Padding(
@@ -75,7 +66,6 @@ class _LinhaItemState extends State<LinhaItem> {
                         validade: widget.validade,
                         lote: widget.lote,
                         atualizaQtd: atualizaQtd,
-                        atualizaNome: atualizaNome,
                         refresh: widget.refresh,
                       ),
                     ),
