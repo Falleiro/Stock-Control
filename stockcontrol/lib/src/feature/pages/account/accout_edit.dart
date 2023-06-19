@@ -53,8 +53,9 @@ class _EditAccountState extends State<EditAccount> {
   void _updateUserData() async {
     if (_nameController.text.isNotEmpty &&
         _birthdateController.text.isNotEmpty) {
-      if (!_isNameValid(_nameController.text)) {
-        _showInvalidNameDialog();
+      if (!_isNameValid(_nameController.text) &&
+          !_isDateValid(_birthdateController.text)) {
+        _showInvalidDateNameDialog();
         return;
       }
 
@@ -67,11 +68,14 @@ class _EditAccountState extends State<EditAccount> {
         _showInvalidNameDialog();
         return;
       }
-
       await _userRef.child('name').set(_nameController.text);
       _showTemporaryDialog(
           "nome_alterado".i18n(), Color.fromRGBO(127, 233, 131, 1));
     } else if (_birthdateController.text.isNotEmpty) {
+      if (!_isDateValid(_birthdateController.text)) {
+        _showInvalidDateDialog();
+        return;
+      }
       await _userRef.child('birthdate').set(_birthdateController.text);
       _showTemporaryDialog(
           "data_alterada".i18n(), Color.fromRGBO(127, 233, 131, 1));
@@ -81,6 +85,52 @@ class _EditAccountState extends State<EditAccount> {
   bool _isNameValid(String name) {
     final RegExp nameRegExp = RegExp(r'^[a-zA-Z]+$');
     return nameRegExp.hasMatch(name);
+  }
+
+  bool _isDateValid(String date) {
+    final RegExp regex = RegExp(r'^\d{2}/\d{2}/\d{4}$');
+
+    if (regex.hasMatch(date)) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  void _showInvalidDateNameDialog() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          backgroundColor: Color.fromARGB(255, 245, 66, 66),
+          contentTextStyle: TextStyle(color: Color.fromARGB(220, 0, 0, 0)),
+          titleTextStyle: TextStyle(color: Color.fromARGB(220, 0, 0, 0)),
+          title: Text("data_nome_invalido".i18n()),
+          content: Text("digite_data_nome_valido".i18n()),
+        );
+      },
+    );
+    Timer(Duration(seconds: 1, milliseconds: 750), () {
+      Navigator.of(context).pop();
+    });
+  }
+
+  void _showInvalidDateDialog() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          backgroundColor: Color.fromARGB(255, 245, 66, 66),
+          contentTextStyle: TextStyle(color: Color.fromARGB(220, 0, 0, 0)),
+          titleTextStyle: TextStyle(color: Color.fromARGB(220, 0, 0, 0)),
+          title: Text("data_invalida".i18n()),
+          content: Text("digite_data_valida".i18n()),
+        );
+      },
+    );
+    Timer(Duration(seconds: 1, milliseconds: 750), () {
+      Navigator.of(context).pop();
+    });
   }
 
   void _showInvalidNameDialog() {
