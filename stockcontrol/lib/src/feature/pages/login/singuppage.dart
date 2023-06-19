@@ -234,7 +234,7 @@ class _SignupPageState extends State<SignupPage> {
                       controller: _birthdate,
                       decoration: InputDecoration(
                         labelText: "data_nascimento".i18n(),
-                        hintText: "alterar_data".i18n(),
+                        hintText: "adicionar_data".i18n(),
                       ),
                       style: TextStyle(
                         color: Colors.black,
