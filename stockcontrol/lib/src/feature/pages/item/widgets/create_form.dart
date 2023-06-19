@@ -64,7 +64,7 @@ class _MyItemFormState extends State<MyItemForm> {
             ),
             validator: (value) {
               if (value == null || value.isEmpty) {
-                return 'Esse campo precisa ser preenchido';
+                return "validacao-texto".i18n();
               } else if (int.tryParse(value) == null) {
                 return 'Informe um NÚMERO';
               }
