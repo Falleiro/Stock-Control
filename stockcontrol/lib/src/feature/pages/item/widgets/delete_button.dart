@@ -15,7 +15,7 @@ class DeleteButton extends StatelessWidget {
           showDialog(
             context: context,
             builder: (context) => AlertDialog(
-              title: Text("deseja_remover".i18n() + ' $nome?'),
+              title: Text('${"deseja_remover".i18n()} $nome?'),
               actions: [
                 TextButton(
                   onPressed: () {
