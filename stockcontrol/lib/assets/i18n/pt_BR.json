@@ -130,5 +130,6 @@
     "sim": "Sim",
     "nao": "Não",
     "email_utilizado": "Email já utilizado!",
-    "texto_email_utilizado": "O email fornecido já esta em uso."
+    "texto_email_utilizado": "O email fornecido já esta em uso.",
+    "adicionar_data": "Adicione sua data (DD/MM/AAAA)"
 }
