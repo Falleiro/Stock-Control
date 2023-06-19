@@ -74,11 +74,11 @@ class _SignupPageState extends State<SignupPage> {
 
   String? validatePassword(String value) {
     if (value.isEmpty) {
-      return 'Digite a nova senha';
+      return "digite_nova_senha".i18n();
     }
     if (value.length < 6) {
       _isLengthValid = false;
-      return 'A senha deve ter pelo menos 6 caracteres';
+      return "min_caracteres".i18n();
     }
     _isLengthValid = true;
     if (value.contains(RegExp(r'[A-Z]'))) {
@@ -190,14 +190,14 @@ class _SignupPageState extends State<SignupPage> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            'Pelo menos 6 caracteres',
+                            "caracteres".i18n(),
                             textAlign: TextAlign.left,
                             style: TextStyle(
                               color: _isLengthValid ? Colors.green : Colors.red,
                             ),
                           ),
                           Text(
-                            'Pelo menos uma letra maiúscula',
+                            "letra_maiuscula".i18n(),
                             textAlign: TextAlign.left,
                             style: TextStyle(
                               color:
@@ -205,14 +205,14 @@ class _SignupPageState extends State<SignupPage> {
                             ),
                           ),
                           Text(
-                            'Pelo menos um número',
+                            "numbers".i18n(),
                             textAlign: TextAlign.left,
                             style: TextStyle(
                               color: _isNumberValid ? Colors.green : Colors.red,
                             ),
                           ),
                           Text(
-                            'Pelo menos um caractere especial',
+                            "caractere_especial".i18n(),
                             textAlign: TextAlign.left,
                             style: TextStyle(
                               color: _isSpecialCharValid

@@ -108,5 +108,18 @@
     "confirme_nova_senha": "Confirme a nova senha",
     "nova_senha": "Nova senha",
     "senha_incorreta": "Senha incorreta",
-    "usuario_nao_encontrado": "Usuário não encontrado"
+    "usuario_nao_encontrado": "Usuário não encontrado",
+
+    "senha_alterada": "Sua senha foi alterada com sucesso",
+    "senha_redefinida": "Senha redefinida",
+    "min_caracteres": "A senha deve ter pelo menos 6 caracteres",
+    "digite_nova_senha": "Digite a nova senha",
+    "digite_senha_atual": "Digite a senha atual",
+    "confirmacao_senha": "Digite a confirmação de senha",
+    "caracteres": "Pelo menos 6 caracteres",
+    "letra_maiuscula": "Pelo menos uma letra maiúscula",
+    "numbers": "Pelo menos um número",
+    "senha_diferentes" : "As senhas não correspondem"
+
+
 }
