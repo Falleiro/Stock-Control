@@ -131,5 +131,9 @@
     "nao": "Não",
     "email_utilizado": "Email já utilizado!",
     "texto_email_utilizado": "O email fornecido já esta em uso.",
-    "adicionar_data": "Adicione sua data (DD/MM/AAAA)"
+    "adicionar_data": "Adicione sua data (DD/MM/AAAA)",
+    "stock_nome": "Nome Do Estoque",
+    "CEP": "Cep",
+    "Estado": "Estado",
+    "Cidade": "Cidade"
 }

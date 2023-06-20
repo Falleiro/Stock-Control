@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:localization/localization.dart';
 import 'package:stock_control/src/component/row_form.dart';
 import 'package:stock_control/src/feature/pages/item/widgets/delete_button.dart';
 import 'package:stock_control/src/feature/repository/dao/estabelecimento_dao.dart';
@@ -91,28 +92,28 @@ class _UserStockEditState extends State<UserStockEdit> {
           MyRowForm(
             formKey: _nameFormKey,
             myController: _name,
-            fieldName: 'Nome do Estoque',
+            fieldName: "stock_nome".i18n(),
             isNumber: false,
             operation: atualizaNome,
           ),
           MyRowForm(
             formKey: _cepFormKey,
             myController: _cep,
-            fieldName: 'Cep: ${widget.cep}',
+            fieldName: "CEP".i18n() + ': ${widget.cep}',
             isNumber: true,
             operation: atualizaCep,
           ),
           MyRowForm(
             formKey: _ufFormKey,
             myController: _uf,
-            fieldName: 'Estado: ${widget.estado}',
+            fieldName: "Estado".i18n() + ': ${widget.estado}',
             isNumber: false,
             operation: atualizaEstado,
           ),
           MyRowForm(
             formKey: _cidadeFormKey,
             myController: _cidade,
-            fieldName: 'Cidade: ${widget.cidade}',
+            fieldName: "Cidade".i18n() + ': ${widget.cidade}',
             isNumber: false,
             operation: atualizaCidade,
           ),
