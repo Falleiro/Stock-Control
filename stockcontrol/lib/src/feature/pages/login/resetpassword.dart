@@ -12,7 +12,9 @@ class PasswordResetScreen extends StatefulWidget {
 
 class _PasswordResetScreenState extends State<PasswordResetScreen> {
   final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
   final user = FirebaseAuth.instance.currentUser;
+  bool _obscurePassword = true;
 
   @override
   Widget build(BuildContext context) {
@@ -38,6 +40,30 @@ class _PasswordResetScreenState extends State<PasswordResetScreen> {
                 labelText: "email".i18n(),
                 border: const OutlineInputBorder(),
               ),
+            ),
+            const SizedBox(height: 16.0),
+            Text(
+              "digite_senha".i18n(),
+              style: const TextStyle(fontSize: 18.0),
+            ),
+            const SizedBox(height: 16.0),
+            TextField(
+              controller: _passwordController,
+              decoration: InputDecoration(
+                labelText: "senha".i18n(),
+                border: const OutlineInputBorder(),
+                suffixIcon: IconButton(
+                  icon: Icon(
+                    _obscurePassword ? Icons.visibility : Icons.visibility_off,
+                  ),
+                  onPressed: () {
+                    setState(() {
+                      _obscurePassword = !_obscurePassword;
+                    });
+                  },
+                ),
+              ),
+              obscureText: _obscurePassword,
             ),
             const SizedBox(height: 16.0),
             ElevatedButton(
