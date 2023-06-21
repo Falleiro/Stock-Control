@@ -23,6 +23,7 @@ class _RedefinePasswordState extends State<RedefinePassword> {
   bool _isNumberValid = false;
   bool _isSpecialCharValid = false;
   bool _isLengthValid = false;
+  bool _showPassword = false;
 
   void _resetPassword() async {
     if (_formKey.currentState!.validate()) {
@@ -57,9 +58,11 @@ class _RedefinePasswordState extends State<RedefinePassword> {
               child: Text("OK".i18n()),
               onPressed: () {
                 Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => const UserAccount()));
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const UserAccount(),
+                  ),
+                );
               },
             ),
           ],
@@ -123,7 +126,7 @@ class _RedefinePasswordState extends State<RedefinePassword> {
               TextFormField(
                 controller: _newPasswordController,
                 decoration: InputDecoration(labelText: "nova_senha".i18n()),
-                obscureText: true,
+                obscureText: !_showPassword,
                 onChanged: (value) {
                   setState(() {
                     validatePassword(value);
@@ -136,27 +139,32 @@ class _RedefinePasswordState extends State<RedefinePassword> {
               Text(
                 "caracteres".i18n(),
                 style: TextStyle(
-                    color: _isLengthValid ? Colors.green : Colors.red),
+                  color: _isLengthValid ? Colors.green : Colors.red,
+                ),
               ),
               Text(
                 "letra_maiuscula".i18n(),
                 style: TextStyle(
-                    color: _isUpperCaseValid ? Colors.green : Colors.red),
+                  color: _isUpperCaseValid ? Colors.green : Colors.red,
+                ),
               ),
               Text(
                 "numbers".i18n(),
                 style: TextStyle(
-                    color: _isNumberValid ? Colors.green : Colors.red),
+                  color: _isNumberValid ? Colors.green : Colors.red,
+                ),
               ),
               Text(
                 "caractere_especial".i18n(),
                 style: TextStyle(
-                    color: _isSpecialCharValid ? Colors.green : Colors.red),
+                  color: _isSpecialCharValid ? Colors.green : Colors.red,
+                ),
               ),
               TextFormField(
                 controller: _confirmPasswordController,
-                decoration:
-                    InputDecoration(labelText: "confirme_nova_senha".i18n()),
+                decoration: InputDecoration(
+                  labelText: "confirme_nova_senha".i18n(),
+                ),
                 obscureText: true,
                 validator: (value) {
                   if (value!.isEmpty) {
@@ -176,6 +184,19 @@ class _RedefinePasswordState extends State<RedefinePassword> {
               Text(
                 _errorMessage,
                 style: const TextStyle(color: Colors.red),
+              ),
+              Row(
+                children: [
+                  Checkbox(
+                    value: _showPassword,
+                    onChanged: (value) {
+                      setState(() {
+                        _showPassword = value!;
+                      });
+                    },
+                  ),
+                  Text("Mostrar senha"),
+                ],
               ),
             ],
           ),
