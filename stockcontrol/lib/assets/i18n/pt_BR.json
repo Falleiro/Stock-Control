@@ -135,5 +135,6 @@
     "stock_nome": "Nome Do Estoque",
     "CEP": "Cep",
     "Estado": "Estado",
-    "Cidade": "Cidade"
+    "Cidade": "Cidade",
+    "informe_numero": "Informe um NÚMERO"
 }

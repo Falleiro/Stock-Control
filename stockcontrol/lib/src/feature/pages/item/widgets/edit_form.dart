@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:localization/localization.dart';
 
 class MyTextForm extends StatefulWidget {
   final TextEditingController myController;
@@ -35,7 +36,7 @@ class _MyTextFormState extends State<MyTextForm> {
         validator: (value) {
           if (widget.isNumber) {
             if (value != null && int.tryParse(value) == null) {
-              return 'Informe um NÚMERO';
+              return "informe_numero".i18n();
             }
           } else {
             if (value != null && value.isEmpty) {
