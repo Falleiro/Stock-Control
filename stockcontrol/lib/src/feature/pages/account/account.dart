@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:localization/localization.dart';
-import 'package:stock_control/src/feature/pages/account/accout_edit.dart';
+import 'package:stock_control/src/feature/pages/account/account_edit.dart';
 import 'package:stock_control/src/feature/pages/login/loginpage.dart';
 
 class UserAccount extends StatefulWidget {
