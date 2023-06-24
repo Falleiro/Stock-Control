@@ -109,7 +109,7 @@ class _SignupPageState extends State<SignupPage> {
   }
 
   bool _isNameValid(String name) {
-    final RegExp nameRegExp = RegExp(r'^[a-zA-Z]+$');
+    final RegExp nameRegExp = RegExp(r'^[a-zA-Z\s]+$');
     return nameRegExp.hasMatch(name);
   }
 

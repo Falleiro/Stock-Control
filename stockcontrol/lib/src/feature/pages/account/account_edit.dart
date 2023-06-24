@@ -70,7 +70,7 @@ class _EditAccountState extends State<EditAccount> {
       }
       await _userRef.child('name').set(_nameController.text);
       _showTemporaryDialog(
-          "nome_alterado".i18n(), Color.fromRGBO(127, 233, 131, 1));
+          "nome_alterado".i18n(), Color.fromRGBO(126, 243, 130, 1));
     } else if (_birthdateController.text.isNotEmpty) {
       if (!_isDateValid(_birthdateController.text)) {
         _showInvalidDateDialog();
@@ -83,7 +83,7 @@ class _EditAccountState extends State<EditAccount> {
   }
 
   bool _isNameValid(String name) {
-    final RegExp nameRegExp = RegExp(r'^[a-zA-Z]+$');
+    final RegExp nameRegExp = RegExp(r'^[a-zA-Z\s]+$');
     return nameRegExp.hasMatch(name);
   }
 
