@@ -127,5 +127,9 @@
     "nao": "No",
     "email_utilizado": "Email already used!",
     "texto_email_utilizado": "The provided email is already in use.",
-    "adicionar_data": "Add your date (DD/MM/AAAA)"
+    "adicionar_data": "Add your date (DD/MM/AAAA)",
+    "stock_nome": "Stock Name",
+    "CEP": "Cep",
+    "Estado": "State",
+    "Cidade": "City"
 }
