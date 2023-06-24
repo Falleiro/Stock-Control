@@ -66,7 +66,7 @@ class _MyItemFormState extends State<MyItemForm> {
               if (value == null || value.isEmpty) {
                 return "validacao-texto".i18n();
               } else if (int.tryParse(value) == null) {
-                return 'Informe um NÚMERO';
+                return "informe_numero".i18n();
               }
               return null;
             },
