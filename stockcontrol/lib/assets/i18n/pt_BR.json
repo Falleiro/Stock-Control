@@ -70,10 +70,9 @@
     "redefinir_senha": "Redefinição da senha",
     "digite_email": "Digite seu E-mail cadastrado para receber uma nova senha",
     "enviar_senha": "Enviar senha de recuperação",
-    "texto_email_enviado": "Sua nova senha foi enviada para o e-mail",
+    "texto_email_enviado": "Sua nova senha foi enviada para seu e-mail",
     "nova_senha_enviada": "Nova senha enviada",
     "ok": "Ok",
-    "aparecera_senha": "Aqui aparecerá a sua senha",
     "email_enviado": "E-mail enviado com sucesso!",
     "senha_diferente": "As senhas não correspondem. Por favor, tente novamente",
     "erro": "Erro",
@@ -136,5 +135,7 @@
     "CEP": "Cep",
     "Estado": "Estado",
     "Cidade": "Cidade",
-    "informe_numero": "Informe um NÚMERO"
+    "informe_numero": "Informe um NÚMERO",
+    "email_nao_enviado": "Email não enviado!",
+    "texto_email_errado": "Verifique se o email digitado está correto."
 }
