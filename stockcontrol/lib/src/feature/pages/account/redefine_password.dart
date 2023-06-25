@@ -23,7 +23,8 @@ class _RedefinePasswordState extends State<RedefinePassword> {
   bool _isNumberValid = false;
   bool _isSpecialCharValid = false;
   bool _isLengthValid = false;
-  bool _showPassword = false;
+  bool _showPassword =
+      false; //para a opção de mostrar/ocultar caracteres digitados
 
   @override
   void dispose() {
