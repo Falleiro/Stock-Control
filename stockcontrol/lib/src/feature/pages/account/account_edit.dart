@@ -23,6 +23,8 @@ class _EditAccountState extends State<EditAccount> {
   late DatabaseReference _userRef;
   String name = '';
   String birthdate = '';
+  bool _showPassword = false;
+
   @override
   void initState() {
     super.initState();
@@ -335,9 +337,19 @@ class _EditAccountState extends State<EditAccount> {
                 children: [
                   TextFormField(
                     controller: _passwordController,
-                    obscureText: true,
+                    obscureText: !_showPassword,
                     decoration: InputDecoration(
                       labelText: "senha_exclusao".i18n(),
+                      suffixIcon: IconButton(
+                        icon: Icon(_showPassword
+                            ? Icons.visibility
+                            : Icons.visibility_off),
+                        onPressed: () {
+                          setState(() {
+                            _showPassword = !_showPassword;
+                          });
+                        },
+                      ),
                       hintText: "digite_senha".i18n(),
                       errorText: errorText,
                     ),
