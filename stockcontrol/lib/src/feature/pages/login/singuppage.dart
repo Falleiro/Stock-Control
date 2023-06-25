@@ -23,6 +23,8 @@ class _SignupPageState extends State<SignupPage> {
   bool _isNumberValid = false;
   bool _isSpecialCharValid = false;
   bool _isLengthValid = false;
+  bool _showPassword = false;
+  bool _showrepPassword = false;
 
   bool checkPasswordsMatch(String password, String confirmPassword) {
     return password == confirmPassword;
@@ -246,8 +248,20 @@ class _SignupPageState extends State<SignupPage> {
                     ),
                     SizedBox(height: 25),
                     TextFormField(
-                      decoration: InputDecoration(labelText: "senha".i18n()),
-                      obscureText: true,
+                      decoration: InputDecoration(
+                        labelText: "senha".i18n(),
+                        suffixIcon: IconButton(
+                          icon: Icon(_showPassword
+                              ? Icons.visibility
+                              : Icons.visibility_off),
+                          onPressed: () {
+                            setState(() {
+                              _showPassword = !_showPassword;
+                            });
+                          },
+                        ),
+                      ),
+                      obscureText: !_showPassword,
                       onChanged: (value) {
                         setState(() {
                           _password = value;
@@ -312,9 +326,20 @@ class _SignupPageState extends State<SignupPage> {
                     ),
                     SizedBox(height: 1),
                     TextFormField(
-                      decoration:
-                          InputDecoration(labelText: "repita_senha".i18n()),
-                      obscureText: true,
+                      decoration: InputDecoration(
+                        labelText: "repita_senha".i18n(),
+                        suffixIcon: IconButton(
+                          icon: Icon(_showrepPassword
+                              ? Icons.visibility
+                              : Icons.visibility_off),
+                          onPressed: () {
+                            setState(() {
+                              _showrepPassword = !_showrepPassword;
+                            });
+                          },
+                        ),
+                      ),
+                      obscureText: !_showrepPassword,
                       onChanged: (value) {
                         setState(() {
                           _confirmPassword = value;
