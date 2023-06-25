@@ -261,35 +261,50 @@ class _SignupPageState extends State<SignupPage> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(
-                            "caracteres".i18n(),
-                            textAlign: TextAlign.left,
-                            style: TextStyle(
-                              color: _isLengthValid ? Colors.green : Colors.red,
+                          Align(
+                            alignment: Alignment.centerLeft,
+                            child: Text(
+                              "caracteres".i18n(),
+                              textAlign: TextAlign.left,
+                              style: TextStyle(
+                                color:
+                                    _isLengthValid ? Colors.green : Colors.red,
+                              ),
                             ),
                           ),
-                          Text(
-                            "letra_maiuscula".i18n(),
-                            textAlign: TextAlign.left,
-                            style: TextStyle(
-                              color:
-                                  _isUpperCaseValid ? Colors.green : Colors.red,
+                          Align(
+                            alignment: Alignment.centerLeft,
+                            child: Text(
+                              "letra_maiuscula".i18n(),
+                              textAlign: TextAlign.left,
+                              style: TextStyle(
+                                color: _isUpperCaseValid
+                                    ? Colors.green
+                                    : Colors.red,
+                              ),
                             ),
                           ),
-                          Text(
-                            "numbers".i18n(),
-                            textAlign: TextAlign.left,
-                            style: TextStyle(
-                              color: _isNumberValid ? Colors.green : Colors.red,
+                          Align(
+                            alignment: Alignment.centerLeft,
+                            child: Text(
+                              "numbers".i18n(),
+                              textAlign: TextAlign.left,
+                              style: TextStyle(
+                                color:
+                                    _isNumberValid ? Colors.green : Colors.red,
+                              ),
                             ),
                           ),
-                          Text(
-                            "caractere_especial".i18n(),
-                            textAlign: TextAlign.left,
-                            style: TextStyle(
-                              color: _isSpecialCharValid
-                                  ? Colors.green
-                                  : Colors.red,
+                          Align(
+                            alignment: Alignment.centerLeft,
+                            child: Text(
+                              "caractere_especial".i18n(),
+                              textAlign: TextAlign.left,
+                              style: TextStyle(
+                                color: _isSpecialCharValid
+                                    ? Colors.green
+                                    : Colors.red,
+                              ),
                             ),
                           ),
                         ],
