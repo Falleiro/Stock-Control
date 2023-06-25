@@ -17,8 +17,7 @@ class _LoginPageState extends State<LoginPage> {
   final _passwordKey = GlobalKey<FormFieldState<String>>();
   late String _email;
   late String _password;
-  bool _showPassword =
-      false; // Variável para controlar a exibição dos caracteres da senha
+  bool _showPassword = false;
 
   @override
   Widget build(BuildContext context) {
@@ -150,6 +149,7 @@ class _LoginPageState extends State<LoginPage> {
         builder: (context) {
           return AlertDialog(
             title: Text("erro".i18n()),
+            backgroundColor: Color.fromARGB(255, 245, 66, 66),
             content: Text(errorMessage),
             actions: [
               TextButton(

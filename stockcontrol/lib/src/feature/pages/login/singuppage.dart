@@ -355,6 +355,7 @@ class _SignupPageState extends State<SignupPage> {
                           showDialog(
                             context: context,
                             builder: (context) => AlertDialog(
+                              backgroundColor: Color.fromARGB(255, 245, 66, 66),
                               title: Text("erro".i18n()),
                               content: Text("senha_diferente".i18n()),
                               actions: [
@@ -375,7 +376,8 @@ class _SignupPageState extends State<SignupPage> {
                   onPressed: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => LoginPage()),
+                      MaterialPageRoute(
+                          builder: (context) => const LoginPage()),
                     );
                   },
                   iconSize: 50,
