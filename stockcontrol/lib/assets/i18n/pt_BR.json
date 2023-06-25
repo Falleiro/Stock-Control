@@ -141,5 +141,6 @@
     "text_textos_iguais": "Sua alteração nao foi realizada pois foi digitado o mesmo nome ou data",
     "textos_iguais": "Textos iguais",
     "senhas_iguais": "Senhas Iguais",
-    "senhas_tem_que_ser_diferentes": "As senhas devem ser diferentes."
+    "senhas_tem_que_ser_diferentes": "As senhas devem ser diferentes.",
+    "mostrar_senha": "Mostrar senha"
 }
