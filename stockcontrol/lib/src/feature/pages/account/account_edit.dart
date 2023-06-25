@@ -26,28 +26,24 @@ class _EditAccountState extends State<EditAccount> {
   void initState() {
     super.initState();
     _user = FirebaseAuth.instance.currentUser;
-    _userRef =
-        FirebaseDatabase.instance.reference().child('users').child(_user!.uid);
+    _userRef = FirebaseDatabase.instance.ref('users/${_user!.uid}');
     _loadUserData();
   }
 
   void _loadUserData() async {
-    _userRef
-        .once()
-        .then((DataSnapshot snapshot) {
-          final userData = snapshot.value as Map<dynamic, dynamic>?;
-
-          if (userData != null) {
-            setState(() {
-              _nameController.text = userData['name'] as String? ?? '';
-              _birthdateController.text =
-                  userData['birthdate'] as String? ?? '';
-            });
-          }
-        } as FutureOr Function(DatabaseEvent value))
-        .catchError((error) {
+    try {
+      _userRef.onValue.listen((event) {
+        final userData = event.snapshot.value as Map<dynamic, dynamic>?;
+        if (userData != null) {
+          setState(() {
+            _nameController.text = userData['name'] ?? '';
+            _birthdateController.text = userData['birthdate'] ?? '';
+          });
+        }
+      });
+    } catch (error) {
       print('$error');
-    });
+    }
   }
 
   void _updateUserData() async {
@@ -70,7 +66,7 @@ class _EditAccountState extends State<EditAccount> {
       }
       await _userRef.child('name').set(_nameController.text);
       _showTemporaryDialog(
-          "nome_alterado".i18n(), Color.fromRGBO(126, 243, 130, 1));
+          "nome_alterado".i18n(), Color.fromRGBO(127, 233, 131, 1));
     } else if (_birthdateController.text.isNotEmpty) {
       if (!_isDateValid(_birthdateController.text)) {
         _showInvalidDateDialog();
@@ -221,8 +217,8 @@ class _EditAccountState extends State<EditAccount> {
                 TextFormField(
                   controller: _nameController,
                   decoration: InputDecoration(
-                    labelText: "nome".i18n(),
-                    hintText: "digite_nome".i18n(),
+                    labelText: "digite_nome".i18n(),
+                    hintText: _nameController.text,
                   ),
                   style: TextStyle(
                     color: Colors.black,
@@ -232,8 +228,8 @@ class _EditAccountState extends State<EditAccount> {
                 TextFormField(
                   controller: _birthdateController,
                   decoration: InputDecoration(
-                    labelText: "data_nascimento".i18n(),
-                    hintText: "alterar_data".i18n(),
+                    labelText: "alterar_data".i18n(),
+                    hintText: _birthdateController.text,
                   ),
                   style: TextStyle(
                     color: Colors.black,
