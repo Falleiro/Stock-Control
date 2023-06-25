@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:localization/localization.dart';
-import 'package:stock_control/src/feature/pages/account/account.dart';
+import 'package:stock_control/src/feature/pages/account/account_edit.dart';
 
 class RedefinePassword extends StatefulWidget {
   const RedefinePassword({Key? key}) : super(key: key);
@@ -43,8 +43,12 @@ class _RedefinePasswordState extends State<RedefinePassword> {
             password: _currentPasswordController.text,
           );
           await user.reauthenticateWithCredential(credential);
-          await user.updatePassword(_newPasswordController.text);
-          _showSuccessDialog();
+          if (_newPasswordController.text != _currentPasswordController.text) {
+            await user.updatePassword(_newPasswordController.text);
+            _showSuccessDialog();
+          } else {
+            _showErrorDialog();
+          }
         } on FirebaseAuthException catch (e) {
           setState(() {
             _errorMessage = e.message!;
@@ -54,11 +58,35 @@ class _RedefinePasswordState extends State<RedefinePassword> {
     }
   }
 
+  void _showErrorDialog() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          backgroundColor: Color.fromARGB(255, 245, 66, 66),
+          contentTextStyle: TextStyle(color: Color.fromARGB(220, 0, 0, 0)),
+          titleTextStyle: TextStyle(color: Color.fromARGB(220, 0, 0, 0)),
+          title: Text("senhas_iguais".i18n()),
+          content: Text("senhas_tem_que_ser_diferentes".i18n()),
+          actions: <Widget>[
+            TextButton(
+              child: Text("OK".i18n()),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   void _showSuccessDialog() {
     showDialog(
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
+          backgroundColor: Color.fromRGBO(127, 233, 131, 1),
           title: Text("senha_redefinida".i18n()),
           content: Text("senha_alterada".i18n()),
           actions: <Widget>[
@@ -68,7 +96,7 @@ class _RedefinePasswordState extends State<RedefinePassword> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => const UserAccount(),
+                    builder: (context) => const EditAccount(),
                   ),
                 );
               },
