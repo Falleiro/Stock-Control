@@ -21,7 +21,8 @@ class _EditAccountState extends State<EditAccount> {
   TextEditingController _passwordController = TextEditingController();
   User? _user;
   late DatabaseReference _userRef;
-
+  String name = '';
+  String birthdate = '';
   @override
   void initState() {
     super.initState();
@@ -36,8 +37,10 @@ class _EditAccountState extends State<EditAccount> {
         final userData = event.snapshot.value as Map<dynamic, dynamic>?;
         if (userData != null) {
           setState(() {
-            _nameController.text = userData['name'] ?? '';
-            _birthdateController.text = userData['birthdate'] ?? '';
+            // _nameController.text = userData['name'] ?? '';
+            // _birthdateController.text = userData['birthdate'] ?? '';
+            name = userData['name'] ?? '';
+            birthdate = userData['birthdate'] ?? '';
           });
         }
       });
@@ -49,32 +52,44 @@ class _EditAccountState extends State<EditAccount> {
   void _updateUserData() async {
     if (_nameController.text.isNotEmpty &&
         _birthdateController.text.isNotEmpty) {
-      if (!_isNameValid(_nameController.text) &&
+      if (!_isNameValid(_nameController.text) ||
           !_isDateValid(_birthdateController.text)) {
         _showInvalidDateNameDialog();
         return;
       }
-
-      await _userRef.child('name').set(_nameController.text);
-      await _userRef.child('birthdate').set(_birthdateController.text);
-      _showTemporaryDialog(
-          "nome_e_data_alterado".i18n(), Color.fromRGBO(127, 233, 131, 1));
+      if (name != _nameController.text &&
+          birthdate != _birthdateController.text) {
+        await _userRef.child('name').set(_nameController.text);
+        await _userRef.child('birthdate').set(_birthdateController.text);
+        _showTemporaryDialog(
+            "nome_e_data_alterado".i18n(), Color.fromRGBO(127, 233, 131, 1));
+      } else {
+        _showigualDialog();
+      }
     } else if (_nameController.text.isNotEmpty) {
       if (!_isNameValid(_nameController.text)) {
         _showInvalidNameDialog();
         return;
       }
-      await _userRef.child('name').set(_nameController.text);
-      _showTemporaryDialog(
-          "nome_alterado".i18n(), Color.fromRGBO(127, 233, 131, 1));
+      if (name != _nameController.text) {
+        await _userRef.child('name').set(_nameController.text);
+        _showTemporaryDialog(
+            "nome_alterado".i18n(), Color.fromRGBO(127, 233, 131, 1));
+      } else {
+        _showigualDialog();
+      }
     } else if (_birthdateController.text.isNotEmpty) {
       if (!_isDateValid(_birthdateController.text)) {
         _showInvalidDateDialog();
         return;
       }
-      await _userRef.child('birthdate').set(_birthdateController.text);
-      _showTemporaryDialog(
-          "data_alterada".i18n(), Color.fromRGBO(127, 233, 131, 1));
+      if (birthdate != _birthdateController.text) {
+        await _userRef.child('birthdate').set(_birthdateController.text);
+        _showTemporaryDialog(
+            "data_alterada".i18n(), Color.fromRGBO(127, 233, 131, 1));
+      } else {
+        _showigualDialog();
+      }
     }
   }
 
@@ -103,6 +118,24 @@ class _EditAccountState extends State<EditAccount> {
     }
 
     return false;
+  }
+
+  void _showigualDialog() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          backgroundColor: Color.fromARGB(255, 245, 66, 66),
+          contentTextStyle: TextStyle(color: Color.fromARGB(220, 0, 0, 0)),
+          titleTextStyle: TextStyle(color: Color.fromARGB(220, 0, 0, 0)),
+          title: Text("textos_iguais".i18n()),
+          content: Text("text_textos_iguais".i18n()),
+        );
+      },
+    );
+    Timer(Duration(seconds: 2, milliseconds: 750), () {
+      Navigator.of(context).pop();
+    });
   }
 
   void _showInvalidDateNameDialog() {
@@ -218,7 +251,7 @@ class _EditAccountState extends State<EditAccount> {
                   controller: _nameController,
                   decoration: InputDecoration(
                     labelText: "digite_nome".i18n(),
-                    hintText: _nameController.text,
+                    hintText: name,
                   ),
                   style: TextStyle(
                     color: Colors.black,
@@ -229,7 +262,7 @@ class _EditAccountState extends State<EditAccount> {
                   controller: _birthdateController,
                   decoration: InputDecoration(
                     labelText: "alterar_data".i18n(),
-                    hintText: _birthdateController.text,
+                    hintText: birthdate,
                   ),
                   style: TextStyle(
                     color: Colors.black,
