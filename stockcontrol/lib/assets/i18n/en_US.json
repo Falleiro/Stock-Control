@@ -70,7 +70,6 @@
     "digite_email": "Enter your registered email to receive a new password",
     "enviar_senha": "Send recovery password",
     "texto_email_enviado": "Your new password has been sent to the email address:",
-    "nova_senha_enviada": "New password sent",
     "ok": "Ok",
     "senha_diferente": "This password is diferent. Please, try again",
     "erro": "Error",
@@ -90,8 +89,8 @@
     "senha_exclusao": "Enter password to delete account",
     "digite_senha": "Type your password",
     "salvar_modificacoes": "Save changes",
-    "alterar_data": "Change your date (DD/MM/AAAA)",
-    "digite_nome": "Enter your name to change",
+    "alterar_data": "Edit your birthday (DD/MM/AAAA)",
+    "digite_nome": "Edit your name",
     "conta_deletada": "Account deleted successfully",
     "nome_e_data_alterado": "Name and Date successfully changed",
     "comeca_inicio": "Start by clicking Add establishment",
@@ -132,5 +131,11 @@
     "CEP": "Cep",
     "Estado": "State",
     "Cidade": "City",
-    "informe_numero": "Enter a NUMBER"
+    "informe_numero": "Enter a NUMBER",
+    "email_nao_enviado": "Email don't send!",
+    "texto_email_errado": "Check the email is correct.",
+    "text_textos_iguais": "Sua alteração nao foi realizada pois foi digitado o mesmo nome ou data",
+    "textos_iguais": "Textos iguais",
+    "senhas_iguais": "Senhas Iguais",
+    "senhas_tem_que_ser_diferentes": "As senhas devem ser diferentes."
 }

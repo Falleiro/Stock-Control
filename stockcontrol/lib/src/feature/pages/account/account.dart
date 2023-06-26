@@ -1,3 +1,6 @@
+import 'dart:async';
+
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:localization/localization.dart';
@@ -13,11 +16,32 @@ class UserAccount extends StatefulWidget {
 
 class _UserAccountState extends State<UserAccount> {
   User? _user;
+  late DatabaseReference _userRef;
+  String _name = '';
+  String _birthdate = '';
 
   @override
   void initState() {
     super.initState();
     _user = FirebaseAuth.instance.currentUser;
+    _userRef = FirebaseDatabase.instance.ref('users/${_user!.uid}');
+    _getUserData();
+  }
+
+  Future<void> _getUserData() async {
+    try {
+      _userRef.onValue.listen((event) {
+        final data = event.snapshot.value as Map<dynamic, dynamic>?;
+        if (data != null) {
+          setState(() {
+            _name = data['name'] ?? '';
+            _birthdate = data['birthdate'] ?? '';
+          });
+        }
+      });
+    } catch (error) {
+      print('$error');
+    }
   }
 
   @override
@@ -35,6 +59,7 @@ class _UserAccountState extends State<UserAccount> {
                 "email_logado".i18n(),
                 textAlign: TextAlign.center,
                 style: TextStyle(
+                  fontWeight: FontWeight.bold,
                   color: Colors.black,
                 ),
               ),
@@ -45,6 +70,24 @@ class _UserAccountState extends State<UserAccount> {
                   color: Color.fromARGB(255, 153, 149, 149),
                 ),
               ),
+            ),
+            ListTile(
+              title: Text(
+                "nome".i18n(),
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              subtitle: Text(_name),
+            ),
+            ListTile(
+              title: Text(
+                "data_nascimento".i18n(),
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              subtitle: Text(_birthdate),
             ),
           ],
         ),

@@ -21,69 +21,82 @@ class _EditAccountState extends State<EditAccount> {
   TextEditingController _passwordController = TextEditingController();
   User? _user;
   late DatabaseReference _userRef;
+  String name = '';
+  String birthdate = '';
+  bool _showPassword = false;
 
   @override
   void initState() {
     super.initState();
     _user = FirebaseAuth.instance.currentUser;
-    _userRef =
-        FirebaseDatabase.instance.reference().child('users').child(_user!.uid);
+    _userRef = FirebaseDatabase.instance.ref('users/${_user!.uid}');
     _loadUserData();
   }
 
   void _loadUserData() async {
-    _userRef
-        .once()
-        .then((DataSnapshot snapshot) {
-          final userData = snapshot.value as Map<dynamic, dynamic>?;
-
-          if (userData != null) {
-            setState(() {
-              _nameController.text = userData['name'] as String? ?? '';
-              _birthdateController.text =
-                  userData['birthdate'] as String? ?? '';
-            });
-          }
-        } as FutureOr Function(DatabaseEvent value))
-        .catchError((error) {
+    try {
+      _userRef.onValue.listen((event) {
+        final userData = event.snapshot.value as Map<dynamic, dynamic>?;
+        if (userData != null) {
+          setState(() {
+            // _nameController.text = userData['name'] ?? '';
+            // _birthdateController.text = userData['birthdate'] ?? '';
+            name = userData['name'] ?? '';
+            birthdate = userData['birthdate'] ?? '';
+          });
+        }
+      });
+    } catch (error) {
       print('$error');
-    });
+    }
   }
 
   void _updateUserData() async {
     if (_nameController.text.isNotEmpty &&
         _birthdateController.text.isNotEmpty) {
-      if (!_isNameValid(_nameController.text) &&
+      if (!_isNameValid(_nameController.text) ||
           !_isDateValid(_birthdateController.text)) {
         _showInvalidDateNameDialog();
         return;
       }
-
-      await _userRef.child('name').set(_nameController.text);
-      await _userRef.child('birthdate').set(_birthdateController.text);
-      _showTemporaryDialog(
-          "nome_e_data_alterado".i18n(), Color.fromRGBO(127, 233, 131, 1));
+      if (name != _nameController.text &&
+          birthdate != _birthdateController.text) {
+        await _userRef.child('name').set(_nameController.text);
+        await _userRef.child('birthdate').set(_birthdateController.text);
+        _showTemporaryDialog(
+            "nome_e_data_alterado".i18n(), Color.fromRGBO(127, 233, 131, 1));
+      } else {
+        _showigualDialog();
+      }
     } else if (_nameController.text.isNotEmpty) {
       if (!_isNameValid(_nameController.text)) {
         _showInvalidNameDialog();
         return;
       }
-      await _userRef.child('name').set(_nameController.text);
-      _showTemporaryDialog(
-          "nome_alterado".i18n(), Color.fromRGBO(127, 233, 131, 1));
+      if (name != _nameController.text) {
+        await _userRef.child('name').set(_nameController.text);
+        _showTemporaryDialog(
+            "nome_alterado".i18n(), Color.fromRGBO(127, 233, 131, 1));
+      } else {
+        _showigualDialog();
+      }
     } else if (_birthdateController.text.isNotEmpty) {
       if (!_isDateValid(_birthdateController.text)) {
         _showInvalidDateDialog();
         return;
       }
-      await _userRef.child('birthdate').set(_birthdateController.text);
-      _showTemporaryDialog(
-          "data_alterada".i18n(), Color.fromRGBO(127, 233, 131, 1));
+      if (birthdate != _birthdateController.text) {
+        await _userRef.child('birthdate').set(_birthdateController.text);
+        _showTemporaryDialog(
+            "data_alterada".i18n(), Color.fromRGBO(127, 233, 131, 1));
+      } else {
+        _showigualDialog();
+      }
     }
   }
 
   bool _isNameValid(String name) {
-    final RegExp nameRegExp = RegExp(r'^[a-zA-Z]+$');
+    final RegExp nameRegExp = RegExp(r'^[a-zA-Z\s]+$');
     return nameRegExp.hasMatch(name);
   }
 
@@ -107,6 +120,24 @@ class _EditAccountState extends State<EditAccount> {
     }
 
     return false;
+  }
+
+  void _showigualDialog() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          backgroundColor: Color.fromARGB(255, 245, 66, 66),
+          contentTextStyle: TextStyle(color: Color.fromARGB(220, 0, 0, 0)),
+          titleTextStyle: TextStyle(color: Color.fromARGB(220, 0, 0, 0)),
+          title: Text("textos_iguais".i18n()),
+          content: Text("text_textos_iguais".i18n()),
+        );
+      },
+    );
+    Timer(Duration(seconds: 2, milliseconds: 750), () {
+      Navigator.of(context).pop();
+    });
   }
 
   void _showInvalidDateNameDialog() {
@@ -221,8 +252,8 @@ class _EditAccountState extends State<EditAccount> {
                 TextFormField(
                   controller: _nameController,
                   decoration: InputDecoration(
-                    labelText: "nome".i18n(),
-                    hintText: "digite_nome".i18n(),
+                    labelText: "digite_nome".i18n(),
+                    hintText: name,
                   ),
                   style: TextStyle(
                     color: Colors.black,
@@ -232,8 +263,8 @@ class _EditAccountState extends State<EditAccount> {
                 TextFormField(
                   controller: _birthdateController,
                   decoration: InputDecoration(
-                    labelText: "data_nascimento".i18n(),
-                    hintText: "alterar_data".i18n(),
+                    labelText: "alterar_data".i18n(),
+                    hintText: birthdate,
                   ),
                   style: TextStyle(
                     color: Colors.black,
@@ -306,9 +337,19 @@ class _EditAccountState extends State<EditAccount> {
                 children: [
                   TextFormField(
                     controller: _passwordController,
-                    obscureText: true,
+                    obscureText: !_showPassword,
                     decoration: InputDecoration(
                       labelText: "senha_exclusao".i18n(),
+                      suffixIcon: IconButton(
+                        icon: Icon(_showPassword
+                            ? Icons.visibility
+                            : Icons.visibility_off),
+                        onPressed: () {
+                          setState(() {
+                            _showPassword = !_showPassword;
+                          });
+                        },
+                      ),
                       hintText: "digite_senha".i18n(),
                       errorText: errorText,
                     ),

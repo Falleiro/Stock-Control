@@ -23,6 +23,8 @@ class _SignupPageState extends State<SignupPage> {
   bool _isNumberValid = false;
   bool _isSpecialCharValid = false;
   bool _isLengthValid = false;
+  bool _showPassword = false;
+  bool _showrepPassword = false;
 
   bool checkPasswordsMatch(String password, String confirmPassword) {
     return password == confirmPassword;
@@ -109,7 +111,7 @@ class _SignupPageState extends State<SignupPage> {
   }
 
   bool _isNameValid(String name) {
-    final RegExp nameRegExp = RegExp(r'^[a-zA-Z]+$');
+    final RegExp nameRegExp = RegExp(r'^[a-zA-Z\s]+$');
     return nameRegExp.hasMatch(name);
   }
 
@@ -246,8 +248,20 @@ class _SignupPageState extends State<SignupPage> {
                     ),
                     SizedBox(height: 25),
                     TextFormField(
-                      decoration: InputDecoration(labelText: "senha".i18n()),
-                      obscureText: true,
+                      decoration: InputDecoration(
+                        labelText: "senha".i18n(),
+                        suffixIcon: IconButton(
+                          icon: Icon(_showPassword
+                              ? Icons.visibility
+                              : Icons.visibility_off),
+                          onPressed: () {
+                            setState(() {
+                              _showPassword = !_showPassword;
+                            });
+                          },
+                        ),
+                      ),
+                      obscureText: !_showPassword,
                       onChanged: (value) {
                         setState(() {
                           _password = value;
@@ -261,35 +275,50 @@ class _SignupPageState extends State<SignupPage> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(
-                            "caracteres".i18n(),
-                            textAlign: TextAlign.left,
-                            style: TextStyle(
-                              color: _isLengthValid ? Colors.green : Colors.red,
+                          Align(
+                            alignment: Alignment.centerLeft,
+                            child: Text(
+                              "caracteres".i18n(),
+                              textAlign: TextAlign.left,
+                              style: TextStyle(
+                                color:
+                                    _isLengthValid ? Colors.green : Colors.red,
+                              ),
                             ),
                           ),
-                          Text(
-                            "letra_maiuscula".i18n(),
-                            textAlign: TextAlign.left,
-                            style: TextStyle(
-                              color:
-                                  _isUpperCaseValid ? Colors.green : Colors.red,
+                          Align(
+                            alignment: Alignment.centerLeft,
+                            child: Text(
+                              "letra_maiuscula".i18n(),
+                              textAlign: TextAlign.left,
+                              style: TextStyle(
+                                color: _isUpperCaseValid
+                                    ? Colors.green
+                                    : Colors.red,
+                              ),
                             ),
                           ),
-                          Text(
-                            "numbers".i18n(),
-                            textAlign: TextAlign.left,
-                            style: TextStyle(
-                              color: _isNumberValid ? Colors.green : Colors.red,
+                          Align(
+                            alignment: Alignment.centerLeft,
+                            child: Text(
+                              "numbers".i18n(),
+                              textAlign: TextAlign.left,
+                              style: TextStyle(
+                                color:
+                                    _isNumberValid ? Colors.green : Colors.red,
+                              ),
                             ),
                           ),
-                          Text(
-                            "caractere_especial".i18n(),
-                            textAlign: TextAlign.left,
-                            style: TextStyle(
-                              color: _isSpecialCharValid
-                                  ? Colors.green
-                                  : Colors.red,
+                          Align(
+                            alignment: Alignment.centerLeft,
+                            child: Text(
+                              "caractere_especial".i18n(),
+                              textAlign: TextAlign.left,
+                              style: TextStyle(
+                                color: _isSpecialCharValid
+                                    ? Colors.green
+                                    : Colors.red,
+                              ),
                             ),
                           ),
                         ],
@@ -297,9 +326,20 @@ class _SignupPageState extends State<SignupPage> {
                     ),
                     SizedBox(height: 1),
                     TextFormField(
-                      decoration:
-                          InputDecoration(labelText: "repita_senha".i18n()),
-                      obscureText: true,
+                      decoration: InputDecoration(
+                        labelText: "repita_senha".i18n(),
+                        suffixIcon: IconButton(
+                          icon: Icon(_showrepPassword
+                              ? Icons.visibility
+                              : Icons.visibility_off),
+                          onPressed: () {
+                            setState(() {
+                              _showrepPassword = !_showrepPassword;
+                            });
+                          },
+                        ),
+                      ),
+                      obscureText: !_showrepPassword,
                       onChanged: (value) {
                         setState(() {
                           _confirmPassword = value;
@@ -315,6 +355,7 @@ class _SignupPageState extends State<SignupPage> {
                           showDialog(
                             context: context,
                             builder: (context) => AlertDialog(
+                              backgroundColor: Color.fromARGB(255, 245, 66, 66),
                               title: Text("erro".i18n()),
                               content: Text("senha_diferente".i18n()),
                               actions: [
@@ -335,7 +376,8 @@ class _SignupPageState extends State<SignupPage> {
                   onPressed: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => LoginPage()),
+                      MaterialPageRoute(
+                          builder: (context) => const LoginPage()),
                     );
                   },
                   iconSize: 50,
