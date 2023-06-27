@@ -80,7 +80,7 @@
     "email_invalido_ou_senha": "Email ou senha inválidos.",
     "email_invalido": "Email inválido.",
     "rec_senha": "A senha deve ter pelo menos 6 caracteres.",
-    "email_logado": "E-mail do Usuário logado",
+    "email_logado": "E-mail do Usuário logado:",
     "sair": "Sair",
     "deletar": "Deletar",
     "Voltar": "Voltar",
@@ -142,6 +142,5 @@
     "textos_iguais": "Textos iguais",
     "senhas_iguais": "Senhas Iguais",
     "senhas_tem_que_ser_diferentes": "As senhas devem ser diferentes.",
-    "mostrar_senha": "Mostrar senha",
-    "uid": "ID"
+    "mostrar_senha": "Mostrar senha"
 }
