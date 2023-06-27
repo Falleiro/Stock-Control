@@ -1,3 +1,5 @@
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:localization/localization.dart';
 import 'package:stock_control/src/feature/pages/homepage/widget/my_line.dart';
@@ -16,8 +18,34 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  User? _user;
+  late DatabaseReference _userRef;
   rebuild() {
     setState(() {});
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _user = FirebaseAuth.instance.currentUser;
+    _userRef = FirebaseDatabase.instance.ref('users/${_user!.uid}');
+    _getUserData();
+  }
+
+  Future<void> _getUserData() async {
+    try {
+      _userRef.onValue.listen((event) {
+        final data = event.snapshot.value as Map<dynamic, dynamic>?;
+        if (data != null) {
+          setState(() {
+            data['name'] ?? '';
+            data['birthdate'] ?? '';
+          });
+        }
+      });
+    } catch (error) {
+      print('$error');
+    }
   }
 
   final EstabelecimentoDao _dao = EstabelecimentoDao();
