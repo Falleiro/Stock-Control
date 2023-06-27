@@ -73,40 +73,21 @@ class _UserAccountState extends State<UserAccount> {
             ),
             ListTile(
               title: Text(
-                "uid".i18n(),
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  color: Colors.black,
-                ),
-              ),
-              subtitle: Text(
-                _user?.uid ?? "",
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  color: Color.fromARGB(255, 153, 149, 149),
-                ),
-              ),
-            ),
-            ListTile(
-              title: Text(
                 "nome".i18n(),
-                textAlign: TextAlign.center,
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              subtitle: Text(textAlign: TextAlign.center, _name),
+              subtitle: Text(_name),
             ),
             ListTile(
               title: Text(
                 "data_nascimento".i18n(),
-                textAlign: TextAlign.center,
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              subtitle: Text(textAlign: TextAlign.center, _birthdate),
+              subtitle: Text(_birthdate),
             ),
           ],
         ),
