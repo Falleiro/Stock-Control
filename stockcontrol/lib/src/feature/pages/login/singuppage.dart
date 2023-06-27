@@ -4,8 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/services.dart';
 import 'package:localization/localization.dart';
-import 'package:stock_control/src/feature/repository/dao/user_dao.dart';
-import 'package:stock_control/src/feature/viewmodel/user_viewmodel.dart';
 import '../homepage/homepage.dart';
 import 'loginpage.dart';
 import 'package:stock_control/src/services/firebase_auth_service.dart';
@@ -27,7 +25,6 @@ class _SignupPageState extends State<SignupPage> {
   bool _isLengthValid = false;
   bool _showPassword = false;
   bool _showrepPassword = false;
-  final UserDao _userDao = UserDao();
 
   bool checkPasswordsMatch(String password, String confirmPassword) {
     return password == confirmPassword;
@@ -52,14 +49,11 @@ class _SignupPageState extends State<SignupPage> {
           'name': name,
           'birthdate': birthdate,
         });
-        //salvar aq no banco local
 
-        String id = userCredential.user!.uid;
-        final User newUser = User(id);
-        _userDao.save(newUser).then((value) => Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => HomePage(userId: id)),
-            ));
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => const HomePage()),
+        );
       } catch (e) {
         _showemailusadoDialog();
         //debugPrint('Erro ao criar usuário: $e');
