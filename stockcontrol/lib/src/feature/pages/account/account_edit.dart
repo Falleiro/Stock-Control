@@ -7,6 +7,7 @@ import 'package:stock_control/src/feature/pages/account/redefine_password.dart';
 import 'package:stock_control/src/feature/pages/login/loginpage.dart';
 import 'package:flutter/services.dart';
 
+//teste
 class EditAccount extends StatefulWidget {
   const EditAccount({Key? key}) : super(key: key);
 
