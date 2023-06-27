@@ -134,8 +134,9 @@
     "informe_numero": "Enter a NUMBER",
     "email_nao_enviado": "Email don't send!",
     "texto_email_errado": "Check the email is correct.",
-    "text_textos_iguais": "Sua alteração nao foi realizada pois foi digitado o mesmo nome ou data",
-    "textos_iguais": "Textos iguais",
-    "senhas_iguais": "Senhas Iguais",
-    "senhas_tem_que_ser_diferentes": "As senhas devem ser diferentes."
+    "text_textos_iguais": "Your change was not carried out because the same name or date was entered",
+    "textos_iguais": "Same texts",
+    "senhas_iguais": "Same Passwords",
+    "senhas_tem_que_ser_diferentes": "Passwords must be different.",
+    "mostrar_senha": "Show password"
 }
