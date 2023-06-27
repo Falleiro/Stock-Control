@@ -77,7 +77,7 @@
     "email_invalido_ou_senha": "Invalid email or password.",
     "email_invalido": "Invalid email.",
     "rec_senha": "Password must be at least 6 characters long.",
-    "email_logado": "E-mail login user:",
+    "email_logado": "E-mail login user",
     "sair": "Logout",
     "deletar": "Delet",
     "Voltar": "Back",
@@ -138,5 +138,6 @@
     "textos_iguais": "Same texts",
     "senhas_iguais": "Same Passwords",
     "senhas_tem_que_ser_diferentes": "Passwords must be different.",
-    "mostrar_senha": "Show password"
+    "mostrar_senha": "Show password",
+    "uid": "ID"
 }
