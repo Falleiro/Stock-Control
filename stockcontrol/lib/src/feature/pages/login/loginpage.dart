@@ -134,7 +134,6 @@ class _LoginPageState extends State<LoginPage> {
         password: passwordrec,
       );
       String uid = _user?.uid ?? "";
-      debugPrint('teste: $uid'); //caioviadinho
       final currentContext = context;
       Future.delayed(
         Duration.zero,
