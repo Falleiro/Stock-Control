@@ -8,8 +8,7 @@ import '../account/account.dart';
 import '../../../component/my_appbar.dart';
 
 class HomePage extends StatefulWidget {
-  final String userId;
-  const HomePage({super.key, required this.userId});
+  const HomePage({super.key});
 
   @override
   State<HomePage> createState() => _HomePageState();
@@ -23,14 +22,14 @@ class _HomePageState extends State<HomePage> {
   final EstabelecimentoDao _dao = EstabelecimentoDao();
   @override
   Widget build(BuildContext context) {
-    _dao.findAllByUser(widget.userId);
+    _dao.findAll();
     return WillPopScope(
       onWillPop: () async => false, // Impede o usuário de voltar
       child: Scaffold(
         appBar: _minhabarra('appbar-homepage'.i18n(), context),
         body: FutureBuilder<List<Estabelecimento>>(
           initialData: const [],
-          future: _dao.findAllByUser(widget.userId),
+          future: _dao.findAll(),
           builder: (context, snapshot) {
             switch (snapshot.connectionState) {
               case ConnectionState.none:
@@ -53,7 +52,7 @@ class _HomePageState extends State<HomePage> {
                   return Center(
                     child: Text(
                       "comeca_inicio".i18n(),
-                      style: const TextStyle(fontSize: 16),
+                      style: TextStyle(fontSize: 16),
                     ),
                   );
                 } else {
