@@ -1,5 +1,6 @@
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
+import 'package:stock_control/src/feature/repository/dao/user_dao.dart';
 import 'dao/estabelecimento_dao.dart';
 import 'dao/itens_dao.dart';
 
@@ -17,6 +18,7 @@ Future<Database> getDataBase() async {
   return openDatabase(
     path,
     onCreate: (db, version) {
+      db.execute(UserDao.tableSql);
       db.execute(EstabelecimentoDao.tableSql);
       db.execute(ItemDao.tableSql);
     },
