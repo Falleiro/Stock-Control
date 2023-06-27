@@ -10,7 +10,8 @@ class EstabelecimentoDao {
       '$_name TEXT UNIQUE, '
       '$_cep INTEGER, '
       '$_estado TEXT, '
-      '$_cidade TEXT)';
+      '$_cidade TEXT,'
+      'FOREIGN KEY ($_userId) REFERENCES usuarios(id))';
 
   static const String _tableName = 'estabelecimentos';
   static const String _id = 'id';
@@ -18,6 +19,7 @@ class EstabelecimentoDao {
   static const String _cep = 'cep';
   static const String _estado = 'estado';
   static const String _cidade = 'cidade';
+  static const String _userId = 'user_id';
 
   Future<int> save(Estabelecimento estabelecimento) async {
     final Database db = await getDataBase();
@@ -32,6 +34,15 @@ class EstabelecimentoDao {
     estabelecimentoMap[_estado] = estabelecimento.estado;
     estabelecimentoMap[_cidade] = estabelecimento.cidade;
     return estabelecimentoMap;
+  }
+
+  Future<List<Estabelecimento>> findAllByUser(String userId) async {
+    final Database db = await getDataBase();
+    final List<Map<String, dynamic>> result =
+        await db.query(_tableName, where: '$_userId = ?', whereArgs: [userId]);
+    List<Estabelecimento> estabelecimentos = _toList(result);
+    debugPrint('Lista que irá aparecer: $estabelecimentos');
+    return estabelecimentos;
   }
 
   Future<List<Estabelecimento>> findAll() async {
