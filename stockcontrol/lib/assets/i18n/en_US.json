@@ -71,6 +71,7 @@
     "enviar_senha": "Send recovery password",
     "texto_email_enviado": "Your new password has been sent to the email address:",
     "ok": "Ok",
+    "email_enviado": "Email successfully sent!",
     "senha_diferente": "This password is diferent. Please, try again",
     "erro": "Error",
     "email_senha_origatorio": "Email and password are required",
