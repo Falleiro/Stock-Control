@@ -6,6 +6,7 @@ import 'package:localization/localization.dart';
 import 'package:stock_control/src/feature/pages/account/redefine_password.dart';
 import 'package:stock_control/src/feature/pages/login/loginpage.dart';
 import 'package:flutter/services.dart';
+import 'package:stock_control/src/feature/repository/app_repository.dart';
 
 //teste
 class EditAccount extends StatefulWidget {
@@ -384,7 +385,7 @@ class _EditAccountState extends State<EditAccount> {
                       await _userRef.remove();
                       await _user!.delete();
                       _showSnackBar("conta_deletada".i18n(), Colors.green);
-
+                      apagaTudo();
                       Timer(Duration(seconds: 1, milliseconds: 500), () {
                         Navigator.pushReplacement(
                           context,
