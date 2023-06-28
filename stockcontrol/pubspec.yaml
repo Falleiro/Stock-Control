@@ -27,6 +27,19 @@ dependencies:
   firebase_auth_web: ^5.2.2
   firebase_auth: ^4.2.2
   firebase_database: ^10.2.3
+  flutter_native_splash: ^2.2.19
+  flutter_launcher_icons: ^0.12.0
+
+flutter_native_splash:
+  color: "#000000"
+  image: "lib/assets/images/stock2.jpg"
+  android: true
+
+flutter_icons:
+  image_path: "lib/assets/images/stock2_big.jpg"
+  android: "launcher_icon"
+  adaptive_icon_foreground: "lib/assets/images/stock2_back.png"
+  adaptive_icon_background: "#000000"
 
 dev_dependencies:
   flutter_test:
