@@ -40,7 +40,7 @@ class _MyTextFormState extends State<MyTextForm> {
             }
           } else {
             if (value != null && value.isEmpty) {
-              return 'Informe algo no campo';
+              return "informe_algo".i18n();
             }
           }
           return null;
