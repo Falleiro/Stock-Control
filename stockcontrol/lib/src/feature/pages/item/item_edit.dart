@@ -1,7 +1,11 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:localization/localization.dart';
 import 'package:stock_control/src/feature/pages/item/widgets/delete_button.dart';
 import 'package:stock_control/src/component/row_form.dart';
+import 'package:stock_control/src/feature/pages/item/widgets/submit_button.dart';
 import 'package:stock_control/src/feature/repository/dao/itens_dao.dart';
 
 import '../../../component/my_appbar.dart';
@@ -83,12 +87,51 @@ class _UserItemEditState extends State<UserItemEdit> {
     }
   }
 
+  bool _isDateValid(String date) {
+    final RegExp regex = RegExp(r'^\d{2}/\d{2}/\d{4}$');
+
+    if (regex.hasMatch(date)) {
+      List<String> components = date.split('/');
+      int day = int.parse(components[0]);
+      int month = int.parse(components[1]);
+      int year = int.parse(components[2]);
+
+      if (day <= 31 && day > 0 && month > 0 && month <= 12 && year >= 2023) {
+        return true;
+      }
+    }
+
+    return false;
+  }
+
+  void _showInvalidDateDialog() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          backgroundColor: Color.fromARGB(255, 245, 66, 66),
+          contentTextStyle: TextStyle(color: Color.fromARGB(220, 0, 0, 0)),
+          titleTextStyle: TextStyle(color: Color.fromARGB(220, 0, 0, 0)),
+          title: Text("data_invalida".i18n()),
+          content: Text("digite_data_valida".i18n()),
+        );
+      },
+    );
+    Timer(Duration(seconds: 1, milliseconds: 100), () {
+      Navigator.of(context).pop();
+    });
+  }
+
   atualizaValidade() {
     widget.refresh();
     if (_validadeFormKey.currentState!.validate()) {
-      _dao
-          .updateValidade(widget.idItem, _validade.text)
-          .then((id) => Navigator.pop(context));
+      if (!_isDateValid(_validade.text)) {
+        _showInvalidDateDialog();
+      } else {
+        _dao
+            .updateValidade(widget.idItem, _validade.text)
+            .then((id) => Navigator.pop(context));
+      }
     }
   }
 
@@ -142,13 +185,46 @@ class _UserItemEditState extends State<UserItemEdit> {
             isNumber: false,
             operation: atualizaLote,
           ),
-          MyRowForm(
-            formKey: _validadeFormKey,
-            myController: _validade,
-            fieldName: '${"validade".i18n()}: ${widget.validade}',
-            isNumber: false,
-            operation: atualizaValidade,
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Form(
+              key: _validadeFormKey,
+              child: Row(
+                children: [
+                  Expanded(
+                    child: TextFormField(
+                      controller: _validade,
+                      decoration: InputDecoration(
+                        labelText: '${"validade:".i18n()}${widget.validade}',
+                        hintText: "adicionar_validade".i18n(),
+                        prefixIcon: Icon(Icons.edit, color: Colors.blue),
+                        border: const OutlineInputBorder(),
+                        focusedBorder: const OutlineInputBorder(
+                          borderSide: BorderSide(color: Colors.blue),
+                        ),
+                        labelStyle: const TextStyle(color: Colors.black),
+                      ),
+                      style: TextStyle(
+                        color: Colors.black,
+                      ),
+                      inputFormatters: [
+                        FilteringTextInputFormatter.digitsOnly,
+                        _DateInputFormatter(),
+                      ],
+                    ),
+                  ),
+                  MySubmitButton(operation: atualizaValidade),
+                ],
+              ),
+            ),
           ),
+          // MyRowForm(
+          //   formKey: _validadeFormKey,
+          //   myController: _validade,
+          //   fieldName: '${"validade".i18n()}: ${widget.validade}',
+          //   isNumber: false,
+          //   operation: atualizaValidade,
+          // ),
           DeleteButton(
             nome: widget.name,
             delete: deletaItem,
@@ -156,5 +232,32 @@ class _UserItemEditState extends State<UserItemEdit> {
         ],
       ),
     );
+  }
+}
+
+class _DateInputFormatter extends TextInputFormatter {
+  @override
+  TextEditingValue formatEditUpdate(
+      TextEditingValue oldValue, TextEditingValue newValue) {
+    final String formattedText = _formatDate(newValue.text);
+    return newValue.copyWith(
+      text: formattedText,
+      selection: TextSelection.collapsed(offset: formattedText.length),
+    );
+  }
+
+  String _formatDate(String text) {
+    text = text.replaceAll('/', '');
+    if (text.length <= 2) {
+      return text;
+    } else if (text.length <= 4) {
+      return '${text.substring(0, 2)}/${text.substring(2)}';
+    } else {
+      String year = text.substring(4);
+      if (year.length > 4) {
+        year = year.substring(0, 4);
+      }
+      return '${text.substring(0, 2)}/${text.substring(2, 4)}/$year';
+    }
   }
 }

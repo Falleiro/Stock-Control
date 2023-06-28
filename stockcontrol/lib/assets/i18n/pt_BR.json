@@ -143,5 +143,7 @@
     "senhas_iguais": "Senhas Iguais",
     "senhas_tem_que_ser_diferentes": "As senhas devem ser diferentes.",
     "mostrar_senha": "Mostrar senha",
-    "informe_algo": "Informe algo no campo"
+    "informe_algo": "Informe algo no campo",
+    "adicionar_validade": "(DD/MM/AAAA)",
+    "validade:": "Validade:"
 }
