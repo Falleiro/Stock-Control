@@ -10,7 +10,6 @@ class HomeModule extends Module {
 
   @override
   List<ModularRoute> get routes => [
-        //ALTERAR PARA LOGO PAGE NO FINAL
         ChildRoute('/', child: (_, __) => const LogoPage()),
       ];
 }

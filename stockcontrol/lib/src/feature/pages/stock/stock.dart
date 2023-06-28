@@ -57,7 +57,7 @@ class _UserStockState extends State<UserStock> {
                 return Center(
                   child: Text(
                     "adicionar_item".i18n(),
-                    style: const TextStyle(fontSize: 16),
+                    style: TextStyle(fontSize: 16),
                   ),
                 );
               } else {

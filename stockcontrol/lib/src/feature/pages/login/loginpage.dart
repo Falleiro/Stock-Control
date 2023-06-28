@@ -1,4 +1,3 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:localization/localization.dart';
 import 'package:stock_control/src/feature/pages/homepage/homepage.dart';
@@ -19,7 +18,6 @@ class _LoginPageState extends State<LoginPage> {
   late String _email;
   late String _password;
   bool _showPassword = false;
-  User? _user;
 
   @override
   Widget build(BuildContext context) {
@@ -121,20 +119,12 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
-  @override
-  void initState() {
-    super.initState();
-    _user = FirebaseAuth.instance.currentUser;
-  }
-
   loginuser(String emailrec, String passwordrec) async {
     try {
       await FirebaseAuthService().signInWithEmailAndPassword(
         email: emailrec,
         password: passwordrec,
       );
-      String uid = _user?.uid ?? "";
-      debugPrint('teste: $uid'); //caioviadinho
       final currentContext = context;
       Future.delayed(
         Duration.zero,
@@ -142,9 +132,7 @@ class _LoginPageState extends State<LoginPage> {
           Navigator.push(
             currentContext,
             MaterialPageRoute(
-              builder: (context) => HomePage(
-                userId: uid,
-              ),
+              builder: (context) => const HomePage(),
             ),
           );
         },
