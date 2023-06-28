@@ -57,7 +57,8 @@ class _SignupPageState extends State<SignupPage> {
         );
       } catch (e) {
         _showemailusadoDialog();
-        //debugPrint('Erro ao criar usuário: $e');
+        //debugPrint('Erro ao criar usu
+        //ário: $e');
       }
     }
     if (!_isNameValid(name)) {

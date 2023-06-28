@@ -80,7 +80,7 @@
     "rec_senha": "Password must be at least 6 characters long.",
     "email_logado": "E-mail login user:",
     "sair": "Logout",
-    "deletar": "Delet",
+    "deletar": "Delete",
     "Voltar": "Back",
     "texto_exclusão_conta": "Are you sure you want to delete your account? You will lose everything in it.",
     "editar_conta": "Edit account",
@@ -140,5 +140,7 @@
     "senhas_iguais": "Same Passwords",
     "senhas_tem_que_ser_diferentes": "Passwords must be different.",
     "mostrar_senha": "Show password",
-    "informe_algo": "Enter something in the field"
+    "informe_algo": "Enter something in the field",
+    "adicionar_validade": "(DD/MM/AAAA)",
+    "validade:": "Validity:"
 }
