@@ -8,9 +8,11 @@ Future<Database> getDataBase() async {
 
   // Descomentar caso queira apagar
   // Exclui o banco de dados antigo
+  // void apagaTudo() async {
   // bool exists = await databaseExists(path);
   // if (exists) {
   //   await deleteDatabase(path);
+  // }
   // }
 
   // Cria um novo banco de dados
@@ -22,4 +24,13 @@ Future<Database> getDataBase() async {
     },
     version: 1,
   );
+}
+
+Future<void> apagaTudo() async {
+  final String path = join(await getDatabasesPath(), 'stockcontrol.db');
+  bool exists = await databaseExists(path);
+
+  if (exists) {
+    await deleteDatabase(path);
+  }
 }

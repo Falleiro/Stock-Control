@@ -142,5 +142,6 @@
     "textos_iguais": "Textos iguais",
     "senhas_iguais": "Senhas Iguais",
     "senhas_tem_que_ser_diferentes": "As senhas devem ser diferentes.",
-    "mostrar_senha": "Mostrar senha"
+    "mostrar_senha": "Mostrar senha",
+    "informe_algo": "Informe algo no campo"
 }

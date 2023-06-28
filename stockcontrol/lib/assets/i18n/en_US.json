@@ -138,5 +138,6 @@
     "textos_iguais": "Same texts",
     "senhas_iguais": "Same Passwords",
     "senhas_tem_que_ser_diferentes": "Passwords must be different.",
-    "mostrar_senha": "Show password"
+    "mostrar_senha": "Show password",
+    "informe_algo": "Enter something in the field"
 }

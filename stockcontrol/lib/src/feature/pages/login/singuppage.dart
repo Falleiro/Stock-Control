@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/services.dart';
 import 'package:localization/localization.dart';
+import 'package:stock_control/src/feature/repository/app_repository.dart';
 import '../homepage/homepage.dart';
 import 'loginpage.dart';
 import 'package:stock_control/src/services/firebase_auth_service.dart';
@@ -40,7 +41,7 @@ class _SignupPageState extends State<SignupPage> {
         final userCredential = await FirebaseAuthService()
             .createUserWithEmailAndPassword(email: email, password: password);
         debugPrint('Usuário criado com sucesso: ${userCredential.user!.email}');
-
+        apagaTudo();
         // Salvar nome e data de nascimento no Realtime Database
         final database = FirebaseDatabase.instance;
         final userRef =
